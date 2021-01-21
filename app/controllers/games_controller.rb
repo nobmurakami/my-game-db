@@ -5,13 +5,16 @@ class GamesController < ApplicationController
 
   def create
     @game = Game.new(game_params)
-    @game.save
-    redirect_to new_game_path
+    if @game.save
+      redirect_to new_game_path
+    else
+      render :new
+    end
   end
 
   private
 
   def game_params
-    params.require(:game).permit(:title, :description)
+    params.require(:game).permit(:title, :description, :metascore)
   end
 end
