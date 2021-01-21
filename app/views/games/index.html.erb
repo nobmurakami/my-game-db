@@ -1,7 +1,8 @@
-<div class="ui container">
+<%= render "shared/header" %>
+
+<div class="ui main text container" style="padding-top: 100px">
   <h1 class="ui header">Index</h1>
 
-  <%= link_to 'Add Game', new_game_path %><br>
   <div class="ui items">
     <% @games.each do |game| %>
       <div class="item">

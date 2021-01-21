@@ -1,5 +1,7 @@
-<div class="ui container">
-  <h1 class="ui header">New game</h1>
+<%= render "shared/header" %>
+
+<div class="ui main text container" style="padding-top: 100px">
+  <h1 class="ui header">Add Game</h1>
 
   <%= form_with model: @game, url: games_path, local: true ,class: "ui form error" do |f| %>
     <%= render 'shared/error_messages', model: f.object %>
