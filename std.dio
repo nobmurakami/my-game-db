@@ -1,11 +1,74 @@
-<mxfile host="65bd71144e" modified="2021-01-21T06:26:11.098Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.52.1 Chrome/83.0.4103.122 Electron/9.3.5 Safari/537.36" version="13.10.0" etag="Qi3FSDh4vAjaeiT3WdTM" type="embed">
+<mxfile host="65bd71144e" modified="2021-01-21T06:58:48.511Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.52.1 Chrome/83.0.4103.122 Electron/9.3.5 Safari/537.36" version="13.10.0" etag="Ye6x7cTcpaOMjrtFIr90" type="embed">
     <diagram id="MxlwS0DsFEa_0-1SjrFF" name="ページ1">
-        <mxGraphModel dx="968" dy="819" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
+        <mxGraphModel dx="968" dy="819" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
                 <mxCell id="2" value="画面遷移図" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=30;spacingLeft=10;" vertex="1" parent="1">
                     <mxGeometry width="220" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="9" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontSize=12;startArrow=classic;startFill=1;" edge="1" parent="1" source="3" target="8">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="11" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=1;exitDx=0;exitDy=0;entryX=1;entryY=0;entryDx=0;entryDy=0;fontSize=12;startArrow=classic;startFill=1;" edge="1" parent="1" source="3" target="10">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="13" value="" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=classic;startFill=1;fontSize=12;" edge="1" parent="1" source="3" target="12">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="15" value="" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=classic;startFill=1;fontSize=12;" edge="1" parent="1" source="3" target="14">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="18" value="" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=classic;startFill=1;fontSize=12;" edge="1" parent="1" source="3" target="16">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="21" value="" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=none;startFill=0;fontSize=12;" edge="1" parent="1" source="3" target="20">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="3" value="トップページ" style="rounded=0;whiteSpace=wrap;fontSize=12;align=center;verticalAlign=middle;spacing=2;" vertex="1" parent="1">
+                    <mxGeometry x="390" y="350" width="120" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="8" value="ユーザー登録ページ" style="rounded=0;whiteSpace=wrap;fontSize=12;align=center;verticalAlign=middle;spacing=2;" vertex="1" parent="1">
+                    <mxGeometry x="190" y="350" width="120" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="10" value="ログインページ" style="rounded=0;whiteSpace=wrap;fontSize=12;align=center;verticalAlign=middle;spacing=2;" vertex="1" parent="1">
+                    <mxGeometry x="190" y="480" width="120" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="19" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=1;entryY=0.25;entryDx=0;entryDy=0;startArrow=none;startFill=0;fontSize=12;" edge="1" parent="1" source="12" target="16">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="12" value="ゲーム追加ページ" style="rounded=0;whiteSpace=wrap;fontSize=12;align=center;verticalAlign=middle;spacing=2;" vertex="1" parent="1">
+                    <mxGeometry x="190" y="220" width="120" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="17" value="" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=none;startFill=0;fontSize=12;entryX=0;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="14" target="16">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="14" value="詳細検索ページ" style="rounded=0;whiteSpace=wrap;fontSize=12;align=center;verticalAlign=middle;spacing=2;" vertex="1" parent="1">
+                    <mxGeometry x="390" y="480" width="120" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="26" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=none;startFill=0;fontSize=12;" edge="1" parent="1" source="16" target="25">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="16" value="ゲーム詳細ページ" style="rounded=0;whiteSpace=wrap;fontSize=12;align=center;verticalAlign=middle;spacing=2;" vertex="1" parent="1">
+                    <mxGeometry x="590" y="350" width="120" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="23" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=classic;startFill=1;fontSize=12;" edge="1" parent="1" source="20" target="22">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="20" value="ユーザーの&#10;マイページ" style="rounded=0;whiteSpace=wrap;fontSize=12;align=center;verticalAlign=middle;spacing=2;" vertex="1" parent="1">
+                    <mxGeometry x="390" y="220" width="120" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="24" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=none;startFill=0;fontSize=12;" edge="1" parent="1" source="22" target="16">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="22" value="ユーザーの&#10;リストページ" style="rounded=0;whiteSpace=wrap;fontSize=12;align=center;verticalAlign=middle;spacing=2;" vertex="1" parent="1">
+                    <mxGeometry x="590" y="220" width="120" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="27" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.75;entryDx=0;entryDy=0;startArrow=none;startFill=0;fontSize=12;" edge="1" parent="1" source="25" target="16">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="25" value="ゲーム編集ページ" style="rounded=0;whiteSpace=wrap;fontSize=12;align=center;verticalAlign=middle;spacing=2;" vertex="1" parent="1">
+                    <mxGeometry x="590" y="480" width="120" height="50" as="geometry"/>
                 </mxCell>
             </root>
         </mxGraphModel>
