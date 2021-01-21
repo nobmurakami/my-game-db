@@ -1,0 +1,13 @@
+<mxfile host="65bd71144e" modified="2021-01-21T06:26:11.098Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.52.1 Chrome/83.0.4103.122 Electron/9.3.5 Safari/537.36" version="13.10.0" etag="Qi3FSDh4vAjaeiT3WdTM" type="embed">
+    <diagram id="MxlwS0DsFEa_0-1SjrFF" name="ページ1">
+        <mxGraphModel dx="968" dy="819" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="2" value="画面遷移図" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=30;spacingLeft=10;" vertex="1" parent="1">
+                    <mxGeometry width="220" height="80" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
