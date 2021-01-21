@@ -1,0 +1,29 @@
+<div class="ui fixed inverted borderless menu">
+  <div class="ui container">
+    <a class="header item" href="/">My Game DB</a>
+    <div class="right menu">
+      <%= link_to 'SIGN UP', '#', class: "ui item" %>
+      <%= link_to 'LOG IN', '#', class: "ui item" %>
+      <div class="ui dropdown item">
+        <div class="header">
+          <span>MENU　</span>
+        </div>
+        <i class="share square icon"></i>
+        <div class="menu">
+          <div class="item">
+            <small>
+              <i class="plus circle icon"></i>
+              <%= link_to 'Add Game', new_game_path %>
+            </small>
+          </div>
+          <div class="item">
+            <small>
+              <i class="clipboard outline icon"></i>
+              USER NAME
+            </small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
