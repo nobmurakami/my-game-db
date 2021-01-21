@@ -1,0 +1,21 @@
+<div class="ui container">
+  <h1 class="ui header">Index</h1>
+
+  <%= link_to 'Add Game', new_game_path %><br>
+  <div class="ui items">
+    <% @games.each do |game| %>
+      <div class="item">
+        <div class="image">
+          <%= image_tag "noimage.png" %>
+        </div>
+        <div class="content">
+          <%= link_to game.title, '#', class: "header" %>
+          <div class="meta">
+            <span><%= "Metascore: #{game.metascore}" %></span>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <%= paginate @games %>
+</div>
