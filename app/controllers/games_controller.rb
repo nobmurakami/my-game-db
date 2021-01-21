@@ -1,4 +1,8 @@
 class GamesController < ApplicationController
+  def index
+    @games = Game.page(params[:page]).per(10).order("created_at DESC")
+  end
+  
   def new
     @game = Game.new
   end
@@ -6,7 +10,7 @@ class GamesController < ApplicationController
   def create
     @game = Game.new(game_params)
     if @game.save
-      redirect_to new_game_path
+      redirect_to root_path
     else
       render :new
     end
