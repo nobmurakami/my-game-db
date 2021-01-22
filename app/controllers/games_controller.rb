@@ -1,4 +1,6 @@
 class GamesController < ApplicationController
+  before_action :set_game, only: [:show, :edit, :update]
+
   def index
     @games = Game.page(params[:page]).per(10).order("created_at DESC")
   end
@@ -17,12 +19,26 @@ class GamesController < ApplicationController
   end
 
   def show
-    @game = Game.find(params[:id])
+  end
+
+  def edit
+  end
+
+  def update
+    if @game.update(game_params)
+      redirect_to game_path(@game)
+    else
+      render :edit
+    end
   end
 
   private
 
   def game_params
     params.require(:game).permit(:title, :description, :metascore)
+  end
+
+  def set_game
+    @game = Game.find(params[:id])
   end
 end

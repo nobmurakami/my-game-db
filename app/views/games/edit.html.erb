@@ -1,7 +1,7 @@
 <%= render "shared/header" %>
 
 <div class="ui main text container">
-  <h1 class="ui header">Add Game</h1>
+  <h1 class="ui header">Edit Information</h1>
 
   <%= form_with model: @game, local: true ,class: "ui form error" do |f| %>
     <%= render 'shared/error_messages', model: f.object %>
@@ -17,6 +17,6 @@
       <%= f.label :metascore, 'Metascore:' %>
       <%= f.text_field :metascore %>
     </div>
-    <%= f.submit 'Create Game', class: "ui right floated button" %>
+    <%= f.submit 'Update Game', class: "ui right floated button" %>
   <% end %>
 </div>

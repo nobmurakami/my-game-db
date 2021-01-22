@@ -1,6 +1,7 @@
 <%= render "shared/header" %>
 
 <div class="ui main text container">
+  <%= link_to 'Edit', edit_game_path, class: "ui right floated button" %>
   <h1 class="ui header"><%= @game.title %></h1>
   <%= image_tag "noimage.png", class: "ui centered medium image" %>
   <p><%= @game.description %></p>
