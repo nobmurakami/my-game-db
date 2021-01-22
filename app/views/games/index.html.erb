@@ -1,10 +1,18 @@
 <%= render "shared/header" %>
 
 <div class="ui main container">
+  <div class="ui right floated simple button">
+    <%= link_to 'All Reset', request.path %>
+  </div>
   <h1 class="ui header">Search</h1>
 
+  <div class="ui divider"></div>
+
+  <div class="ui two column grid">
+  <div class="five wide column">
+
   <%= search_form_for @q, class: "ui form" do |f| %>
-    <div class="three fields">
+    <%# <div class="three fields"> %>
       <div class="field">
         <%= f.label :title_or_description, 'Title or Description' %>
         <div class="ui input">
@@ -22,8 +30,11 @@
         <%= f.label :metascore_lteq, 'Maximum Metascore' %>
         <%= f.text_field :metascore_lteq, placeholder:"100" %>
       </div>
-    </div>
+    <%# </div> %>
   <% end %>
+
+  </div>
+  <div class="eleven wide column">
 
   <div class="ui menu">
     <div class="borderless header item">
@@ -37,10 +48,6 @@
         <%= sort_link(@q, :metascore, "Metascore") %>
       </div>
     </div>
-  </div>
-
-  <div>
-    <%= link_to 'All Reset', request.path %>
   </div>
 
   <div class="ui items">
@@ -63,4 +70,7 @@
     <% end %>
   </div>
   <%= paginate @games %>
+
+</div>
+
 </div>
