@@ -1,24 +1,54 @@
 <%= render "shared/header" %>
 
-<div class="ui main text container">
+<div class="ui main container">
   <h1 class="ui header">Search</h1>
 
-
-  <%= search_form_for @q do |f| %>
-    <div class="ui input">
-      <%= f.search_field :title_cont, placeholder: "Search..." %>
-      <%= button_tag type: "submit", class: "ui icon button" do %>
-        <i class="search icon"></i>
-      <% end %> 
+  <%= search_form_for @q, class: "ui form" do |f| %>
+    <div class="three fields">
+      <div class="field">
+        <%= f.label :title_or_description, 'Title or Description' %>
+        <div class="ui input">
+          <%= f.search_field :title_or_description_cont, placeholder: "Search..." %>
+          <%= button_tag type: "submit", class: "ui icon button" do %>
+            <i class="search icon"></i>
+          <% end %> 
+        </div>
+      </div>
+      <div class="field">
+        <%= f.label :metascore_gteq, 'Minimum Metascore' %>
+        <%= f.text_field :metascore_gteq, placeholder:"1" %>
+      </div>
+      <div class="field">
+        <%= f.label :metascore_lteq, 'Maximum Metascore' %>
+        <%= f.text_field :metascore_lteq, placeholder:"100" %>
+      </div>
     </div>
   <% end %>
 
-  <div class="ui items">
+  <div class="ui menu">
+    <div class="borderless header item">
+      Sorting
+    </div>
+    <div class="right menu">
+      <div class="ui item">
+        <%= sort_link(@q, :title, "Title") %>
+      </div>
+      <div class="item">
+        <%= sort_link(@q, :metascore, "Metascore") %>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <%= link_to 'All Reset', request.path %>
+  </div>
+
+  <div class="ui items">
     <% @games.each do |game| %>
       <div class="item">
         <div class="image">
           <% if game.image.attached? %>
-            <%= image_tag game.image, class: "items_image" %>
+            <%= image_tag game.image %>
           <% else %>
             <%= image_tag 'noimage.png' %>
           <% end %>
