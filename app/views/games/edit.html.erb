@@ -10,6 +10,10 @@
       <%= f.text_field :title %>
     </div>
     <div class="field">
+      <%= f.label :image, 'Game cover:' %>
+      <%= f.file_field :image %>
+    </div>
+    <div class="field">
       <%= f.label :description, 'Description:' %>
       <%= f.text_area :description, rows: 10 %>
     </div>
