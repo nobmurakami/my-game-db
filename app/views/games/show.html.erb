@@ -1,11 +1,15 @@
-<%= render "shared/header" %>
+<%= render 'shared/header' %>
 
-<div class="ui main text container">
-  <%= link_to 'Edit', edit_game_path, class: "ui right floated button" %>
-  <h1 class="ui header"><%= @game.title %></h1>
-  <%= image_tag "noimage.png", class: "ui centered medium image" %>
+<div class='ui main text container'>
+  <%= link_to 'Edit', edit_game_path, class: 'ui right floated button' %>
+  <h1 class='banner-title'><%= @game.title %></h1>
+  <% if @game.image.attached? %>
+    <%= image_tag @game.image, class: 'ui centered medium image'  %>
+  <% else %>
+    <%= image_tag 'noimage.png', class: 'ui centered medium image' %>
+  <% end %>
   <p><%= @game.description %></p>
-  <h2 class="ui sub header">
+  <h2 class='ui sub header'>
     Metascore
   </h2>
   <span><%= @game.metascore %></span>
