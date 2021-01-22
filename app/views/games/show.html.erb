@@ -1,0 +1,12 @@
+<%= render "shared/header" %>
+
+<div class="ui main text container">
+  <h1 class="ui header"><%= @game.title %></h1>
+  <%= image_tag "noimage.png", class: "ui centered medium image" %>
+  <p><%= @game.description %></p>
+  <h2 class="ui sub header">
+    Metascore
+  </h2>
+  <span><%= @game.metascore %></span>
+  
+</div>
