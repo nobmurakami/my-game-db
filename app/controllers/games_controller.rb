@@ -35,7 +35,7 @@ class GamesController < ApplicationController
   private
 
   def game_params
-    params.require(:game).permit(:title, :description, :metascore)
+    params.require(:game).permit(:title, :image, :description, :metascore)
   end
 
   def set_game
