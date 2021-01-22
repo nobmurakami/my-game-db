@@ -1,6 +1,6 @@
 <%= render "shared/header" %>
 
-<div class="ui main text container" style="margin-top: 50px">
+<div class="ui main text container">
   <h1 class="ui header">Index</h1>
 
   <div class="ui items">
@@ -10,7 +10,7 @@
           <%= image_tag "noimage.png" %>
         </div>
         <div class="content">
-          <%= link_to game.title, '#', class: "header" %>
+          <%= link_to game.title, game_path(game), class: "header" %>
           <div class="meta">
             <span><%= "Metascore: #{game.metascore}" %></span>
           </div>

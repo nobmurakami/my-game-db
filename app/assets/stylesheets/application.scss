@@ -14,3 +14,11 @@
  *= require_self
  */
  @import "semantic-ui";
+
+.main.container .header {
+  margin-top: 2em;
+}
+
+.main.container p {
+  margin-top: 1em
+}
