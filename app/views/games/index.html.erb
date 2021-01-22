@@ -9,7 +9,7 @@
   <div class="ui divider"></div>
 
   <div class="ui two column grid">
-  <div class="five wide column">
+  <div class="four wide column">
 
   <%= search_form_for @q, class: "ui form" do |f| %>
     <%# <div class="three fields"> %>
@@ -17,9 +17,6 @@
         <%= f.label :title_or_description, 'Title or Description' %>
         <div class="ui input">
           <%= f.search_field :title_or_description_cont, placeholder: "Search..." %>
-          <%= button_tag type: "submit", class: "ui icon button" do %>
-            <i class="search icon"></i>
-          <% end %> 
         </div>
       </div>
       <div class="field">
@@ -34,7 +31,7 @@
   <% end %>
 
   </div>
-  <div class="eleven wide column">
+  <div class="twelve wide column">
 
   <div class="ui menu">
     <div class="borderless header item">
