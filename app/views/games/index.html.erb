@@ -1,7 +1,17 @@
 <%= render "shared/header" %>
 
 <div class="ui main text container">
-  <h1 class="ui header">Index</h1>
+  <h1 class="ui header">Search</h1>
+
+
+  <%= search_form_for @q do |f| %>
+    <div class="ui input">
+      <%= f.search_field :title_cont, placeholder: "Search..." %>
+      <%= button_tag type: "submit", class: "ui icon button" do %>
+        <i class="search icon"></i>
+      <% end %> 
+    </div>
+  <% end %>
 
   <div class="ui items">
     <% @games.each do |game| %>
