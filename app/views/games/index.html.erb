@@ -1,14 +1,58 @@
 <%= render "shared/header" %>
 
-<div class="ui main text container">
-  <h1 class="ui header">Index</h1>
+<div class="ui main container">
+  <div class="ui right floated simple button">
+    <%= link_to 'All Reset', request.path %>
+  </div>
+  <h1 class="ui header">Search</h1>
+
+  <div class="ui divider"></div>
+
+  <div class="ui two column grid">
+  <div class="four wide column">
+
+  <%= search_form_for @q, class: "ui form" do |f| %>
+    <%# <div class="three fields"> %>
+      <div class="field">
+        <%= f.label :title_or_description, 'Title or Description' %>
+        <div class="ui input">
+          <%= f.search_field :title_or_description_cont, placeholder: "Search..." %>
+        </div>
+      </div>
+      <div class="field">
+        <%= f.label :metascore_gteq, 'Minimum Metascore' %>
+        <%= f.text_field :metascore_gteq, placeholder:"1" %>
+      </div>
+      <div class="field">
+        <%= f.label :metascore_lteq, 'Maximum Metascore' %>
+        <%= f.text_field :metascore_lteq, placeholder:"100" %>
+      </div>
+    <%# </div> %>
+  <% end %>
+
+  </div>
+  <div class="twelve wide column">
+
+  <div class="ui menu">
+    <div class="borderless header item">
+      Sorting
+    </div>
+    <div class="right menu">
+      <div class="ui item">
+        <%= sort_link(@q, :title, "Title") %>
+      </div>
+      <div class="item">
+        <%= sort_link(@q, :metascore, "Metascore") %>
+      </div>
+    </div>
+  </div>
 
   <div class="ui items">
     <% @games.each do |game| %>
       <div class="item">
         <div class="image">
           <% if game.image.attached? %>
-            <%= image_tag game.image, class: "items_image" %>
+            <%= image_tag game.image %>
           <% else %>
             <%= image_tag 'noimage.png' %>
           <% end %>
@@ -23,4 +67,7 @@
     <% end %>
   </div>
   <%= paginate @games %>
+
+</div>
+
 </div>
