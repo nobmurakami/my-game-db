@@ -2,7 +2,8 @@ class GamesController < ApplicationController
   before_action :set_game, only: [:show, :edit, :update]
 
   def index
-    @games = Game.page(params[:page]).per(10).order("created_at DESC")
+    @q = Game.ransack(params[:q])
+    @games = @q.result(distinct: true).page(params[:page]).per(10).order("created_at DESC")
   end
   
   def new
