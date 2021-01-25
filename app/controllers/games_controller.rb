@@ -10,7 +10,6 @@ class GamesController < ApplicationController
   end
 
   def create
-
     @form = GameForm.new(game_params)
 
     if @form.save
@@ -30,6 +29,7 @@ class GamesController < ApplicationController
   end
 
   def update
+
     load_game
     @form = GameForm.new(game_params, game: @game)
 
