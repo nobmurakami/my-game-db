@@ -59,8 +59,10 @@
         </div>
         <div class="content">
           <%= link_to game.title, game_path(game), class: "header" %>
+          <span><%= "(#{game.platform.name})" if game.platform.present? %></span>
           <div class="meta">
-            <span><%= "Metascore: #{game.metascore}" %></span>
+            <p><%= game.release_date if game.release_date.present? %></p>
+            <p><%= "Metascore: #{game.metascore}" if game.metascore.present? %></p>
           </div>
         </div>
       </div>
