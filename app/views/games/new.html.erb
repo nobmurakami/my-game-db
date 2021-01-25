@@ -3,7 +3,7 @@
 <div class="ui main text container">
   <h1 class="ui header">Add Game</h1>
 
-  <%= form_with model: @game, local: true ,class: "ui form error" do |f| %>
+  <%= form_with model: @form, url: games_path, local: true ,class: "ui form error" do |f| %>
     <%= render 'shared/error_messages', model: f.object %>
     <div class="field">
       <%= f.label :title, 'Title:' %>
@@ -20,6 +20,18 @@
     <div class="field">
       <%= f.label :metascore, 'Metascore:' %>
       <%= f.text_field :metascore %>
+    </div>
+    <div class="field">
+      <%= f.label :platform_name, 'Platform:' %>
+      <%= f.text_field :platform_name %>
+    </div>
+    <div class="field">
+      <%= f.label :region_name, 'Region:' %>
+      <%= f.text_field :region_name %>
+    </div>
+    <div class="field">
+      <%= f.label :release_date, 'Release Date:' %>
+      <%= f.text_field :release_date %>
     </div>
     <%= f.submit 'Create Game', class: "ui right floated button" %>
   <% end %>
