@@ -47,16 +47,25 @@
 
 ### Association
 
-- has_many :game_genres
-- has_many :developers
-- has_many :developer_companies, through: :developers, source: :company
-- has_many :publishers
-- has_many :publisher_companies, through: :publishers, source: :company
-- has_many :taggings, dependent: :destroy
-- has_many :lists, dependent: :destroy
-- has_many :genres, through: :game_genres
-- has_many :tags, through: :taggings
+- has_one_attached :image
 - belongs_to :platform
+
+- has_many :game_genres
+- has_many :genres, through: :game_genres
+
+- has_many :taggings, dependent: :destroy
+- has_many :tags, through: :taggings
+
+- has_many :lists, dependent: :destroy
+
+- has_many :game_companies
+- has_many :companies, through: :game_companies
+
+- has_many :developer_game_companies, -> {where(type: 'developer')}, class_name: 'GameCompany'
+- has_many :developers, through: :developer_game_companies, source: :company
+
+- has_many :publisher_game_companies, -> {where(type: 'publisher')}, class_name: 'GameCompany'
+- has_many :publishers, through: :publisher_game_companies, source: :company
 
 ## platforms テーブル
 
@@ -91,29 +100,20 @@
 - has_many :game_genres
 - has_many :games, through: :game_genres
 
-## developers テーブル
+## game_companies テーブル
 
 | Column  | Type       | Options                        |
 | ------- | ---------- | ------------------------------ |
 | game    | references | null: false, foreign_key: true |
 | company | references | null: false, foreign_key: true |
+| type    | integer    | null: false                    |
 
 ### Association
 
 - belongs_to :game
 - belongs_to :company
 
-## publishers テーブル
-
-| Column  | Type       | Options                        |
-| ------- | ---------- | ------------------------------ |
-| game    | references | null: false, foreign_key: true |
-| company | references | null: false, foreign_key: true |
-
-### Association
-
-- belongs_to :game
-- belongs_to :company
+- enum type: { developer: 0, publisher: 1 }
 
 ## companies テーブル
 
@@ -123,10 +123,8 @@
 
 ### Association
 
-- has_many :developers
-- has_many :games, through: :developers
-- has_many :publishers
-- has_many :games, through: :publishers
+- has_many :game_companies
+- has_many :games, through: :game_companies
 
 ## taggings テーブル
 

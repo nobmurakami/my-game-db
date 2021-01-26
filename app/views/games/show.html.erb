@@ -23,7 +23,7 @@
     <%= image_tag 'noimage.png', class: 'ui centered medium image' %>
   <% end %>
   <p><%= @game.description %></p>
-  
+
   <h2 class='ui sub header'>
     Metascore
   </h2>
@@ -37,12 +37,12 @@
   <h2 class='ui sub header'>
     Developers
   </h2>
-  <span><%= @game.developer_companies.pluck(:name).join(', ') %></span>
+  <span><%= @game.developers.pluck(:name).join(', ') %></span>
 
   <h2 class='ui sub header'>
     Publishers
   </h2>
-  <span><%= @game.publisher_companies.pluck(:name).join(', ') %></span>
+  <span><%= @game.publishers.pluck(:name).join(', ') %></span>
 
   <h2 class='ui sub header'>
     Genre

@@ -53,16 +53,9 @@
     </div>
 
     <div class="field">
-      <%= f.label :developers, 'Developers' %>
+      <%= f.label :companies, 'Companies' %>
       <div class="ui input">
-        <%= f.collection_select :developer_companies_name_eq, @company_names, :name, :name, include_blank: 'All' %>
-      </div>
-    </div>
-
-    <div class="field">
-      <%= f.label :publishers, 'Publishers' %>
-      <div class="ui input">
-        <%= f.collection_select :publisher_companies_name_eq, @company_names, :name, :name, include_blank: 'All' %>
+        <%= f.collection_select :companies_name_eq, @company_names, :name, :name, include_blank: 'All' %>
       </div>
     </div>
 
