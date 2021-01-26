@@ -1,15 +1,14 @@
 class GamesController < ApplicationController
-
   def index
     @q = Game.ransack(params[:q])
     @q.sorts = 'metascore DESC' if @q.sorts.empty?
-    @games = @q.result(distinct: true).page(params[:page]).per(10).order("created_at DESC")
-    @platform_name = Platform.select("name").distinct.order("name ASC")
-    @tag_names = Tag.select("name").distinct.order("name ASC")
-    @genre_names = Genre.select("name").distinct.order("name ASC")
-    @company_names = Company.select("name").distinct.order("name ASC")
+    @games = @q.result(distinct: true).page(params[:page]).per(10).order('created_at DESC')
+    @platform_name = Platform.select('name').distinct.order('name ASC')
+    @tag_names = Tag.select('name').distinct.order('name ASC')
+    @genre_names = Genre.select('name').distinct.order('name ASC')
+    @company_names = Company.select('name').distinct.order('name ASC')
   end
-  
+
   def new
     @form = GameForm.new
   end
@@ -30,7 +29,7 @@ class GamesController < ApplicationController
 
   def edit
     load_game
-    @form = GameForm.new(game: @game) 
+    @form = GameForm.new(game: @game)
   end
 
   def update
@@ -53,7 +52,8 @@ class GamesController < ApplicationController
   private
 
   def game_params
-    params.require(:game_form).permit(:title, :image, :description, :metascore, :release_date, :platform_name, :tag_names, :genre_names, :developer_names, :publisher_names)
+    params.require(:game_form).permit(:title, :image, :description, :metascore, :release_date, :platform_name, :tag_names,
+                                      :genre_names, :developer_names, :publisher_names)
   end
 
   def load_game
