@@ -12,22 +12,27 @@
   <div class="four wide column">
 
   <%= search_form_for @q, class: "ui form" do |f| %>
-    <%# <div class="three fields"> %>
-      <div class="field">
-        <%= f.label :title_or_description, 'Title or Description' %>
-        <div class="ui input">
-          <%= f.search_field :title_or_description_cont, placeholder: "Search..." %>
-        </div>
+    <div class="field">
+      <%= f.label :title_or_description, 'Title or Description' %>
+      <div class="ui input">
+        <%= f.search_field :title_or_description_cont, placeholder: "Search" %>
       </div>
-      <div class="field">
-        <%= f.label :metascore_gteq, 'Minimum Metascore' %>
-        <%= f.text_field :metascore_gteq, placeholder:"1" %>
+    </div>
+    <div class="field">
+      <%= f.label :metascore_gteq, 'Minimum Metascore' %>
+      <%= f.text_field :metascore_gteq, placeholder:"1" %>
+    </div>
+    <div class="field">
+      <%= f.label :metascore_lteq, 'Maximum Metascore' %>
+      <%= f.text_field :metascore_lteq, placeholder:"100" %>
+    </div>
+    <div class="field">
+      <%= f.label :platform_name_eq, 'Platform' %>
+      <div class="ui input">
+        <%= f.collection_select :platform_name_eq, @platform_name, :name, :name, include_blank: 'All' %>
       </div>
-      <div class="field">
-        <%= f.label :metascore_lteq, 'Maximum Metascore' %>
-        <%= f.text_field :metascore_lteq, placeholder:"100" %>
-      </div>
-    <%# </div> %>
+    </div>
+    <%= f.submit 'Submit', class: 'ui button' %>
   <% end %>
 
   </div>
