@@ -5,6 +5,7 @@ class GamesController < ApplicationController
     @q.sorts = 'metascore DESC' if @q.sorts.empty?
     @games = @q.result(distinct: true).page(params[:page]).per(10).order("created_at DESC")
     @platform_name = Platform.select("name").distinct.order("name ASC")
+    @tag_name = Tag.select("name").distinct.order("name ASC")
   end
   
   def new
@@ -50,7 +51,7 @@ class GamesController < ApplicationController
   private
 
   def game_params
-    params.require(:game_form).permit(:title, :image, :description, :metascore, :release_date, :platform_name)
+    params.require(:game_form).permit(:title, :image, :description, :metascore, :release_date, :platform_name, :tag_names)
   end
 
   def load_game

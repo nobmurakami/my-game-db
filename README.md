@@ -12,6 +12,8 @@
 
 - has_many :lists, dependent: :destroy
 - has_many :games, through: :lists
+- has_many :taggings, dependent: :destroy
+- has_many :tagging_games, through: :taggings, source: :game
 
 ## lists テーブル
 
@@ -42,17 +44,16 @@
 | metascore    | integer    |                   |
 | release_date | date       |                   |
 | platform     | references | foreign_key: true |
-| region       | references | foreign_key: true |
 
 ### Association
 
 - has_many :game_genres
 - has_many :game_themes
-- has_many :game_keywords
+- has_many :taggings, dependent: :destroy
 - has_many :lists, dependent: :destroy
 - has_many :genres, through: :game_genres
 - has_many :themes, through: :game_themes
-- has_many :keywords, through: :game_keywords
+- has_many :tags, through: :taggings
 - belongs_to :platform
 
 ## platforms テーブル
@@ -79,9 +80,9 @@
 
 ## genres テーブル
 
-| Column | Type       | Options                        |
-| ------ | ---------- | ------------------------------ |
-| name   | references | null: false, foreign_key: true |
+| Column | Type   | Options     |
+| ------ | ------ | ----------- |
+| name   | string | null: false |
 
 ### Association
 
@@ -102,34 +103,36 @@
 
 ## themes テーブル
 
-| Column | Type       | Options                        |
-| ------ | ---------- | ------------------------------ |
-| name   | references | null: false, foreign_key: true |
+| Column | Type   | Options     |
+| ------ | ------ | ----------- |
+| name   | string | null: false |
 
 ### Association
 
 - has_many :game_themes
 - has_many :games, through: :game_themes
 
-## game_keywords テーブル
+## taggings テーブル
 
-| Column  | Type       | Options                        |
-| ------- | ---------- | ------------------------------ |
-| game    | references | null: false, foreign_key: true |
-| keyword | references | null: false, foreign_key: true |
+| Column | Type       | Options                        |
+| ------ | ---------- | ------------------------------ |
+| game   | references | null: false, foreign_key: true |
+| tag    | references | null: false, foreign_key: true |
+| user   | references | null: false, foreign_key: true |
 
 ### Association
 
 - belongs_to :game
-- belongs_to :keyword
+- belongs_to :tag
+- belongs_to :user
 
-## keywords テーブル
+## tags テーブル
 
-| Column | Type       | Options                        |
-| ------ | ---------- | ------------------------------ |
-| name   | references | null: false, foreign_key: true |
+| Column | Type   | Options     |
+| ------ | ------ | ----------- |
+| name   | string | null: false |
 
 ### Association
 
-- has_many :game_keywords
-- has_many :games, through: :game_keywords
+- has_many :taggings
+- has_many :games, through: :taggings
