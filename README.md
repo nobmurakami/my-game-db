@@ -49,7 +49,9 @@
 
 - has_many :game_genres
 - has_many :developers
+- has_many :developer_companies, through: :developers, source: :company
 - has_many :publishers
+- has_many :publisher_companies, through: :publishers, source: :company
 - has_many :taggings, dependent: :destroy
 - has_many :lists, dependent: :destroy
 - has_many :genres, through: :game_genres

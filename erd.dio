@@ -1,6 +1,6 @@
-<mxfile host="65bd71144e" modified="2021-01-26T09:05:55.154Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.52.1 Chrome/83.0.4103.122 Electron/9.3.5 Safari/537.36" etag="ORfSdHPEIlxmpcFKqPtN" version="13.10.0" type="embed">
+<mxfile host="65bd71144e" modified="2021-01-26T09:32:56.773Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.52.1 Chrome/83.0.4103.122 Electron/9.3.5 Safari/537.36" etag="uWL53tBYcON2r12s60pJ" version="13.10.0" type="embed">
     <diagram id="2H4_-_0UPZGHksnb9LTJ" name="ページ1">
-        <mxGraphModel dx="1164" dy="1988" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
+        <mxGraphModel dx="1164" dy="1667" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -154,6 +154,10 @@
                     <mxGeometry width="100" height="100" relative="1" as="geometry">
                         <mxPoint x="630" y="601" as="sourcePoint"/>
                         <mxPoint x="593" y="560" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="880" y="401"/>
+                            <mxPoint x="880" y="568"/>
+                        </Array>
                     </mxGeometry>
                 </mxCell>
                 <mxCell id="73" value="" style="edgeStyle=entityRelationEdgeStyle;fontSize=12;html=1;endArrow=ERone;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;startArrow=ERmany;startFill=0;endFill=0;" parent="1" source="8" target="13" edge="1">
@@ -180,8 +184,8 @@
                 <mxCell id="82" value="belongs_to :user&lt;br&gt;&lt;div&gt;&lt;span&gt;belongs_to :game&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span&gt;belongs_to :list_status&lt;/span&gt;&lt;/div&gt;" style="shape=note;size=20;whiteSpace=wrap;html=1;align=left;spacingLeft=10;" parent="1" vertex="1">
                     <mxGeometry x="240" y="346" width="150" height="70" as="geometry"/>
                 </mxCell>
-                <mxCell id="84" value="has_many :game_genres&lt;br&gt;has_many :developers&lt;br&gt;has_many :publishers&lt;br&gt;has_many :taggings, dependent: :destroy&lt;br&gt;has_many :lists, dependent: :destroy&lt;br&gt;has_many :genres, through: :game_genres&lt;br&gt;has_many :tags, through: :taggings&lt;br&gt;belongs_to :platform" style="shape=note;size=20;whiteSpace=wrap;html=1;align=left;spacingLeft=10;" parent="1" vertex="1">
-                    <mxGeometry x="490" y="410" width="310" height="140" as="geometry"/>
+                <mxCell id="84" value="has_many :game_genres&lt;br&gt;has_many :developers&lt;br&gt;has_many :developer_companies, through: :developers, source: :company&lt;br&gt;has_many :publishers&lt;br&gt;has_many :publisher_companies, through: :publishers, source: :company&lt;br&gt;has_many :taggings, dependent: :destroy&lt;br&gt;has_many :lists, dependent: :destroy&lt;br&gt;has_many :genres, through: :game_genres&lt;br&gt;has_many :tags, through: :taggings&lt;br&gt;belongs_to :platform" style="shape=note;size=20;whiteSpace=wrap;html=1;align=left;spacingLeft=10;" parent="1" vertex="1">
+                    <mxGeometry x="490" y="410" width="370" height="200" as="geometry"/>
                 </mxCell>
                 <mxCell id="90" value="&lt;span&gt;belongs_to :game&lt;/span&gt;&lt;br&gt;&lt;div&gt;&lt;span&gt;belongs_to :genre&lt;/span&gt;&lt;/div&gt;" style="shape=note;size=20;whiteSpace=wrap;html=1;align=left;spacingLeft=10;" parent="1" vertex="1">
                     <mxGeometry x="1126" y="161" width="140" height="49" as="geometry"/>
@@ -228,8 +232,8 @@
                 <mxCell id="117" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;startArrow=ERmany;startFill=0;endArrow=ERmany;endFill=0;" edge="1" parent="1" source="103" target="112">
                     <mxGeometry relative="1" as="geometry">
                         <Array as="points">
-                            <mxPoint x="870" y="371"/>
-                            <mxPoint x="870" y="421"/>
+                            <mxPoint x="900" y="371"/>
+                            <mxPoint x="900" y="421"/>
                         </Array>
                     </mxGeometry>
                 </mxCell>
