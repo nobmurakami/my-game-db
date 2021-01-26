@@ -26,5 +26,9 @@
         <%= f.date_field :release_date, min: '1970-01-01', max: Date.today.next_year(4) %>
       </div>
     </div>
-    <%= f.submit 'Create Game', class: "ui right floated button" %>
+    <div class="field">
+      <%= f.label :tag_names, 'Tags:' %>
+      <%= f.text_field :tag_names %>
+    </div>
+    <%= f.submit submit_text, class: "ui right floated button" %>
   <% end %>
