@@ -51,7 +51,7 @@ class GamesController < ApplicationController
   private
 
   def game_params
-    params.require(:game_form).permit(:title, :image, :description, :metascore, :release_date, :platform_name, :tag_names)
+    params.require(:game_form).permit(:title, :image, :description, :metascore, :release_date, :platform_name, :tag_names, :genre_names, :developer_names, :publisher_names)
   end
 
   def load_game
