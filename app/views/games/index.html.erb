@@ -1,9 +1,6 @@
 <%= render "shared/header" %>
 
 <div class="ui main container">
-  <div class="ui right floated simple button">
-    <%= link_to 'All Reset', request.path %>
-  </div>
   <h1 class="ui header">Search</h1>
 
   <div class="ui divider"></div>
@@ -32,6 +29,11 @@
         <%= f.collection_select :platform_name_eq, @platform_name, :name, :name, include_blank: 'All' %>
       </div>
     </div>
+    <div class="field">
+      <%= f.label :release_date_during_year, 'Year' %>
+      <%= f.date_select :release_date_during_year, start_year: Game.minimum(:release_date).year, end_year: Game.maximum(:release_date).year, discard_day: true, discard_month: true, prompt: 'All' %>
+    </div>
+    <%= f.submit "Clear", type: :reset, class: 'ui button' %>
     <%= f.submit 'Submit', class: 'ui button' %>
   <% end %>
 
@@ -43,11 +45,14 @@
       Sorting
     </div>
     <div class="right menu">
+      <div class="item">
+        <%= sort_link(@q, :metascore, "Metascore") %>
+      </div>
       <div class="ui item">
         <%= sort_link(@q, :title, "Title") %>
       </div>
-      <div class="item">
-        <%= sort_link(@q, :metascore, "Metascore") %>
+      <div class="ui item">
+        <%= sort_link(@q, :release_date, "Release Date") %>
       </div>
     </div>
   </div>

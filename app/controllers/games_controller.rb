@@ -2,6 +2,7 @@ class GamesController < ApplicationController
 
   def index
     @q = Game.ransack(params[:q])
+    @q.sorts = 'metascore DESC' if @q.sorts.empty?
     @games = @q.result(distinct: true).page(params[:page]).per(10).order("created_at DESC")
     @platform_name = Platform.select("name").distinct.order("name ASC")
   end
