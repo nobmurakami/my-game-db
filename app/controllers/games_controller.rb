@@ -29,7 +29,6 @@ class GamesController < ApplicationController
   end
 
   def update
-
     load_game
     @form = GameForm.new(game_params, game: @game)
 
@@ -38,6 +37,12 @@ class GamesController < ApplicationController
     else
       render :edit
     end
+  end
+
+  def destroy
+    load_game
+    @game.destroy
+    redirect_to root_path
   end
 
   private
