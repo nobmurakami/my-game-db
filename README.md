@@ -54,19 +54,8 @@
 - has_many :themes, through: :game_themes
 - has_many :keywords, through: :game_keywords
 - belongs_to :platform
-- belongs_to :region
 
 ## platforms テーブル
-
-| Column | Type   | Options     |
-| ------ | ------ | ----------- |
-| name   | string | null: false |
-
-### Association
-
-- has_many :games
-
-## regions テーブル
 
 | Column | Type   | Options     |
 | ------ | ------ | ----------- |
