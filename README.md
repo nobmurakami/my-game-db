@@ -47,14 +47,25 @@
 
 ### Association
 
-- has_many :game_genres
-- has_many :game_themes
-- has_many :taggings, dependent: :destroy
-- has_many :lists, dependent: :destroy
-- has_many :genres, through: :game_genres
-- has_many :themes, through: :game_themes
-- has_many :tags, through: :taggings
+- has_one_attached :image
 - belongs_to :platform
+
+- has_many :game_genres
+- has_many :genres, through: :game_genres
+
+- has_many :taggings, dependent: :destroy
+- has_many :tags, through: :taggings
+
+- has_many :lists, dependent: :destroy
+
+- has_many :game_companies
+- has_many :companies, through: :game_companies
+
+- has_many :developer_game_companies, -> {where(type: 'developer')}, class_name: 'GameCompany'
+- has_many :developers, through: :developer_game_companies, source: :company
+
+- has_many :publisher_game_companies, -> {where(type: 'publisher')}, class_name: 'GameCompany'
+- has_many :publishers, through: :publisher_game_companies, source: :company
 
 ## platforms テーブル
 
@@ -89,19 +100,22 @@
 - has_many :game_genres
 - has_many :games, through: :game_genres
 
-## game_themes テーブル
+## game_companies テーブル
 
-| Column | Type       | Options                        |
-| ------ | ---------- | ------------------------------ |
-| game   | references | null: false, foreign_key: true |
-| theme  | references | null: false, foreign_key: true |
+| Column  | Type       | Options                        |
+| ------- | ---------- | ------------------------------ |
+| game    | references | null: false, foreign_key: true |
+| company | references | null: false, foreign_key: true |
+| type    | integer    | null: false                    |
 
 ### Association
 
 - belongs_to :game
-- belongs_to :theme
+- belongs_to :company
 
-## themes テーブル
+- enum type: { developer: 0, publisher: 1 }
+
+## companies テーブル
 
 | Column | Type   | Options     |
 | ------ | ------ | ----------- |
@@ -109,8 +123,8 @@
 
 ### Association
 
-- has_many :game_themes
-- has_many :games, through: :game_themes
+- has_many :game_companies
+- has_many :games, through: :game_companies
 
 ## taggings テーブル
 
