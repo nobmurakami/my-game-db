@@ -1,9 +1,6 @@
 <%= render "shared/header" %>
 
 <div class="ui main container">
-  <div class="ui right floated simple button">
-    <%= link_to 'All Reset', request.path %>
-  </div>
   <h1 class="ui header">Search</h1>
 
   <div class="ui divider"></div>
@@ -12,22 +9,32 @@
   <div class="four wide column">
 
   <%= search_form_for @q, class: "ui form" do |f| %>
-    <%# <div class="three fields"> %>
-      <div class="field">
-        <%= f.label :title_or_description, 'Title or Description' %>
-        <div class="ui input">
-          <%= f.search_field :title_or_description_cont, placeholder: "Search..." %>
-        </div>
+    <div class="field">
+      <%= f.label :title_or_description, 'Title or Description' %>
+      <div class="ui input">
+        <%= f.search_field :title_or_description_cont, placeholder: "Search" %>
       </div>
-      <div class="field">
-        <%= f.label :metascore_gteq, 'Minimum Metascore' %>
-        <%= f.text_field :metascore_gteq, placeholder:"1" %>
+    </div>
+    <div class="field">
+      <%= f.label :metascore_gteq, 'Minimum Metascore' %>
+      <%= f.text_field :metascore_gteq, placeholder:"1" %>
+    </div>
+    <div class="field">
+      <%= f.label :metascore_lteq, 'Maximum Metascore' %>
+      <%= f.text_field :metascore_lteq, placeholder:"100" %>
+    </div>
+    <div class="field">
+      <%= f.label :platform_name_eq, 'Platform' %>
+      <div class="ui input">
+        <%= f.collection_select :platform_name_eq, @platform_name, :name, :name, include_blank: 'All' %>
       </div>
-      <div class="field">
-        <%= f.label :metascore_lteq, 'Maximum Metascore' %>
-        <%= f.text_field :metascore_lteq, placeholder:"100" %>
-      </div>
-    <%# </div> %>
+    </div>
+    <div class="field">
+      <%= f.label :release_date_during_year, 'Year' %>
+      <%= f.date_select :release_date_during_year, start_year: Game.minimum(:release_date).year, end_year: Game.maximum(:release_date).year, discard_day: true, discard_month: true, prompt: 'All' %>
+    </div>
+    <%= f.submit "Clear", type: :reset, class: 'ui button' %>
+    <%= f.submit 'Submit', class: 'ui button' %>
   <% end %>
 
   </div>
@@ -38,11 +45,14 @@
       Sorting
     </div>
     <div class="right menu">
+      <div class="item">
+        <%= sort_link(@q, :metascore, "Metascore") %>
+      </div>
       <div class="ui item">
         <%= sort_link(@q, :title, "Title") %>
       </div>
-      <div class="item">
-        <%= sort_link(@q, :metascore, "Metascore") %>
+      <div class="ui item">
+        <%= sort_link(@q, :release_date, "Release Date") %>
       </div>
     </div>
   </div>
@@ -59,8 +69,10 @@
         </div>
         <div class="content">
           <%= link_to game.title, game_path(game), class: "header" %>
+          <span><%= "(#{game.platform.name})" if game.platform.present? %></span>
           <div class="meta">
-            <span><%= "Metascore: #{game.metascore}" %></span>
+            <p><%= game.release_date if game.release_date.present? %></p>
+            <p><%= "Metascore: #{game.metascore}" if game.metascore.present? %></p>
           </div>
         </div>
       </div>
