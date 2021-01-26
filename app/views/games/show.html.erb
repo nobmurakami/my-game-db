@@ -31,5 +31,11 @@
     Platform
   </h2>
   <span><%= @game.platform.try(:name) %></span>
+  <h2 class='ui sub header'>
+    Tags
+  </h2>
+  <% @game.tags.each do |tag| %>
+    <span class="ui tag label"><%= tag.name %></span>
+  <% end %>
   
 </div>
