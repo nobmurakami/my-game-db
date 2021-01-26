@@ -1,7 +1,7 @@
 class GameForm
   include ActiveModel::Model
 
-  attr_accessor :title, :image, :description, :metascore, :release_date, :platform_name, :tag_names
+  attr_accessor :title, :image, :description, :metascore, :release_date, :platform_name, :tag_names, :genre_names, :developer_names, :publisher_names
 
   def initialize(params = nil, game: Game.new)
     @game = game
@@ -12,7 +12,10 @@ class GameForm
       metascore: game.metascore,
       release_date: game.release_date,
       platform_name: game.platform.try(:name),
-      tag_names: game.tags.pluck(:name).join(',')
+      tag_names: game.tags.pluck(:name).join(','),
+      genre_names: game.genres.pluck(:name).join(','),
+      developer_names: game.developer_companies.pluck(:name).join(','),
+      publisher_names: game.publisher_companies.pluck(:name).join(',')
     }
     super(params)
   end
@@ -26,8 +29,11 @@ class GameForm
 
     platform = Platform.find_or_create_by(name: platform_name)
     tags = tag_names.split(',').map { |tag| Tag.find_or_create_by(name: tag) }
+    genres = genre_names.split(',').map { |genre| Genre.find_or_create_by(name: genre) }
+    developers = developer_names.split(',').map { |dev| Company.find_or_create_by(name: dev) }
+    publishers = publisher_names.split(',').map { |pub| Company.find_or_create_by(name: pub) }
 
-    @game.update(title: title, description: description, metascore: metascore, release_date: release_date, platform_id: platform.id, tags: tags)
+    @game.update(title: title, description: description, metascore: metascore, release_date: release_date, platform_id: platform.id, tags: tags, genres: genres, developer_companies: developers, publisher_companies: publishers)
   end
 
   validates :title, presence: true
