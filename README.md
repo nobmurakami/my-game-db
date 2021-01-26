@@ -48,11 +48,11 @@
 ### Association
 
 - has_many :game_genres
-- has_many :game_themes
+- has_many :developers
+- has_many :publishers
 - has_many :taggings, dependent: :destroy
 - has_many :lists, dependent: :destroy
 - has_many :genres, through: :game_genres
-- has_many :themes, through: :game_themes
 - has_many :tags, through: :taggings
 - belongs_to :platform
 
@@ -89,7 +89,19 @@
 - has_many :game_genres
 - has_many :games, through: :game_genres
 
-## game_companies テーブル
+## developers テーブル
+
+| Column  | Type       | Options                        |
+| ------- | ---------- | ------------------------------ |
+| game    | references | null: false, foreign_key: true |
+| company | references | null: false, foreign_key: true |
+
+### Association
+
+- belongs_to :game
+- belongs_to :company
+
+## publishers テーブル
 
 | Column  | Type       | Options                        |
 | ------- | ---------- | ------------------------------ |
@@ -109,8 +121,10 @@
 
 ### Association
 
-- has_many :game_companies
-- has_many :games, through: :game_companies
+- has_many :developers
+- has_many :games, through: :developers
+- has_many :publishers
+- has_many :games, through: :publishers
 
 ## taggings テーブル
 
