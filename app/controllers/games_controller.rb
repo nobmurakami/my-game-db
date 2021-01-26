@@ -5,7 +5,9 @@ class GamesController < ApplicationController
     @q.sorts = 'metascore DESC' if @q.sorts.empty?
     @games = @q.result(distinct: true).page(params[:page]).per(10).order("created_at DESC")
     @platform_name = Platform.select("name").distinct.order("name ASC")
-    @tag_name = Tag.select("name").distinct.order("name ASC")
+    @tag_names = Tag.select("name").distinct.order("name ASC")
+    @genre_names = Genre.select("name").distinct.order("name ASC")
+    @company_names = Company.select("name").distinct.order("name ASC")
   end
   
   def new
