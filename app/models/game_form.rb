@@ -14,8 +14,8 @@ class GameForm
       platform_name: game.platform.try(:name),
       tag_names: game.tags.pluck(:name).join(','),
       genre_names: game.genres.pluck(:name).join(','),
-      developer_names: game.developer_companies.pluck(:name).join(','),
-      publisher_names: game.publisher_companies.pluck(:name).join(',')
+      developer_names: game.developers.pluck(:name).join(','),
+      publisher_names: game.publishers.pluck(:name).join(',')
     }
     super(params)
   end
@@ -33,7 +33,7 @@ class GameForm
     developers = developer_names.split(',').map { |dev| Company.find_or_create_by(name: dev) }
     publishers = publisher_names.split(',').map { |pub| Company.find_or_create_by(name: pub) }
 
-    @game.update(title: title, description: description, metascore: metascore, release_date: release_date, platform_id: platform.id, tags: tags, genres: genres, developer_companies: developers, publisher_companies: publishers)
+    @game.update(title: title, description: description, metascore: metascore, release_date: release_date, platform_id: platform.id, tags: tags, genres: genres, developers: developers, publishers: publishers)
   end
 
   validates :title, presence: true

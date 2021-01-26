@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_26_091208) do
+ActiveRecord::Schema.define(version: 2021_01_26_145829) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -48,6 +48,16 @@ ActiveRecord::Schema.define(version: 2021_01_26_091208) do
     t.index ["game_id"], name: "index_developers_on_game_id"
   end
 
+  create_table "game_companies", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "game_id", null: false
+    t.bigint "company_id", null: false
+    t.integer "type", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["company_id"], name: "index_game_companies_on_company_id"
+    t.index ["game_id"], name: "index_game_companies_on_game_id"
+  end
+
   create_table "game_genres", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "game_id", null: false
     t.bigint "genre_id", null: false
@@ -80,15 +90,6 @@ ActiveRecord::Schema.define(version: 2021_01_26_091208) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "publishers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.bigint "game_id", null: false
-    t.bigint "company_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["company_id"], name: "index_publishers_on_company_id"
-    t.index ["game_id"], name: "index_publishers_on_game_id"
-  end
-
   create_table "taggings", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "game_id", null: false
     t.bigint "tag_id", null: false
@@ -107,11 +108,11 @@ ActiveRecord::Schema.define(version: 2021_01_26_091208) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "developers", "companies"
   add_foreign_key "developers", "games"
+  add_foreign_key "game_companies", "companies"
+  add_foreign_key "game_companies", "games"
   add_foreign_key "game_genres", "games"
   add_foreign_key "game_genres", "genres"
   add_foreign_key "games", "platforms"
-  add_foreign_key "publishers", "companies"
-  add_foreign_key "publishers", "games"
   add_foreign_key "taggings", "games"
   add_foreign_key "taggings", "tags"
 end
