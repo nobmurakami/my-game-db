@@ -29,4 +29,8 @@ class GameForm
 
     @game.update(title: title, description: description, metascore: metascore, release_date: release_date, platform_id: platform.id, region_id: region.id)
   end
+
+  validates :title, presence: true
+  validates :platform_name, presence: true
+  validates :metascore, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 100, allow_blank: true }
 end
