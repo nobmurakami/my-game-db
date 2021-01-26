@@ -89,19 +89,19 @@
 - has_many :game_genres
 - has_many :games, through: :game_genres
 
-## game_themes テーブル
+## game_companies テーブル
 
-| Column | Type       | Options                        |
-| ------ | ---------- | ------------------------------ |
-| game   | references | null: false, foreign_key: true |
-| theme  | references | null: false, foreign_key: true |
+| Column  | Type       | Options                        |
+| ------- | ---------- | ------------------------------ |
+| game    | references | null: false, foreign_key: true |
+| company | references | null: false, foreign_key: true |
 
 ### Association
 
 - belongs_to :game
-- belongs_to :theme
+- belongs_to :company
 
-## themes テーブル
+## companies テーブル
 
 | Column | Type   | Options     |
 | ------ | ------ | ----------- |
@@ -109,8 +109,8 @@
 
 ### Association
 
-- has_many :game_themes
-- has_many :games, through: :game_themes
+- has_many :game_companies
+- has_many :games, through: :game_companies
 
 ## taggings テーブル
 
