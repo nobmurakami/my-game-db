@@ -15,30 +15,57 @@
         <%= f.search_field :title_or_description_cont, placeholder: "Search" %>
       </div>
     </div>
+
     <div class="field">
       <%= f.label :metascore_gteq, 'Minimum Metascore' %>
       <%= f.text_field :metascore_gteq, placeholder:"1" %>
     </div>
+
     <div class="field">
       <%= f.label :metascore_lteq, 'Maximum Metascore' %>
       <%= f.text_field :metascore_lteq, placeholder:"100" %>
     </div>
+
     <div class="field">
       <%= f.label :platform_name_eq, 'Platform' %>
       <div class="ui input">
         <%= f.collection_select :platform_name_eq, @platform_name, :name, :name, include_blank: 'All' %>
       </div>
     </div>
+
     <div class="field">
       <%= f.label :release_date_during_year, 'Year' %>
       <%= f.date_select :release_date_during_year, start_year: Game.minimum(:release_date).year, end_year: Game.maximum(:release_date).year, discard_day: true, discard_month: true, prompt: 'All' %>
     </div>
+
     <div class="field">
-      <%= f.label :tag, 'Tag' %>
+      <%= f.label :genres, 'Genres' %>
       <div class="ui input">
-        <%= f.collection_select :tags_name_eq, @tag_name, :name, :name, include_blank: 'All' %>
+        <%= f.collection_select :genres_name_eq, @genre_names, :name, :name, include_blank: 'All' %>
       </div>
     </div>
+
+    <div class="field">
+      <%= f.label :tags, 'Tags' %>
+      <div class="ui input">
+        <%= f.collection_select :tags_name_eq, @tag_names, :name, :name, include_blank: 'All' %>
+      </div>
+    </div>
+
+    <div class="field">
+      <%= f.label :developers, 'Developers' %>
+      <div class="ui input">
+        <%= f.collection_select :developer_companies_name_eq, @company_names, :name, :name, include_blank: 'All' %>
+      </div>
+    </div>
+
+    <div class="field">
+      <%= f.label :publishers, 'Publishers' %>
+      <div class="ui input">
+        <%= f.collection_select :publisher_companies_name_eq, @company_names, :name, :name, include_blank: 'All' %>
+      </div>
+    </div>
+
     <%= f.submit "Clear", type: :reset, class: 'ui button' %>
     <%= f.submit 'Submit', class: 'ui button' %>
   <% end %>
