@@ -1,8 +1,22 @@
 <%= render 'shared/header' %>
 
 <div class='ui main text container'>
-  <%= link_to 'Edit', edit_game_path, class: 'ui right floated button' %>
+   <div class='ui right floated secondary menu'>
+    <div class='right menu'>
+      <%= link_to 'Edit', edit_game_path, class: 'item' %>
+      <%= link_to 'Delete Game', game_path(@game), method: :delete, class:'item' %>
+    </div>
+  </div>
+
   <h1 class='banner-title'><%= @game.title %></h1>
+  <h2 class='ui header'>
+    <% if @game.release_date.present? %>
+      <span><%= @game.release_date %></span>
+    <% else %>
+      <span>TBD</span>
+    <% end %>
+  </h2>
+  
   <% if @game.image.attached? %>
     <%= image_tag @game.image, class: 'ui centered medium image'  %>
   <% else %>
@@ -13,5 +27,9 @@
     Metascore
   </h2>
   <span><%= @game.metascore %></span>
+  <h2 class='ui sub header'>
+    Platform
+  </h2>
+  <span><%= @game.platform.try(:name) %></span>
   
 </div>
