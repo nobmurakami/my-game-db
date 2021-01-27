@@ -31,9 +31,7 @@
       <div class="ui input">
         <%= f.text_field :platform_name_cont, list: 'platform' %>
         <datalist id="platform">
-          <% @platform_names.each do |name| %>
-            <option value="<%= name %>"></option>
-          <% end %>
+          <%= options_for_select(@platform_names) %>
         </datalist>
       </div>
     </div>
@@ -48,9 +46,7 @@
       <div class="ui input">
         <%= f.text_field :genres_name_cont, list: 'genre' %>
         <datalist id="genre">
-          <% @genre_names.each do |name| %>
-            <option value="<%= name %>"></option>
-          <% end %>
+          <%= options_for_select(@genre_names) %>
         </datalist>
       </div>
     </div>
@@ -60,9 +56,7 @@
       <div class="ui input">
         <%= f.text_field :tags_name_cont, list: 'tag' %>
         <datalist id="tag">
-          <% @tag_names.each do |name| %>
-            <option value="<%= name %>"></option>
-          <% end %>
+          <%= options_for_select(@tag_names) %>
         </datalist>
       </div>
     </div>
@@ -72,9 +66,7 @@
       <div class="ui input">
         <%= f.text_field :companies_name_cont, list: 'company' %>
         <datalist id="company">
-          <% @company_names.each do |name| %>
-            <option value="<%= name %>"></option>
-          <% end %>
+          <%= options_for_select(@company_names) %>
         </datalist>
       </div>
     </div>
