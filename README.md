@@ -102,11 +102,11 @@
 
 ## game_companies テーブル
 
-| Column  | Type       | Options                        |
-| ------- | ---------- | ------------------------------ |
-| game    | references | null: false, foreign_key: true |
-| company | references | null: false, foreign_key: true |
-| type    | integer    | null: false                    |
+| Column       | Type       | Options                        |
+| ------------ | ---------- | ------------------------------ |
+| game         | references | null: false, foreign_key: true |
+| company      | references | null: false, foreign_key: true |
+| company_type | integer    | null: false                    |
 
 ### Association
 
