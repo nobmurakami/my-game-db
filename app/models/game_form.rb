@@ -24,23 +24,19 @@ class GameForm
   def save
     return if invalid?
 
-    # ActiveRecord::Base.transaction do
-      @game.update(image: image) if image.present?
+    ActiveRecord::Base.transaction do
+      @game.update!(image: image) if image.present?
 
-      platform = Platform.find_or_create_by(name: platform_name)
-      tags = tag_names.split(',').map { |tag| Tag.find_or_create_by(name: tag) }
-      genres = genre_names.split(',').map { |genre| Genre.find_or_create_by(name: genre) }
-      developers = developer_names.split(',').map { |dev| Company.find_or_create_by(name: dev) }
-      publishers = publisher_names.split(',').map { |pub| Company.find_or_create_by(name: pub) }
+      platform = Platform.find_or_create_by!(name: platform_name)
+      tags = tag_names.split(',').map { |tag| Tag.find_or_create_by!(name: tag) }
+      genres = genre_names.split(',').map { |genre| Genre.find_or_create_by!(name: genre) }
+      developers = developer_names.split(',').map { |dev| Company.find_or_create_by!(name: dev) }
+      publishers = publisher_names.split(',').map { |pub| Company.find_or_create_by!(name: pub) }
 
       @game.update!(title: title, description: description, metascore: metascore, release_date: release_date,
                     platform_id: platform.id, tags: tags, genres: genres)
-
       @game.update!(developers: developers, publishers: publishers)
-
-  #   end
-  # rescue ActiveRecord::RecordInvalid
-  #   false
+    end
   end
 
   validates :title, presence: true
