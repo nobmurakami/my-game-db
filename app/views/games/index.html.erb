@@ -27,9 +27,14 @@
     </div>
 
     <div class="field">
-      <%= f.label :platform_name_eq, 'Platform' %>
+      <%= f.label :platform_name_cont, 'Platform' %>
       <div class="ui input">
-        <%= f.collection_select :platform_name_eq, @platform_name, :name, :name, include_blank: 'All' %>
+        <%= f.text_field :platform_name_cont, list: 'platform' %>
+        <datalist id="platform">
+          <% @platform_names.each do |name| %>
+            <option value="<%= name %>"></option>
+          <% end %>
+        </datalist>
       </div>
     </div>
 
@@ -39,27 +44,42 @@
     </div>
 
     <div class="field">
-      <%= f.label :genres, 'Genres' %>
+      <%= f.label :genres_name_cont, 'Genres' %>
       <div class="ui input">
-        <%= f.collection_select :genres_name_eq, @genre_names, :name, :name, include_blank: 'All' %>
+        <%= f.text_field :genres_name_cont, list: 'genre' %>
+        <datalist id="genre">
+          <% @genre_names.each do |name| %>
+            <option value="<%= name %>"></option>
+          <% end %>
+        </datalist>
       </div>
     </div>
 
     <div class="field">
-      <%= f.label :tags, 'Tags' %>
+      <%= f.label :tags_name_cont, 'Tags' %>
       <div class="ui input">
-        <%= f.collection_select :tags_name_eq, @tag_names, :name, :name, include_blank: 'All' %>
+        <%= f.text_field :tags_name_cont, list: 'tag' %>
+        <datalist id="tag">
+          <% @tag_names.each do |name| %>
+            <option value="<%= name %>"></option>
+          <% end %>
+        </datalist>
       </div>
     </div>
 
     <div class="field">
-      <%= f.label :companies, 'Companies' %>
+      <%= f.label :companies_name_cont, 'Companies' %>
       <div class="ui input">
-        <%= f.collection_select :companies_name_eq, @company_names, :name, :name, include_blank: 'All' %>
+        <%= f.text_field :companies_name_cont, list: 'company' %>
+        <datalist id="company">
+          <% @company_names.each do |name| %>
+            <option value="<%= name %>"></option>
+          <% end %>
+        </datalist>
       </div>
     </div>
 
-    <%= f.submit "Clear", type: :reset, class: 'ui button' %>
+    <%= link_to "All Reset", request.path, class: 'ui button' %>
     <%= f.submit 'Submit', class: 'ui button' %>
   <% end %>
 
