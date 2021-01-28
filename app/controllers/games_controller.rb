@@ -40,7 +40,8 @@ class GamesController < ApplicationController
     load_game
     @form = GameForm.new(game_params.merge(tag_names: ''), game: @game)
 
-    if @form.save
+    if @form.valid?
+      @form.save
       redirect_to game_path(@game)
     else
       render :edit
