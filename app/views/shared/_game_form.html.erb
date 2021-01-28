@@ -30,10 +30,12 @@
       <%= f.label :genre_names, 'Genres:' %>
       <%= f.text_field :genre_names %>
     </div>
-    <div class="field">
-      <%= f.label :tag_names, 'Tags:' %>
-      <%= f.text_field :tag_names %>
-    </div>
+    <% if params[:action] == "new" %>
+      <div class="field">
+        <%= f.label :tag_names, 'Tags:' %>
+        <%= f.text_field :tag_names %>
+      </div>
+    <% end %>
     <div class='ui two fields'>
       <div class="field">
         <%= f.label :developer_names, 'Developers:' %>
