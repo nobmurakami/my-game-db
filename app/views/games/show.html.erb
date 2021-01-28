@@ -21,6 +21,7 @@
   
   <% if @game.image.attached? %>
     <%= image_tag @game.image, class: 'ui centered medium image'  %>
+    <%= link_to 'Delete Game Cover', @game.image.purge %>
   <% elsif @game.steam_image.present? %>
     <%= image_tag @game.steam_image, class: 'ui centered medium image' %>
   <% else %>
