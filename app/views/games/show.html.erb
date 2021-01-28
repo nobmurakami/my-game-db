@@ -33,7 +33,10 @@
   <p><%= @game.description %></p>
 
   <% if @game.steam.present? %>
-    <%= link_to 'Steam', @game.steam, target: :_blank, rel: "noopener noreferrer nofollow" %>
+    <%= link_to(@game.steam, target: :_blank, rel: "noopener noreferrer nofollow", class: 'ui icon button') do %>
+      <i class="steam icon"></i>
+      Steam
+    <% end %>
   <% end %>
 
   <h2 class='ui sub header'>
