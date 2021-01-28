@@ -38,7 +38,7 @@ class GamesController < ApplicationController
 
   def update
     load_game
-    @form = GameForm.new(game_params, game: @game)
+    @form = GameForm.new(game_params.merge(tag_names: ''), game: @game)
 
     if @form.save
       redirect_to game_path(@game)
@@ -57,7 +57,7 @@ class GamesController < ApplicationController
 
   def game_params
     params.require(:game_form).permit(:title, :image, :description, :metascore, :release_date, :platform_name, :tag_names,
-                                      :genre_names, :developer_names, :publisher_names).merge(user_id: current_user.id)
+                                      :genre_names, :developer_names, :publisher_names, :steam).merge(user_id: current_user.id)
   end
 
   def load_game

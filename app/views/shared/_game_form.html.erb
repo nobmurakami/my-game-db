@@ -46,5 +46,10 @@
       <%= f.text_field :publisher_names %>
     </div>
   </div>
+  <div class="field">
+    <%= f.label :steam, 'Steam:' %>
+    <%= f.text_field :steam, placeholder: 'Steam store URL' %>
+  </div>
+
   <%= f.submit submit_text, class: "ui right floated button" %>
 <% end %>
