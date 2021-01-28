@@ -21,10 +21,17 @@
   
   <% if @game.image.attached? %>
     <%= image_tag @game.image, class: 'ui centered medium image'  %>
+  <% elsif @game.steam_image.present? %>
+    <%= image_tag @game.steam_image, class: 'ui centered medium image' %>
   <% else %>
     <%= image_tag 'noimage.png', class: 'ui centered medium image' %>
   <% end %>
+
   <p><%= @game.description %></p>
+
+  <% if @game.steam.present? %>
+    <%= link_to 'Steam', @game.steam, target: :_blank, rel: "noopener noreferrer nofollow" %>
+  <% end %>
 
   <h2 class='ui sub header'>
     Metascore
