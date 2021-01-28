@@ -5,7 +5,7 @@
     <div class='ui right floated secondary menu'>
       <div class='right menu'>
         <%= link_to 'Edit', edit_game_path, class: 'item' %>
-        <%= link_to 'Delete Game', game_path(@game), method: :delete, class:'item' %>
+        <%= link_to 'Delete Game', game_path(@game), method: :delete, data: { confirm: 'Are you sure?' }, class:'item' %>
       </div>
     </div>
   <% end %>
@@ -21,10 +21,20 @@
   
   <% if @game.image.attached? %>
     <%= image_tag @game.image, class: 'ui centered medium image'  %>
+    <div class="ui center aligned basic segment">
+      <%= link_to 'Delete Game Cover', delete_image_attachment_game_path(@game), method: :delete, data: { confirm: 'Are you sure?' } %>
+    </div>
+  <% elsif @game.steam_image.present? %>
+    <%= image_tag @game.steam_image, class: 'ui centered medium image' %>
   <% else %>
     <%= image_tag 'noimage.png', class: 'ui centered medium image' %>
   <% end %>
+
   <p><%= @game.description %></p>
+
+  <% if @game.steam.present? %>
+    <%= link_to 'Steam', @game.steam, target: :_blank, rel: "noopener noreferrer nofollow" %>
+  <% end %>
 
   <h2 class='ui sub header'>
     Metascore
