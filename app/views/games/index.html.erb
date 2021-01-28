@@ -101,6 +101,8 @@
         <div class="image">
           <% if game.image.attached? %>
             <%= image_tag game.image %>
+          <% elsif game.steam_image.present? %>
+            <%= image_tag game.steam_image %>
           <% else %>
             <%= image_tag 'noimage.png' %>
           <% end %>

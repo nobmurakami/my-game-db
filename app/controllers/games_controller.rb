@@ -53,6 +53,13 @@ class GamesController < ApplicationController
     redirect_to root_path
   end
 
+  def delete_image_attachment
+    load_game
+    @image = @game.image
+    @image.purge
+    redirect_to game_path(@game)
+  end
+
   private
 
   def game_params

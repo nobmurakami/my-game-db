@@ -54,12 +54,14 @@ class GameForm
   private
 
   def steam_json
-    url = "https://store.steampowered.com/api/appdetails?appids=#{steam_appids}"
+    url = "https://store.steampowered.com/api/appdetails?l=japanese&appids=#{steam_appids}"
     response = OpenURI.open_uri(url)
     ActiveSupport::JSON.decode(response.read)
   end
 
   def steam_image
-    steam_json[steam_appids]["data"]["header_image"]
+    if steam_json[steam_appids]["success"] == true
+      steam_json[steam_appids]["data"]["header_image"]
+    end
   end
 end
