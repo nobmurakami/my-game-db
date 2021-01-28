@@ -55,7 +55,7 @@
     Tags
   </h2>
   <% @tags.each do |tag| %>
-    <span class="ui tag label"><%= tag.name %></span>
+    <span class="ui tag label"><%= "#{tag.name}(#{tag.taggings.where(game_id: @game).count})" %></span>
   <% end %>
 
   <% if user_signed_in? %>
