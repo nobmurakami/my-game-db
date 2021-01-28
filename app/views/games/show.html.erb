@@ -54,8 +54,29 @@
   <h2 class='ui sub header'>
     Tags
   </h2>
-  <% @game.tags.each do |tag| %>
+  <% @tags.each do |tag| %>
     <span class="ui tag label"><%= tag.name %></span>
   <% end %>
-  
+
+  <% if user_signed_in? %>
+    <div class="ui segment">
+      <h2 class='ui sub header'>
+        Your Tags
+      </h2>
+      <% Tagging.where(game_id: @game, user_id: current_user).each do |tagging| %>
+        <%= link_to tagging.tag.name, game_tagging_path(@game, tagging), method: :delete, class: 'ui tag label' %>
+      <% end %>
+
+      <%= form_with model: @your_tag, url: game_taggings_path(@game), local: true do |f| %>
+        <h2 class='ui sub header'>
+          <%= f.label :tag, 'Add Your Tag' %>
+        </h2>
+        <div class="ui left icon input">
+          <i class="tags icon"></i>
+          <%= f.text_field :tag, placeholder: 'Enter Tag' %>
+        </div>
+        <%= f.submit 'Add', class: "ui button" %>            
+      <% end %>
+    <% end %>
+  </div>
 </div>
