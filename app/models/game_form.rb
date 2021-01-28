@@ -73,15 +73,15 @@ class GameForm
   end
 
   def steam_data
-    json = steam_json
-    if json[steam_appids]["success"] == true
-      @steam_image = json[steam_appids]["data"]["header_image"]
-      @steam_description = json[steam_appids]["data"]["short_description"]
-      @steam_metascore = json[steam_appids]["data"]["metacritic"]["score"] if json[steam_appids]["data"]["metacritic"].present?
-      @steam_release_date = Date.strptime(json[steam_appids]["data"]["release_date"]["date"], '%Y年%m月%d日')
-      @steam_genres = json[steam_appids]["data"]["genres"].map { |genre| Genre.find_or_create_by!(name: genre["description"]) }
-      @steam_developers = json[steam_appids]["data"]["developers"].map { |dev| Company.find_or_create_by!(name: dev) }
-      @steam_publishers = json[steam_appids]["data"]["publishers"].map { |pub| Company.find_or_create_by!(name: pub) }
+    if steam_json.dig(steam_appids, "success") == true
+      json = steam_json[steam_appids]["data"] 
+      @steam_image = json.dig("header_image")
+      @steam_description = json.dig("short_description")
+      @steam_metascore = json.dig("metacritic", "score")
+      @steam_release_date = Date.strptime(json.dig("release_date", "date"), '%Y年%m月%d日')
+      @steam_genres = json.dig("genres").map { |genre| Genre.find_or_create_by!(name: genre["description"]) }
+      @steam_developers = json.dig("developers").map { |dev| Company.find_or_create_by!(name: dev) }
+      @steam_publishers = json.dig("publishers").map { |pub| Company.find_or_create_by!(name: pub) }
     end
   end
 end
