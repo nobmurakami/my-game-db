@@ -1,12 +1,14 @@
 <%= render 'shared/header' %>
 
 <div class='ui main text container'>
-   <div class='ui right floated secondary menu'>
-    <div class='right menu'>
-      <%= link_to 'Edit', edit_game_path, class: 'item' %>
-      <%= link_to 'Delete Game', game_path(@game), method: :delete, class:'item' %>
+  <% if user_signed_in? %>
+    <div class='ui right floated secondary menu'>
+      <div class='right menu'>
+        <%= link_to 'Edit', edit_game_path, class: 'item' %>
+        <%= link_to 'Delete Game', game_path(@game), method: :delete, class:'item' %>
+      </div>
     </div>
-  </div>
+  <% end %>
 
   <h1 class='banner-title'><%= @game.title %></h1>
   <h2 class='ui header'>
