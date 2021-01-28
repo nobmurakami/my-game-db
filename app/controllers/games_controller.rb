@@ -27,7 +27,7 @@ class GamesController < ApplicationController
 
   def show
     load_game
-    @tags = Tag.joins(:taggings).where(taggings: { game_id: @game }).group(:tag_id).order('count(user_id) desc')
+    @tags = Tag.joins(:taggings).where(taggings: { game_id: @game }).group(:tag_id).order('count(user_id) desc').limit(10)
     @your_tag = Tag.new
   end
 
