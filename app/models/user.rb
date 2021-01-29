@@ -17,5 +17,7 @@ class User < ApplicationRecord
   has_many :played_lists, -> { where play_status: 'played' }, class_name: 'List', dependent: :destroy
   has_many :played_games, through: :played_lists, source: :game
 
+  has_many :lists, dependent: :destroy
+
   validates :name, presence: true
 end
