@@ -26,7 +26,15 @@ class Game < ApplicationRecord
   has_many :played_lists, -> { where play_status: 'played' }, class_name: 'List', dependent: :destroy
   has_many :played_users, through: :played_lists, source: :user
 
-  def wanted_by?(user)
+  def is_wanted_by?(user)
     want_users.where(id: user.id).exists?
+  end
+
+  def is_playing_by?(user)
+    playing_users.where(id: user.id).exists?
+  end
+
+  def was_played_by?(user)
+    played_users.where(id: user.id).exists?
   end
 end
