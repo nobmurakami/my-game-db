@@ -16,4 +16,13 @@ class Game < ApplicationRecord
 
   has_many :publisher_game_companies, -> { where(company_type: 'publisher') }, class_name: 'GameCompany'
   has_many :publishers, through: :publisher_game_companies, source: :company
+
+  has_many :want_lists, -> { where play_status: 'want' }, class_name: 'List', dependent: :destroy
+  has_many :want_users, through: :want_lists, source: :user
+
+  has_many :playing_lists, -> { where play_status: 'playing' }, class_name: 'List', dependent: :destroy
+  has_many :playing_users, through: :playing_lists, source: :user
+
+  has_many :played_lists, -> { where play_status: 'played' }, class_name: 'List', dependent: :destroy
+  has_many :played_users, through: :played_lists, source: :user
 end
