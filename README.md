@@ -14,6 +14,7 @@
 - has_many :games, through: :lists
 - has_many :taggings, dependent: :destroy
 - has_many :tagging_games, through: :taggings, source: :game
+- has_many :tags, through: :taggings
 
 ## lists テーブル
 
@@ -21,7 +22,7 @@
 | ----------- | ---------- | ------------------------------ |
 | user        | references | null: false, foreign_key: true |
 | game        | references | null: false, foreign_key: true |
-| play_status | references | null: false, foreign_key: true |
+| play_status | integer    | null: false                    |
 
 ### Association
 
@@ -29,11 +30,9 @@
 - belongs_to :game
 - belongs_to :play_status
 
-## play_status テーブル
+### Notes
 
-| Column | Type       | Options                        |
-| ------ | ---------- | ------------------------------ |
-| name   | references | null: false, foreign_key: true |
+- enum list_type: { want: 0, playing: 1, played: 2 }
 
 ## games テーブル
 
@@ -44,13 +43,15 @@
 | metascore    | integer    |                   |
 | release_date | date       |                   |
 | platform     | references | foreign_key: true |
+| steam        | string     |                   |
+| steam_image  | string     |                   |
 
 ### Association
 
 - has_one_attached :image
 - belongs_to :platform
 
-- has_many :game_genres
+- has_many :game_genres, dependent: :destroy
 - has_many :genres, through: :game_genres
 
 - has_many :taggings, dependent: :destroy
@@ -58,7 +59,7 @@
 
 - has_many :lists, dependent: :destroy
 
-- has_many :game_companies
+- has_many :game_companies, dependent: :destroy
 - has_many :companies, through: :game_companies
 
 - has_many :developer_game_companies, -> {where(type: 'developer')}, class_name: 'GameCompany'
@@ -97,7 +98,7 @@
 
 ### Association
 
-- has_many :game_genres
+- has_many :game_genres, dependent: :destroy
 - has_many :games, through: :game_genres
 
 ## game_companies テーブル
@@ -113,7 +114,9 @@
 - belongs_to :game
 - belongs_to :company
 
-- enum type: { developer: 0, publisher: 1 }
+### Notes
+
+- enum company_type: { developer: 0, publisher: 1 }
 
 ## companies テーブル
 
@@ -123,7 +126,7 @@
 
 ### Association
 
-- has_many :game_companies
+- has_many :game_companies, dependent: :destroy
 - has_many :games, through: :game_companies
 
 ## taggings テーブル
@@ -148,5 +151,5 @@
 
 ### Association
 
-- has_many :taggings
+- has_many :taggings, dependent: :destroy
 - has_many :games, through: :taggings
