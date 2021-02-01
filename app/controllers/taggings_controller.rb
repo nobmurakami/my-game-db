@@ -3,8 +3,8 @@ class TaggingsController < ApplicationController
     if tag_params[:tag].present?
       tag = Tag.find_or_create_by(name: tag_params[:tag].strip_all_space) 
       Tagging.find_or_create_by(game_id: tag_params[:game_id], tag_id: tag.id, user_id: tag_params[:user_id])
-      redirect_to game_path(tag_params[:game_id])
     end
+      redirect_to game_path(tag_params[:game_id])
   end
 
   def destroy
