@@ -1,0 +1,17 @@
+<div class="ui vertical fluid icon labeled menu">
+  <%= link_to want_to_play_user_path(user), class: want_class do%>
+    <i class="red clock icon"></i>
+    <div class="header">Want to Play</div>
+    <div><%= "#{user.want_games.count} games" %></div>
+  <% end %>
+  <%= link_to playing_user_path(user), class: playing_class do%>
+    <i class="red gamepad icon"></i>
+    <div class="header">Playing</div>
+    <div><%= "#{user.playing_games.count} games" %></div>
+  <% end %>
+  <%= link_to played_user_path(@user), class: played_class do%>
+    <i class="red circle check icon"></i>
+    <div class="header">Played</div>
+    <div><%= "#{user.played_games.count} games" %></div>
+  <% end %>
+</div>

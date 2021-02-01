@@ -37,8 +37,7 @@ class GameForm
                     platform_id: platform.id, genres: genres, steam: steam)
       @game.update!(developers: developers, publishers: publishers)
 
-      if @game.steam.present?
-        steam_data
+      if @game.steam.present? && steam_data
         @game.update!(steam_image: @steam_image)
         @game.update!(description: @steam_description) if @game.description.blank?
         @game.update!(metascore: @steam_metascore) if @game.metascore.blank?
@@ -49,6 +48,8 @@ class GameForm
 
         tags = @steam_genres.map { |genre| Tag.find_or_create_by!(name: genre.name) }
         tags.map { |tag| Tagging.find_or_create_by!(game_id: @game.id, tag_id: tag.id, user_id: user_id )}
+      else
+        @game.update!(steam: '')
       end
     end
   end
@@ -61,6 +62,8 @@ class GameForm
   validates :platform_name, presence: true
   validates :metascore,
             numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 100, allow_blank: true }
+  VALID_STEAM_URL = /\Ahttps:\/\/store\.steampowered\.com\/app\/\d+.+/
+  validates :steam, format: { with: VALID_STEAM_URL }
 
   private
 
