@@ -78,46 +78,8 @@
     </div>
     <div class="twelve wide column">
 
-      <div class="ui menu">
-        <div class="borderless header item">
-          Sorting
-        </div>
-        <div class="right menu">
-          <div class="item">
-            <%= sort_link(@q, :metascore, "Metascore") %>
-          </div>
-          <div class="ui item">
-            <%= sort_link(@q, :title, "Title") %>
-          </div>
-          <div class="ui item">
-            <%= sort_link(@q, :release_date, "Release Date") %>
-          </div>
-        </div>
-      </div>
-      <div class="ui items">
-        <% @games.each do |game| %>
-          <div class="item">
-            <div class="image">
-              <% if game.image.attached? %>
-                <%= image_tag game.image %>
-              <% elsif game.steam_image.present? %>
-                <%= image_tag game.steam_image %>
-              <% else %>
-                <%= image_tag 'noimage.png' %>
-              <% end %>
-            </div>
-            <div class="content">
-              <%= link_to game.title, game_path(game), class: "header" %>
-              <span><%= "(#{game.platform.name})" if game.platform.present? %></span>
-              <div class="meta">
-                <p><%= game.release_date if game.release_date.present? %></p>
-                <p><%= "Metascore: #{game.metascore}" if game.metascore.present? %></p>
-              </div>
-            </div>
-          </div>
-        <% end %>
-      </div>
-      <%= paginate @games %>
+      <%= render 'shared/game_list', { games: @games, q: @q, menu_title: 'Sorting' } %>
+
     </div>
 
 </div>
