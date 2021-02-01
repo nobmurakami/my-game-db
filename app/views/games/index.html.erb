@@ -6,120 +6,118 @@
   <div class="ui divider"></div>
 
   <div class="ui two column grid">
-  <div class="four wide column">
+    <div class="four wide column">
 
-  <%= search_form_for @q, class: "ui form" do |f| %>
-    <div class="field">
-      <%= f.label :title_or_description, 'Title or Description' %>
-      <div class="ui input">
-        <%= f.search_field :title_or_description_cont, placeholder: "Search" %>
-      </div>
-    </div>
-
-    <div class="field">
-      <%= f.label :metascore_gteq, 'Minimum Metascore' %>
-      <%= f.text_field :metascore_gteq, placeholder:"1" %>
-    </div>
-
-    <div class="field">
-      <%= f.label :metascore_lteq, 'Maximum Metascore' %>
-      <%= f.text_field :metascore_lteq, placeholder:"100" %>
-    </div>
-
-    <div class="field">
-      <%= f.label :platform_name_cont, 'Platform' %>
-      <div class="ui input">
-        <%= f.text_field :platform_name_cont, list: 'platform' %>
-        <datalist id="platform">
-          <%= options_for_select(@platform_names) %>
-        </datalist>
-      </div>
-    </div>
-
-    <div class="field">
-      <%= f.label :release_date_during_year, 'Year' %>
-      <%= f.date_select :release_date_during_year, start_year: Game.minimum(:release_date).year, end_year: Game.maximum(:release_date).year, discard_day: true, discard_month: true, prompt: 'All' %>
-    </div>
-
-    <div class="field">
-      <%= f.label :genres_name_cont, 'Genres' %>
-      <div class="ui input">
-        <%= f.text_field :genres_name_cont, list: 'genre' %>
-        <datalist id="genre">
-          <%= options_for_select(@genre_names) %>
-        </datalist>
-      </div>
-    </div>
-
-    <div class="field">
-      <%= f.label :tags_name_cont, 'Tags' %>
-      <div class="ui input">
-        <%= f.text_field :tags_name_cont, list: 'tag' %>
-        <datalist id="tag">
-          <%= options_for_select(@tag_names) %>
-        </datalist>
-      </div>
-    </div>
-
-    <div class="field">
-      <%= f.label :companies_name_cont, 'Companies' %>
-      <div class="ui input">
-        <%= f.text_field :companies_name_cont, list: 'company' %>
-        <datalist id="company">
-          <%= options_for_select(@company_names) %>
-        </datalist>
-      </div>
-    </div>
-
-    <%= link_to "All Reset", request.path, class: 'ui button' %>
-    <%= f.submit 'Submit', class: 'ui button' %>
-  <% end %>
-
-  </div>
-  <div class="twelve wide column">
-
-  <div class="ui menu">
-    <div class="borderless header item">
-      Sorting
-    </div>
-    <div class="right menu">
-      <div class="item">
-        <%= sort_link(@q, :metascore, "Metascore") %>
-      </div>
-      <div class="ui item">
-        <%= sort_link(@q, :title, "Title") %>
-      </div>
-      <div class="ui item">
-        <%= sort_link(@q, :release_date, "Release Date") %>
-      </div>
-    </div>
-  </div>
-
-  <div class="ui items">
-    <% @games.each do |game| %>
-      <div class="item">
-        <div class="image">
-          <% if game.image.attached? %>
-            <%= image_tag game.image %>
-          <% elsif game.steam_image.present? %>
-            <%= image_tag game.steam_image %>
-          <% else %>
-            <%= image_tag 'noimage.png' %>
-          <% end %>
+      <%= search_form_for @q, class: "ui form" do |f| %>
+        <div class="field">
+          <%= f.label :title_or_description, 'Title or Description' %>
+          <div class="ui input">
+            <%= f.search_field :title_or_description_cont, placeholder: "Search" %>
+          </div>
         </div>
-        <div class="content">
-          <%= link_to game.title, game_path(game), class: "header" %>
-          <span><%= "(#{game.platform.name})" if game.platform.present? %></span>
-          <div class="meta">
-            <p><%= game.release_date if game.release_date.present? %></p>
-            <p><%= "Metascore: #{game.metascore}" if game.metascore.present? %></p>
+
+        <div class="field">
+          <%= f.label :metascore_gteq, 'Minimum Metascore' %>
+          <%= f.text_field :metascore_gteq, placeholder:"1" %>
+        </div>
+
+        <div class="field">
+          <%= f.label :metascore_lteq, 'Maximum Metascore' %>
+          <%= f.text_field :metascore_lteq, placeholder:"100" %>
+        </div>
+
+        <div class="field">
+          <%= f.label :platform_name_cont, 'Platform' %>
+          <div class="ui input">
+            <%= f.text_field :platform_name_cont, list: 'platform' %>
+            <datalist id="platform">
+              <%= options_for_select(@platform_names) %>
+            </datalist>
+          </div>
+        </div>
+
+        <div class="field">
+          <%= f.label :release_date_during_year, 'Year' %>
+          <%= f.date_select :release_date_during_year, start_year: Game.minimum(:release_date).year, end_year: Game.maximum(:release_date).year, discard_day: true, discard_month: true, prompt: 'All' %>
+        </div>
+
+        <div class="field">
+          <%= f.label :genres_name_cont, 'Genres' %>
+          <div class="ui input">
+            <%= f.text_field :genres_name_cont, list: 'genre' %>
+            <datalist id="genre">
+              <%= options_for_select(@genre_names) %>
+            </datalist>
+          </div>
+        </div>
+
+        <div class="field">
+          <%= f.label :tags_name_cont, 'Tags' %>
+          <div class="ui input">
+            <%= f.text_field :tags_name_cont, list: 'tag' %>
+            <datalist id="tag">
+              <%= options_for_select(@tag_names) %>
+            </datalist>
+          </div>
+        </div>
+
+        <div class="field">
+          <%= f.label :companies_name_cont, 'Companies' %>
+          <div class="ui input">
+            <%= f.text_field :companies_name_cont, list: 'company' %>
+            <datalist id="company">
+              <%= options_for_select(@company_names) %>
+            </datalist>
+          </div>
+        </div>
+
+        <%= link_to "All Reset", request.path, class: 'ui button' %>
+        <%= f.submit 'Submit', class: 'ui button' %>
+      <% end %>
+
+    </div>
+    <div class="twelve wide column">
+
+      <div class="ui menu">
+        <div class="borderless header item">
+          Sorting
+        </div>
+        <div class="right menu">
+          <div class="item">
+            <%= sort_link(@q, :metascore, "Metascore") %>
+          </div>
+          <div class="ui item">
+            <%= sort_link(@q, :title, "Title") %>
+          </div>
+          <div class="ui item">
+            <%= sort_link(@q, :release_date, "Release Date") %>
           </div>
         </div>
       </div>
-    <% end %>
-  </div>
-  <%= paginate @games %>
-
-</div>
+      <div class="ui items">
+        <% @games.each do |game| %>
+          <div class="item">
+            <div class="image">
+              <% if game.image.attached? %>
+                <%= image_tag game.image %>
+              <% elsif game.steam_image.present? %>
+                <%= image_tag game.steam_image %>
+              <% else %>
+                <%= image_tag 'noimage.png' %>
+              <% end %>
+            </div>
+            <div class="content">
+              <%= link_to game.title, game_path(game), class: "header" %>
+              <span><%= "(#{game.platform.name})" if game.platform.present? %></span>
+              <div class="meta">
+                <p><%= game.release_date if game.release_date.present? %></p>
+                <p><%= "Metascore: #{game.metascore}" if game.metascore.present? %></p>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+      <%= paginate @games %>
+    </div>
 
 </div>
