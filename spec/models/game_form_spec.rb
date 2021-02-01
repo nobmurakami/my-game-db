@@ -88,36 +88,6 @@ RSpec.describe GameForm, type: :model do
         @form.valid?
         expect(@form.errors.full_messages).to include "Steam is invalid"
       end
-
-      it '電話番号が空だと購入できない' do
-      end
-
-      it 'user_idが空だと購入できない' do
-      end
-
-      it 'item_idが空だと購入できない' do
-      end
-
-      it '郵便番号が全角文字だと購入できない' do
-      end
-
-      it '郵便番号にハイフンがないと購入できない' do
-      end
-
-      it '郵便番号にハイフンがあっても桁数が正しくないと購入できない' do
-      end
-
-      it '都道府県を選択していないと購入できない' do
-      end
-
-      it '電話番号が全角文字だと購入できない' do
-      end
-
-      it '電話番号が11桁を超えると購入できない' do
-      end
-
-      it '電話番号にハイフンがあると購入できない' do
-      end
     end
   end
 end
