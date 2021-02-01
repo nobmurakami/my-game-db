@@ -63,7 +63,7 @@ class GameForm
   validates :metascore,
             numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 100, allow_blank: true }
   VALID_STEAM_URL = /\Ahttps:\/\/store\.steampowered\.com\/app\/\d+.+/
-  validates :steam, format: { with: VALID_STEAM_URL }
+  validates :steam, format: { with: VALID_STEAM_URL, allow_blank: true }
 
   private
 
