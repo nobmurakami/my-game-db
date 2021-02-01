@@ -12,10 +12,10 @@
             <span><%= current_user.name %></span>
             <i class="caret down icon"></i>
           </div>
-          <div class="menu">            
+          <div class="menu">
             <div class="item">
               <small>
-                <%= link_to 'My Lists', '#' %>
+                <%= link_to 'My Page', user_path(current_user) %>
               </small>
             </div>
             <div class="item">
