@@ -13,9 +13,9 @@ class GameForm
       metascore: game.metascore,
       release_date: game.release_date,
       platform_name: game.platform.try(:name),
-      genre_names: game.genres.pluck(:name).join(','),
-      developer_names: game.developers.pluck(:name).join(','),
-      publisher_names: game.publishers.pluck(:name).join(','),
+      genre_names: game.genres.pluck(:name).join(', '),
+      developer_names: game.developers.pluck(:name).join(', '),
+      publisher_names: game.publishers.pluck(:name).join(', '),
       steam: game.steam
     }
     super(params)
@@ -26,9 +26,9 @@ class GameForm
     
     ActiveRecord::Base.transaction do
       platform = Platform.find_or_create_by!(name: platform_name.strip_all_space)
-      genres = genre_names.split(',').grep(/[^[:space:]]/).map { |genre| Genre.find_or_create_by!(name: genre.strip_all_space) }
-      developers = developer_names.split(',').grep(/[^[:space:]]/).map { |dev| Company.find_or_create_by!(name: dev.strip_all_space) }
-      publishers = publisher_names.split(',').grep(/[^[:space:]]/).map { |pub| Company.find_or_create_by!(name: pub.strip_all_space) }
+      genres = split_and_delete_space(genre_names).map { |genre| Genre.find_or_create_by!(name: genre) }
+      developers = split_and_delete_space(developer_names).map { |dev| Company.find_or_create_by!(name: dev) }
+      publishers = split_and_delete_space(publisher_names).map { |pub| Company.find_or_create_by!(name: pub) }
 
       @game.update!(title: title.strip_all_space, description: description.strip_all_space, metascore: metascore, release_date: release_date,
                     platform_id: platform.id, genres: genres, steam: steam)
@@ -81,5 +81,9 @@ class GameForm
       @steam_developers = json.dig("developers").map { |dev| Company.find_or_create_by!(name: dev) }
       @steam_publishers = json.dig("publishers").map { |pub| Company.find_or_create_by!(name: pub) }
     end
+  end
+
+  def split_and_delete_space(str)
+    str.split(',').grep(/[^[:space:]]/).map { |i| i.strip_all_space }
   end
 end
