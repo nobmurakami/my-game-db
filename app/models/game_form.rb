@@ -27,7 +27,6 @@ class GameForm
     ActiveRecord::Base.transaction do
       platform = Platform.find_or_create_by!(name: platform_name.strip_all_space)
       genres = genre_names.split(',').map { |genre| Genre.find_or_create_by!(name: genre.strip_all_space) }
-      tags = genres.map { |genre| Tag.find_or_create_by!(name: genre.name) }
       developers = developer_names.split(',').map { |dev| Company.find_or_create_by!(name: dev.strip_all_space) }
       publishers = publisher_names.split(',').map { |pub| Company.find_or_create_by!(name: pub.strip_all_space) }
 
@@ -46,9 +45,6 @@ class GameForm
         @game.update!(genres: @steam_genres) if @game.genres.blank?
         @game.update!(developers: @steam_developers) if @game.developers.blank?
         @game.update!(publishers: @steam_publishers) if @game.publishers.blank?
-
-        tags = @steam_genres.map { |genre| Tag.find_or_create_by!(name: genre.name) }
-        tags.map { |tag| Tagging.find_or_create_by!(game_id: @game.id, tag_id: tag.id, user_id: user_id )}
       else
         @game.update!(steam: '')
       end
