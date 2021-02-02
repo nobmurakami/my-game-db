@@ -4,13 +4,13 @@ class TaggingsController < ApplicationController
       tag = Tag.find_or_create_by(name: tag_params[:tag].strip_all_space) 
       Tagging.find_or_create_by(game_id: tag_params[:game_id], tag_id: tag.id, user_id: tag_params[:user_id])
     end
-      redirect_to game_path(tag_params[:game_id])
+    redirect_back(fallback_location: root_path)
   end
 
   def destroy
     tagging = Tagging.find(params[:id])
     tagging.destroy
-    redirect_to game_path(params[:game_id])
+    redirect_back(fallback_location: root_path)
   end
 
   private
