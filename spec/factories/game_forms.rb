@@ -9,11 +9,5 @@ FactoryBot.define do
     developer_names { "#{Faker::Company.name}, #{Faker::Company.name}" } 
     publisher_names { "#{Faker::Company.name}, #{Faker::Company.name}" } 
     steam { "https://store.steampowered.com/app/489830/The_Elder_Scrolls_V_Skyrim_Special_Edition/" }
-
-    image { 'image' }
-
-    # after(:build) do |game|
-    #   item.image.attach(io: File.open('app/assets/images/game-sample.png'), filename: 'game-sample.png')
-    # end
   end
 end
