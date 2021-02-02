@@ -102,16 +102,15 @@ RSpec.describe "ゲーム新規登録", type: :system do
       visit new_game_path
       expect(current_path).to eq new_game_path
 
-      # ジャンルにスペースだけ入力してゲームを登録する
+      # ジャンルに、カンマで空文字をはさんだ文字列を含めてゲームを登録する
       fill_in 'game_form_title', with: @game.title
       fill_in 'game_form_platform_name', with: @game.platform_name
-      fill_in 'game_form_genre_names', with: "a, 　 , b"
+      fill_in 'game_form_genre_names', with: ", ,　,a, 　 , b,,,"
       expect {
         click_on("Create Game")
       }.to change { Game.count }.by(1)
 
-      # genresテーブルのカウントが2つしか増えないことを確認
-      binding.pry
+      # genresテーブルのカウントが、空以外の要素分しか増えないことを確認
       expect(Genre.count).to eq 2
     end
 
@@ -144,16 +143,16 @@ RSpec.describe "ゲーム新規登録", type: :system do
       visit new_game_path
       expect(current_path).to eq new_game_path
 
-      # ジャンルにスペースだけ入力してゲームを登録する
+      # 開発元と発売元に、カンマで空文字をはさんだ文字列を含めてゲームを登録する
       fill_in 'game_form_title', with: @game.title
       fill_in 'game_form_platform_name', with: @game.platform_name
-      fill_in 'game_form_developer_names', with: "a, 　 , b"
-      fill_in 'game_form_publisher_names', with: "c, 　 , d"
+      fill_in 'game_form_developer_names', with: ", ,　,a, 　 , b,,,"
+      fill_in 'game_form_publisher_names', with: ", ,　,c, 　 , d,,,"
       expect {
         click_on("Create Game")
       }.to change { Game.count }.by(1)
 
-      # companiesテーブルのカウントが2つしか増えないことを確認
+      # companiesテーブルのカウントが空以外の要素分しか増えないことを確認
       expect(Company.count).to eq 4
     end
   end
