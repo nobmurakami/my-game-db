@@ -4,6 +4,7 @@ RSpec.describe GameForm, type: :model do
   describe 'ゲームの登録' do
     before do
       @form = FactoryBot.build(:game_form)
+      @form.image = fixture_file_upload('public/images/game_sample.png')
     end
 
     context 'ゲームの登録ができるとき' do

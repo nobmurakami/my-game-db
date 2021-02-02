@@ -25,8 +25,6 @@ class GameForm
     return if invalid?
 
     ActiveRecord::Base.transaction do
-      @game.update!(image: image) if image.present?
-
       platform = Platform.find_or_create_by!(name: platform_name.strip_all_space)
       genres = genre_names.split(',').map { |genre| Genre.find_or_create_by!(name: genre.strip_all_space) }
       tags = genres.map { |genre| Tag.find_or_create_by!(name: genre.name) }
@@ -36,6 +34,9 @@ class GameForm
       @game.update!(title: title.strip_all_space, description: description.strip_all_space, metascore: metascore, release_date: release_date,
                     platform_id: platform.id, genres: genres, steam: steam)
       @game.update!(developers: developers, publishers: publishers)
+
+      # フォームで画像が選択されている場合のみ、画像を更新する。（編集時に元の画像を消さないため）
+      @game.update!(image: image) if image.present?
 
       if @game.steam.present? && steam_data
         @game.update!(steam_image: @steam_image)
