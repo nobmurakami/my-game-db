@@ -28,7 +28,7 @@ RSpec.describe "ゲーム新規登録", type: :system do
       expect(page).to have_content(@game.platform_name)
     end
 
-    it 'Steam以外の全ての項目を入力してゲームの登録に成功すると、ゲーム一覧と詳細ページに入力した内容が表示されている' do
+    it 'Steam以外の全ての項目を入力してゲームを登録すると、ゲーム一覧と詳細ページに入力した内容が表示されている' do
       # サインインする
       sign_in(@user)
 
@@ -76,8 +76,66 @@ RSpec.describe "ゲーム新規登録", type: :system do
   end
 
   context '登録に失敗したとき' do
-    it '' do
+    it 'タイトルを入力しないと登録に失敗する' do
+      # サインインする
+      sign_in(@user)
+
+      # ゲーム新規登録画面に遷移する
+      visit new_game_path
+      expect(current_path).to eq new_game_path
+
+      # タイトル以外の項目を入力する
+      fill_in 'game_form_platform_name', with: @game.platform_name
+      image_path = Rails.root.join('public/images/game_sample.png')
+      attach_file('game_form_image', image_path)
+      fill_in 'game_form_description', with: @game.description
+      fill_in 'game_form_metascore', with: @game.metascore
+      fill_in 'game_form_release_date', with: @game.release_date
+      fill_in 'game_form_genre_names', with: @game.genre_names
+      fill_in 'game_form_developer_names', with: @game.developer_names
+      fill_in 'game_form_publisher_names', with: @game.publisher_names
+
+      # 登録ボタンを押してもDBに保存されない
+      expect {
+        click_on("Create Game")
+      }.not_to change { Game.count }
+
+      # 元のページに戻ってくる
+      expect(current_path).to eq "/games"
       
+      # エラーメッセージが表示されていることを確認
+      expect(page).to have_content("Title can't be blank")
+    end
+
+    it '機種を入力しないと登録に失敗する' do
+      # サインインする
+      sign_in(@user)
+
+      # ゲーム新規登録画面に遷移する
+      visit new_game_path
+      expect(current_path).to eq new_game_path
+
+      # 機種以外の項目を入力する
+      fill_in 'game_form_title', with: @game.title
+      image_path = Rails.root.join('public/images/game_sample.png')
+      attach_file('game_form_image', image_path)
+      fill_in 'game_form_description', with: @game.description
+      fill_in 'game_form_metascore', with: @game.metascore
+      fill_in 'game_form_release_date', with: @game.release_date
+      fill_in 'game_form_genre_names', with: @game.genre_names
+      fill_in 'game_form_developer_names', with: @game.developer_names
+      fill_in 'game_form_publisher_names', with: @game.publisher_names
+
+      # 登録ボタンを押してもDBに保存されないことを確認
+      expect {
+        click_on("Create Game")
+      }.not_to change { Game.count }
+
+      # 元のページに戻ってくることを確認
+      expect(current_path).to eq "/games"
+      
+      # エラーメッセージが表示されていることを確認
+      expect(page).to have_content("Platform name can't be blank")
     end
   end
 
