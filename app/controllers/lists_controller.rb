@@ -17,7 +17,7 @@ class ListsController < ApplicationController
   def destroy
     list = List.find_by(game_id: params[:game_id], user_id: current_user.id)
     list.destroy
-    redirect_to game_path(params[:game_id])
+    redirect_back(fallback_location: root_path)
   end
 
   private
@@ -32,6 +32,6 @@ class ListsController < ApplicationController
     else
       new_list.save
     end
-    redirect_to game_path(params[:game_id])
+    redirect_back(fallback_location: root_path)
   end
 end
