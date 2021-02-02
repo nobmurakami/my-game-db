@@ -73,6 +73,89 @@ RSpec.describe "ゲーム新規登録", type: :system do
       expect(page).to have_content(@game.developer_names)
       expect(page).to have_content(@game.publisher_names)
     end
+
+    it 'ジャンルにスペースだけ入力しても空文字のレコードが作られない' do
+      # サインインする
+      sign_in(@user)
+
+      # ゲーム新規登録画面に遷移する
+      visit new_game_path
+      expect(current_path).to eq new_game_path
+
+      # ジャンルにスペースだけ入力してゲームを登録する
+      fill_in 'game_form_title', with: @game.title
+      fill_in 'game_form_platform_name', with: @game.platform_name
+      fill_in 'game_form_genre_names', with: " 　" #半角スペースと全角スペース
+      expect {
+        click_on("Create Game")
+      }.to change { Game.count }.by(1)
+
+      # genresテーブルのカウントが増えないことを確認
+      expect(Genre.count).to eq 0
+    end
+
+    it 'ジャンルを複数入力する場合にスペースだけの入力があっても空文字のレコードが作られない' do
+      # サインインする
+      sign_in(@user)
+
+      # ゲーム新規登録画面に遷移する
+      visit new_game_path
+      expect(current_path).to eq new_game_path
+
+      # ジャンルにスペースだけ入力してゲームを登録する
+      fill_in 'game_form_title', with: @game.title
+      fill_in 'game_form_platform_name', with: @game.platform_name
+      fill_in 'game_form_genre_names', with: "a, 　 , b"
+      expect {
+        click_on("Create Game")
+      }.to change { Game.count }.by(1)
+
+      # genresテーブルのカウントが2つしか増えないことを確認
+      binding.pry
+      expect(Genre.count).to eq 2
+    end
+
+    it '開発元と発売元にスペースだけ入力しても空文字のレコードが作られない' do
+      # サインインする
+      sign_in(@user)
+
+      # ゲーム新規登録画面に遷移する
+      visit new_game_path
+      expect(current_path).to eq new_game_path
+
+      # 開発元と発売元にスペースだけ入力してゲームを登録する
+      fill_in 'game_form_title', with: @game.title
+      fill_in 'game_form_platform_name', with: @game.platform_name
+      fill_in 'game_form_developer_names', with: " 　" #半角スペースと全角スペース
+      fill_in 'game_form_publisher_names', with: " 　" #半角スペースと全角スペース
+      expect {
+        click_on("Create Game")
+      }.to change { Game.count }.by(1)
+
+      # companiesテーブルのカウントが増えないことを確認
+      expect(Company.count).to eq 0
+    end
+
+    it '開発元と発売元を複数入力する場合にスペースだけの入力があっても空文字のレコードが作られない' do
+      # サインインする
+      sign_in(@user)
+
+      # ゲーム新規登録画面に遷移する
+      visit new_game_path
+      expect(current_path).to eq new_game_path
+
+      # ジャンルにスペースだけ入力してゲームを登録する
+      fill_in 'game_form_title', with: @game.title
+      fill_in 'game_form_platform_name', with: @game.platform_name
+      fill_in 'game_form_developer_names', with: "a, 　 , b"
+      fill_in 'game_form_publisher_names', with: "c, 　 , d"
+      expect {
+        click_on("Create Game")
+      }.to change { Game.count }.by(1)
+
+      # companiesテーブルのカウントが2つしか増えないことを確認
+      expect(Company.count).to eq 4
+    end
   end
 
   context '登録に失敗したとき' do
