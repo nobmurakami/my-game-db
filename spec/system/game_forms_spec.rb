@@ -228,9 +228,12 @@ RSpec.describe "ゲームの更新", type: :system do
       expect(page).to have_content(@game.metascore)
       expect(page).to have_content(@game.release_date)
       expect(page).to have_content(@game.description)
-      expect(page).to have_content("#{@game.genres[0].name}, #{@game.genres[1].name}")
-      expect(page).to have_content("#{@game.developers[0].name}, #{@game.developers[1].name}")
-      expect(page).to have_content("#{@game.publishers[0].name}, #{@game.publishers[1].name}")
+      expect(page).to have_content(@game.genres[0].name)
+      expect(page).to have_content(@game.genres[1].name)
+      expect(page).to have_content(@game.developers[0].name)
+      expect(page).to have_content(@game.developers[1].name)
+      expect(page).to have_content(@game.publishers[0].name)
+      expect(page).to have_content(@game.publishers[1].name)
     end
   end
 
