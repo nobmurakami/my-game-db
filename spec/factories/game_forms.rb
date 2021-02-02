@@ -8,6 +8,6 @@ FactoryBot.define do
     genre_names { "#{Faker::Game.genre}, #{Faker::Game.genre}" }
     developer_names { "#{Faker::Company.name}, #{Faker::Company.name}" } 
     publisher_names { "#{Faker::Company.name}, #{Faker::Company.name}" } 
-    steam { "https://store.steampowered.com/app/489830/The_Elder_Scrolls_V_Skyrim_Special_Edition/" }
+    steam { "https://store.steampowered.com/app/000000/Test/" }
   end
 end
