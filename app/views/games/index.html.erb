@@ -38,7 +38,7 @@
 
         <div class="field">
           <%= f.label :release_date_during_year, 'Year' %>
-          <%= f.date_select :release_date_during_year, start_year: Game.minimum(:release_date).year, end_year: Game.maximum(:release_date).year, discard_day: true, discard_month: true, prompt: 'All' %>
+          <%= f.date_select :release_date_during_year, start_year: 1970, end_year: Date.today.next_year(4).year, discard_day: true, discard_month: true, prompt: 'All' %>
         </div>
 
         <div class="field">
