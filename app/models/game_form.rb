@@ -26,9 +26,9 @@ class GameForm
     
     ActiveRecord::Base.transaction do
       platform = Platform.find_or_create_by!(name: platform_name.strip_all_space)
-      genres = genre_names.strip_all_space.split(',').map { |genre| Genre.find_or_create_by!(name: genre.strip_all_space) }
-      developers = developer_names.strip_all_space.split(',').map { |dev| Company.find_or_create_by!(name: dev.strip_all_space) }
-      publishers = publisher_names.strip_all_space.split(',').map { |pub| Company.find_or_create_by!(name: pub.strip_all_space) }
+      genres = genre_names.split(',').grep(/[^[:space:]]/).map { |genre| Genre.find_or_create_by!(name: genre.strip_all_space) }
+      developers = developer_names.split(',').grep(/[^[:space:]]/).map { |dev| Company.find_or_create_by!(name: dev.strip_all_space) }
+      publishers = publisher_names.split(',').grep(/[^[:space:]]/).map { |pub| Company.find_or_create_by!(name: pub.strip_all_space) }
 
       @game.update!(title: title.strip_all_space, description: description.strip_all_space, metascore: metascore, release_date: release_date,
                     platform_id: platform.id, genres: genres, steam: steam)
