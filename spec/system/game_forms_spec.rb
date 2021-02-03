@@ -230,7 +230,7 @@ RSpec.describe "ゲーム情報の投稿", type: :system do
       @user = FactoryBot.create(:user)
       @tagging_user1 = FactoryBot.create(:user)
       @tagging_user2 = FactoryBot.create(:user)
-      @game = FactoryBot.create(:game)
+      @game = FactoryBot.create(:game, :full_info)
       @tag1 = FactoryBot.create(:tag, name: '1st TAG')
       @tag2 = FactoryBot.create(:tag, name: '2nd TAG')
       @game.taggings.create(tag: @tag1, user: @tagging_user1)
@@ -360,6 +360,87 @@ RSpec.describe "ゲーム情報の投稿", type: :system do
         # 元のページに戻されてエラーメッセージが表示される
         expect(current_path).to eq "/games/#{@game.id}"
         expect(page).to have_content("Platform name can't be blank")
+      end
+    end
+  end
+
+  describe 'ゲーム情報の表示' do
+    context '最低限の情報のみ登録されている場合' do
+      before do
+        @game = FactoryBot.create(:game)
+      end
+
+      it '一覧表示でタイトルと機種が表示されている' do
+        visit root_path
+
+        expect(page).to have_content(@game.title)
+        expect(page).to have_content(@game.platform.name)
+        expect(page).to have_selector("img[src^='/assets/noimage']")
+      end
+
+      it '詳細表示でタイトルと機種だけが表示されている' do
+        visit game_path(@game)
+
+        # タイトル、機種、[NO IMAGE]画像、TBDが表示されていることを確認
+        expect(page).to have_content(@game.title)
+        expect(page).to have_content(@game.platform.name)
+        expect(page).to have_selector("img[src^='/assets/noimage']")
+        expect(page).to have_content('TBD')
+
+        # その他の情報は見出しごと非表示になっていることを確認
+        expect(page).not_to have_content('METASCORE')
+        expect(page).not_to have_content('DEVELOPERS')
+        expect(page).not_to have_content('PUBLISHERS')
+        expect(page).not_to have_content('GENRE')
+        expect(page).not_to have_content('TAGS')
+      end
+    end
+
+    context '全ての情報が登録されている場合' do
+      before do
+        @game = FactoryBot.create(:game, :full_info)
+      end
+
+      it '一覧表示で添付画像、タイトル、機種、メタスコア 、発売日が表示されている' do
+        visit root_path
+        expect(page).to have_content(@game.title)
+        expect(page).to have_content(@game.platform.name)
+        expect(page).to have_selector("img[src$='game_sample.png']")
+        expect(page).to have_content("Metascore: #{@game.metascore}")
+        expect(page).to have_content(@game.release_date)
+      end
+
+      it '詳細表示で全ての情報が表示されている' do
+        visit game_path(@game)
+
+        # 登録されている情報が表示されていることを確認
+        expect(page).to have_content(@game.title)
+        expect(page).to have_content(@game.platform.name)
+        expect(page).to have_selector("img[src$='game_sample.png']")
+        expect(page).to have_content(@game.metascore)
+        expect(page).to have_content(@game.release_date)
+        expect(page).to have_content(@game.description)
+        expect(page).to have_content(@game.genres[0].name)
+        expect(page).to have_content(@game.genres[1].name)
+        expect(page).to have_content(@game.developers[0].name)
+        expect(page).to have_content(@game.developers[1].name)
+        expect(page).to have_content(@game.publishers[0].name)
+        expect(page).to have_content(@game.publishers[1].name)
+      end
+    end
+
+    context 'imageが無くsteam_imageが存在する場合' do
+      before do
+        @game = FactoryBot.create(:game, :full_info)
+        @game.image.purge
+      end
+
+      it '一覧表示と詳細表示にSteamのゲーム画像が表示されている' do
+        visit root_path
+        expect(page).to have_selector("img[src='#{@game.steam_image}']")
+
+        visit game_path(@game)
+        expect(page).to have_selector("img[src='#{@game.steam_image}']")
       end
     end
   end
