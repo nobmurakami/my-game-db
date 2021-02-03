@@ -81,23 +81,26 @@
       <% end %>
 
     <% else %>
-      <div class="ui icon button">
-        <i class="clock icon"></i>
-        <%= " WANT (#{@game.want_users.count})" %>
-      </div>
-      <div class="ui icon button">
-        <i class="gamepad icon"></i>
-        <%= " PLAYING (#{@game.playing_users.count})" %>
-      </div>
-      <div class="ui icon button">
-        <i class="check circle icon"></i>
-        <%= " PLAYED (#{@game.played_users.count})" %>
-      </div>
+      <%= link_to new_user_session_path do %>
+        <div class="ui icon button">
+          <i class="clock icon"></i>
+          <%= " WANT (#{@game.want_users.count})" %>
+        </div>
+      <% end %>
+      <%= link_to new_user_session_path do %>
+        <div class="ui icon button">
+          <i class="gamepad icon"></i>
+          <%= " PLAYING (#{@game.playing_users.count})" %>
+        </div>
+      <% end %>
+      <%= link_to new_user_session_path do %>
+        <div class="ui icon button">
+          <i class="check circle icon"></i>
+          <%= " PLAYED (#{@game.played_users.count})" %>
+        </div>
+      <% end %>
     <% end %>
   </div>
-
-  
-
 
   <p><%= @game.description %></p>
 
@@ -109,43 +112,53 @@
   <% end %>
 
   <h2 class='ui sub header'>
-    Metascore
-  </h2>
-  <span><%= @game.metascore %></span>
-
-  <h2 class='ui sub header'>
     Platform
   </h2>
   <span><%= @game.platform.try(:name) %></span>
 
-  <h2 class='ui sub header'>
-    Developers
-  </h2>
-  <span><%= @game.developers.pluck(:name).join(', ') %></span>
+  <% if @game.metascore.present? %>
+    <h2 class='ui sub header'>
+      Metascore
+    </h2>
+    <span><%= @game.metascore %></span>
+  <% end %>
+  
+  <% if @game.developers.present? %>
+    <h2 class='ui sub header'>
+      Developers
+    </h2>
+    <span><%= @game.developers.pluck(:name).join(', ') %></span>
+  <% end %>
 
-  <h2 class='ui sub header'>
-    Publishers
-  </h2>
-  <span><%= @game.publishers.pluck(:name).join(', ') %></span>
+  <% if @game.publishers.present? %>
+    <h2 class='ui sub header'>
+      Publishers
+    </h2>
+    <span><%= @game.publishers.pluck(:name).join(', ') %></span>
+  <% end %>
 
-  <h2 class='ui sub header'>
-    Genre
-  </h2>
-  <span><%= @game.genres.pluck(:name).join(', ') %></span>
+  <% if @game.genres.present? %>
+    <h2 class='ui sub header'>
+      Genre
+    </h2>
+    <span><%= @game.genres.pluck(:name).join(', ') %></span>
+  <% end %>
 
-  <h2 class='ui sub header'>
-    Tags
-  </h2>
-  <% @tags.each do |tag| %>
-    <span class="ui tag label"><%= "#{tag.name}(#{tag.taggings.where(game_id: @game).count})" %></span>
+  <% if @game.tags.present? %>
+    <h2 class='ui sub header'>
+      Tags
+    </h2>
+    <% @tags.each do |tag| %>
+      <span class="ui tag label"><%= "#{tag.name}(#{tag.taggings.where(game_id: @game).count})" %></span>
+    <% end %>
   <% end %>
 
   <% if user_signed_in? %>
     <div class="ui segment">
-      <h2 class='ui sub header'>
+      <h3 class='ui header'>
         Your Tags
-      </h2>
-      <% Tagging.where(game_id: @game, user_id: current_user).each do |tagging| %>
+      </h3>
+      <% current_user.taggings.where(game_id: @game).each do |tagging| %>
         <%= link_to tagging.tag.name, game_tagging_path(@game, tagging), method: :delete, class: 'ui tag label' %>
       <% end %>
 
@@ -159,6 +172,6 @@
         </div>
         <%= f.submit 'Add', class: "ui button" %>            
       <% end %>
-    <% end %>
-  </div>
+    </div>
+  <% end %>
 </div>
