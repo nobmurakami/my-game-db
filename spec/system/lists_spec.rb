@@ -15,18 +15,13 @@ RSpec.describe "Lists", type: :system do
           visit game_path(@game)
           
           # WANTボタンを押すとlistsテーブルのレコードが増えることを確認
-          expect {
-            click_on('WANT')
-          }.to change { List.count }.by(1)
-          expect(current_path).to eq game_path(@game)
+          check_create_list(@game, 'WANT')
 
           # ユーザーのリストの削除リンクがあることを確認
           expect(page).to have_selector("a[href='/games/#{@game.id}/lists'][data-method='delete']")
 
           # ユーザーのWant to Playリスト一覧表示にゲームが表示されていることを確認
-          visit user_path(@user)
-          click_on('Want to Play')
-          expect(page).to have_content(@game.title)
+          check_game_in_user_list(@game, @user, 'Want to Play')
         end
 
         it 'PLAYINGボタンを押すとユーザーのPLAYINGリストにゲームが追加される' do
@@ -34,18 +29,13 @@ RSpec.describe "Lists", type: :system do
           visit game_path(@game)
           
           # PLAYINGボタンを押すとlistsテーブルのレコードが増えることを確認
-          expect {
-            click_on('PLAYING')
-          }.to change { List.count }.by(1)
-          expect(current_path).to eq game_path(@game)
+          check_create_list(@game, 'PLAYING')
 
           # ユーザーのリストの削除リンクがあることを確認
           expect(page).to have_selector("a[href='/games/#{@game.id}/lists'][data-method='delete']")
 
           # ユーザーのPlayingリスト一覧表示にゲームが表示されていることを確認
-          visit user_path(@user)
-          click_on('Playing')
-          expect(page).to have_content(@game.title)
+          check_game_in_user_list(@game, @user, 'Playing')
         end
 
         it 'PLAYEDボタンを押すとユーザーのPLAYEDリストにゲームが追加される' do
@@ -53,18 +43,13 @@ RSpec.describe "Lists", type: :system do
           visit game_path(@game)
           
           # PLAYEDボタンを押すとlistsテーブルのレコードが増えることを確認
-          expect {
-            click_on('PLAYED')
-          }.to change { List.count }.by(1)
-          expect(current_path).to eq game_path(@game)
+          check_create_list(@game, 'PLAYED')
 
           # ユーザーのリストの削除リンクがあることを確認
           expect(page).to have_selector("a[href='/games/#{@game.id}/lists'][data-method='delete']")
 
           # ユーザーのPlayedリスト一覧表示にゲームが表示されていることを確認
-          visit user_path(@user)
-          click_on('Played')
-          expect(page).to have_content(@game.title)
+          check_game_in_user_list(@game, @user, 'Played')
         end
       end
 
@@ -78,15 +63,10 @@ RSpec.describe "Lists", type: :system do
           visit game_path(@game)
 
           # WANTボタンを押すとlistsテーブルのレコードが減ることを確認
-          expect {
-            click_on('WANT')
-          }.to change { List.count }.by(-1)
-          expect(current_path).to eq game_path(@game)
+          check_delete_list(@game, 'WANT')
 
           # ユーザーのWant to Playリスト一覧表示にゲームが表示されていないことを確認
-          visit user_path(@user)
-          click_on('Want to Play')
-          expect(page).not_to have_content(@game.title)
+          check_game_not_in_user_list(@game, @user, 'Want to Play')
         end
 
         it 'PLAYINGボタンを押すとゲームがユーザーのWANTリストからPLAYINGリストに移動する' do
@@ -94,15 +74,10 @@ RSpec.describe "Lists", type: :system do
           visit game_path(@game)
 
           # PLAYINGボタンを押した時にlistsテーブルのレコード数が変わらないことを確認
-          expect {
-            click_on('PLAYING')
-          }.to change { List.count }.by(0)
-          expect(current_path).to eq game_path(@game)
+          check_move_list(@game, 'PLAYING')
 
           # ユーザーのPlayingリスト一覧表示にゲームが表示されていることを確認
-          visit user_path(@user)
-          click_on('Playing')
-          expect(page).to have_content(@game.title)
+          check_game_in_user_list(@game, @user, 'Playing')
         end
 
         it 'PLAYEDボタンを押すとゲームがユーザーのWANTリストからPLAYEDリストに移動する' do
@@ -110,15 +85,10 @@ RSpec.describe "Lists", type: :system do
           visit game_path(@game)
 
           # PLAYEDボタンを押した時にlistsテーブルのレコード数が変わらないことを確認
-          expect {
-            click_on('PLAYED')
-          }.to change { List.count }.by(0)
-          expect(current_path).to eq game_path(@game)
+          check_move_list(@game, 'PLAYED')
 
           # ユーザーのPlayedリスト一覧表示にゲームが表示されていることを確認
-          visit user_path(@user)
-          click_on('Played')
-          expect(page).to have_content(@game.title)
+          check_game_in_user_list(@game, @user, 'Played')
         end
       end
 
@@ -132,15 +102,10 @@ RSpec.describe "Lists", type: :system do
           visit game_path(@game)
 
           # WANTボタンを押した時にlistsテーブルのレコード数が変わらないことを確認
-          expect {
-            click_on('WANT')
-          }.to change { List.count }.by(0)
-          expect(current_path).to eq game_path(@game)
+          check_move_list(@game, 'WANT')
 
           # ユーザーのWant to Playリスト一覧表示にゲームが表示されていることを確認
-          visit user_path(@user)
-          click_on('Want to Play')
-          expect(page).to have_content(@game.title)
+          check_game_in_user_list(@game, @user, 'Want to Play')
         end
 
         it 'PLAYINGボタンを押すとゲームがユーザーのPLAYINGリストから削除される' do
@@ -148,15 +113,10 @@ RSpec.describe "Lists", type: :system do
           visit game_path(@game)
 
           # PLAYINGボタンを押すとlistsテーブルのレコードが減ることを確認
-          expect {
-            click_on('PLAYING')
-          }.to change { List.count }.by(-1)
-          expect(current_path).to eq game_path(@game)
+          check_delete_list(@game, 'PLAYING')
 
           # ユーザーのPlayingリスト一覧表示にゲームが表示されていないことを確認
-          visit user_path(@user)
-          click_on('Playing')
-          expect(page).not_to have_content(@game.title)
+          check_game_not_in_user_list(@game, @user, 'Playing')
         end
 
         it 'PLAYEDボタンを押すとゲームがユーザーのPLAYINGリストからPLAYEDリストに移動する' do
@@ -164,15 +124,10 @@ RSpec.describe "Lists", type: :system do
           visit game_path(@game)
 
           # PLAYEDボタンを押した時にlistsテーブルのレコード数が変わらないことを確認
-          expect {
-            click_on('PLAYED')
-          }.to change { List.count }.by(0)
-          expect(current_path).to eq game_path(@game)
+          check_move_list(@game, 'PLAYED')
 
           # ユーザーのPlayedリスト一覧表示にゲームが表示されていることを確認
-          visit user_path(@user)
-          click_on('Played')
-          expect(page).to have_content(@game.title)
+          check_game_in_user_list(@game, @user, 'Played')
         end
       end
 
@@ -186,15 +141,10 @@ RSpec.describe "Lists", type: :system do
           visit game_path(@game)
 
           # WANTボタンを押した時にlistsテーブルのレコード数が変わらないことを確認
-          expect {
-            click_on('WANT')
-          }.to change { List.count }.by(0)
-          expect(current_path).to eq game_path(@game)
+          check_move_list(@game, 'WANT')
 
           # ユーザーのWant to Playリスト一覧表示にゲームが表示されていることを確認
-          visit user_path(@user)
-          click_on('Want to Play')
-          expect(page).to have_content(@game.title)
+          check_game_in_user_list(@game, @user, 'Want to Play')
         end
 
         it 'PLAYINGボタンを押すとゲームがユーザーのPLAYEDリストからPLAYINGリストに移動する' do
@@ -202,15 +152,10 @@ RSpec.describe "Lists", type: :system do
           visit game_path(@game)
 
           # PLAYINGボタンを押した時にlistsテーブルのレコード数が変わらないことを確認
-          expect {
-            click_on('PLAYING')
-          }.to change { List.count }.by(0)
-          expect(current_path).to eq game_path(@game)
+          check_move_list(@game, 'PLAYING')
 
           # ユーザーのPlayingリスト一覧表示にゲームが表示されていることを確認
-          visit user_path(@user)
-          click_on('Playing')
-          expect(page).to have_content(@game.title)
+          check_game_in_user_list(@game, @user, 'Playing')
         end
 
         it 'PLAYEDボタンを押すとゲームがユーザーのPLAYEDリストから削除される' do
@@ -218,15 +163,10 @@ RSpec.describe "Lists", type: :system do
           visit game_path(@game)
 
           # PLAYEDボタンを押すとlistsテーブルのレコードが減ることを確認
-          expect {
-            click_on('PLAYED')
-          }.to change { List.count }.by(-1)
-          expect(current_path).to eq game_path(@game)
+          check_delete_list(@game, 'PLAYED')
 
           # ユーザーのPlayedリスト一覧表示にゲームが表示されていないことを確認
-          visit user_path(@user)
-          click_on('Played')
-          expect(page).not_to have_content(@game.title)
+          check_game_not_in_user_list(@game, @user, 'Played')
         end
       end
     end
