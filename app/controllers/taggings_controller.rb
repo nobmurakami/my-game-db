@@ -1,4 +1,6 @@
 class TaggingsController < ApplicationController
+  before_action :authenticate_user!
+  
   def create
     if tag_params[:tag].present?
       tag = Tag.find_or_create_by(name: tag_params[:tag].strip_all_space) 
