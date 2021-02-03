@@ -93,6 +93,21 @@ ActiveRecord::Schema.define(version: 2021_01_29_050051) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "regions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "releases", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "game_id", null: false
+    t.bigint "platform_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["game_id"], name: "index_releases_on_game_id"
+    t.index ["platform_id"], name: "index_releases_on_platform_id"
+  end
+
   create_table "taggings", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "game_id", null: false
     t.bigint "tag_id", null: false
@@ -131,6 +146,8 @@ ActiveRecord::Schema.define(version: 2021_01_29_050051) do
   add_foreign_key "games", "platforms"
   add_foreign_key "lists", "games"
   add_foreign_key "lists", "users"
+  add_foreign_key "releases", "games"
+  add_foreign_key "releases", "platforms"
   add_foreign_key "taggings", "games"
   add_foreign_key "taggings", "tags"
   add_foreign_key "taggings", "users"
