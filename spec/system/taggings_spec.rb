@@ -6,12 +6,7 @@ RSpec.describe "タグ付け機能", type: :system do
     @tagging_user1 = FactoryBot.create(:user)
     @tagging_user2 = FactoryBot.create(:user)
     @tagging_user3 = FactoryBot.create(:user)
-    @game = FactoryBot.build(:game)
-    @game.developer_game_companies[0].game = @game
-    @game.developer_game_companies[1].game = @game
-    @game.publisher_game_companies[0].game = @game
-    @game.publisher_game_companies[1].game = @game
-    @game.save
+    @game = FactoryBot.create(:game)
     @tag1 = FactoryBot.create(:tag, name: '1st TAG')
     @tag2 = FactoryBot.create(:tag, name: '2nd TAG')
     @tag3 = FactoryBot.create(:tag, name: '3rd TAG')
