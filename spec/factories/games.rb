@@ -16,8 +16,6 @@ FactoryBot.define do
       game.developers << FactoryBot.build(:company, name: "2nd DEVELOPER")
       game.publishers << FactoryBot.build(:company)
       game.publishers << FactoryBot.build(:company, name: "2nd PUBLISHER")
-      game.tags << FactoryBot.build(:tag)
-      game.tags << FactoryBot.build(:tag, name: "2nd TAG")
     end
   end
 end
