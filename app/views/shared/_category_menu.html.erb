@@ -1,0 +1,9 @@
+<div class="ui vertical fluid menu">
+  <% categories.each do |item| %>
+    <% if item == category %>
+      <%= link_to item.name, send(link_path, item), class: 'active item' %>
+    <% else %>
+      <%= link_to item.name, send(link_path, item), class: 'item' %>
+    <% end %>
+  <% end %>
+</div>
