@@ -141,7 +141,12 @@
     <h2 class='ui sub header'>
       Genre
     </h2>
-    <span><%= @game.genres.pluck(:name).join(', ') %></span>
+    <% @game.genres.each_with_index do |genre, i| %>
+      <% if i != 0 %>
+        <span>, </span>
+      <% end %>
+      <%= link_to genre.name, genre_path(genre) %>
+    <% end %>
   <% end %>
 
   <% if @game.tags.present? %>
