@@ -65,7 +65,9 @@ class GameForm
   private
 
   def steam_json
-    url = "https://store.steampowered.com/api/appdetails?l=japanese&appids=#{steam_appids}"
+    # url = "https://store.steampowered.com/api/appdetails?l=japanese&appids=#{steam_appids}"
+    # 「l=japanese」をつけるとエラーになる場合があるので一旦無しにする。
+    url = "https://store.steampowered.com/api/appdetails?appids=#{steam_appids}"
     response = OpenURI.open_uri(url)
     ActiveSupport::JSON.decode(response.read)
   end
@@ -74,9 +76,14 @@ class GameForm
     if steam_json.dig(steam_appids, "success") == true
       json = steam_json[steam_appids]["data"] 
       @steam_image = json.dig("header_image")
-      @steam_description = json.dig("short_description")
+      # @steam_description = json.dig("short_description")
       @steam_metascore = json.dig("metacritic", "score")
-      @steam_release_date = Date.strptime(json.dig("release_date", "date"), '%Y年%m月%d日')
+
+      # release_date = json.dig("release_date", "date")
+      # @steam_release_date = Date.strptime(release_date, '%d %b, %Y')
+      # 日本語でjsonを取得した場合は以下を使用
+      # @steam_release_date = Date.strptime(release_date, '%Y年%m月%d日')
+
       @steam_genres = json.dig("genres").map { |genre| Genre.find_or_create_by!(name: genre["description"]) }
       @steam_developers = json.dig("developers").map { |dev| Company.find_or_create_by!(name: dev) }
       @steam_publishers = json.dig("publishers").map { |pub| Company.find_or_create_by!(name: pub) }
