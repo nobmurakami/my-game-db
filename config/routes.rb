@@ -22,4 +22,5 @@ Rails.application.routes.draw do
     end
   end
   resources :genres, only: [:show]
+  resources :platforms, only: [:show]
 end
