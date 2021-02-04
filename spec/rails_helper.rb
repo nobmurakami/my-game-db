@@ -64,4 +64,5 @@ RSpec.configure do |config|
 
   config.include SignInSupport
   config.include ListSupport
+  config.include BasicAuthSupport
 end

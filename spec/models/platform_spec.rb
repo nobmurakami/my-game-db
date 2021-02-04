@@ -18,7 +18,7 @@ RSpec.describe Platform, type: :model do
         @another_platform = FactoryBot.build(:platform)
         @another_platform.name = @platform.name
         @another_platform.valid?
-        expect(@another_platform.errors.full_messages).to include "Name has already been taken"
+        expect(@another_platform.errors.full_messages).to include "機種はすでに存在します"
       end
     end
   end

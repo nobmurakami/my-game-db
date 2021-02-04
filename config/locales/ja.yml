@@ -10,6 +10,14 @@ ja:
        metascore: メタスコア
        release_date: 発売日
        platform: 機種
+     company:
+       name: 会社
+     genre:
+       name: ジャンル
+     platform:
+       name: 機種
+     tag:
+       name: タグ
  activemodel:
    attributes:
      game_form:

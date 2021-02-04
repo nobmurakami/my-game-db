@@ -18,7 +18,7 @@ RSpec.describe Company, type: :model do
         @another_company = FactoryBot.build(:company)
         @another_company.name = @company.name
         @another_company.valid?
-        expect(@another_company.errors.full_messages).to include "Name has already been taken"
+        expect(@another_company.errors.full_messages).to include "会社はすでに存在します"
       end
     end
   end

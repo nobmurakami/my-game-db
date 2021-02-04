@@ -31,7 +31,7 @@
         <span><%= "(#{game.platform.name})" if game.platform.present? %></span>
         <div class="meta">
           <p><%= game.release_date.to_s(:stamp) if game.release_date.present? %></p>
-          <p><%= "メタスコア: #{game.metascore}" if game.metascore.present? %></p>
+          <p><%= "メタスコア：#{game.metascore}" if game.metascore.present? %></p>
         </div>
       </div>
     </div>

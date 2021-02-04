@@ -10,186 +10,201 @@ RSpec.describe "Lists", type: :system do
 
     context 'ユーザーがログインしている場合' do
       context 'ユーザーがゲームをリストに追加していない場合' do
-        it 'WANTボタンを押すとユーザーのWANTリストにゲームが追加される' do
+        it 'プレイ予定ボタンを押すとユーザーのプレイ予定リストにゲームが追加される' do
+          basic_pass root_path
           sign_in(@user)
           visit game_path(@game)
           
-          # WANTボタンを押すとlistsテーブルのレコードが増えることを確認
-          check_create_list(@game, 'WANT')
+          # プレイ予定ボタンを押すとlistsテーブルのレコードが増えることを確認
+          check_create_list(@game, 'プレイ予定')
 
           # ユーザーのリストの削除リンクがあることを確認
           expect(page).to have_selector("a[href='/games/#{@game.id}/lists'][data-method='delete']")
 
-          # ユーザーのWant to Playリスト一覧表示にゲームが表示されていることを確認
-          check_game_in_user_list(@game, @user, 'Want to Play')
+          # ユーザーのプレイ予定リスト一覧表示にゲームが表示されていることを確認
+          check_game_in_user_list(@game, @user, 'プレイ予定')
         end
 
-        it 'PLAYINGボタンを押すとユーザーのPLAYINGリストにゲームが追加される' do
+        it 'プレイ中ボタンを押すとユーザーのプレイ中リストにゲームが追加される' do
+          basic_pass root_path
           sign_in(@user)
           visit game_path(@game)
           
-          # PLAYINGボタンを押すとlistsテーブルのレコードが増えることを確認
-          check_create_list(@game, 'PLAYING')
+          # プレイ中ボタンを押すとlistsテーブルのレコードが増えることを確認
+          check_create_list(@game, 'プレイ中')
 
           # ユーザーのリストの削除リンクがあることを確認
           expect(page).to have_selector("a[href='/games/#{@game.id}/lists'][data-method='delete']")
 
-          # ユーザーのPlayingリスト一覧表示にゲームが表示されていることを確認
-          check_game_in_user_list(@game, @user, 'Playing')
+          # ユーザーのプレイ中リスト一覧表示にゲームが表示されていることを確認
+          check_game_in_user_list(@game, @user, 'プレイ中')
         end
 
-        it 'PLAYEDボタンを押すとユーザーのPLAYEDリストにゲームが追加される' do
+        it 'プレイ済みボタンを押すとユーザーのプレイ済みリストにゲームが追加される' do
+          basic_pass root_path
           sign_in(@user)
           visit game_path(@game)
           
-          # PLAYEDボタンを押すとlistsテーブルのレコードが増えることを確認
-          check_create_list(@game, 'PLAYED')
+          # プレイ済みボタンを押すとlistsテーブルのレコードが増えることを確認
+          check_create_list(@game, 'プレイ済み')
 
           # ユーザーのリストの削除リンクがあることを確認
           expect(page).to have_selector("a[href='/games/#{@game.id}/lists'][data-method='delete']")
 
-          # ユーザーのPlayedリスト一覧表示にゲームが表示されていることを確認
-          check_game_in_user_list(@game, @user, 'Played')
+          # ユーザーのプレイ済みリスト一覧表示にゲームが表示されていることを確認
+          check_game_in_user_list(@game, @user, 'プレイ済み')
         end
       end
 
-      context 'ユーザーがゲームをWANTリストに追加している場合' do
+      context 'ユーザーがゲームをプレイ予定リストに追加している場合' do
         before do
           @user.want_games << @game
         end
 
-        it 'WANTボタンを押すとゲームがユーザーのWANTリストから削除される' do
+        it 'プレイ予定ボタンを押すとゲームがユーザーのプレイ予定リストから削除される' do
+          basic_pass root_path
           sign_in(@user)
           visit game_path(@game)
 
-          # WANTボタンを押すとlistsテーブルのレコードが減ることを確認
-          check_delete_list(@game, 'WANT')
+          # プレイ予定ボタンを押すとlistsテーブルのレコードが減ることを確認
+          check_delete_list(@game, 'プレイ予定')
 
-          # ユーザーのWant to Playリスト一覧表示にゲームが表示されていないことを確認
-          check_game_not_in_user_list(@game, @user, 'Want to Play')
+          # ユーザーのプレイ予定リスト一覧表示にゲームが表示されていないことを確認
+          check_game_not_in_user_list(@game, @user, 'プレイ予定')
         end
 
-        it 'PLAYINGボタンを押すとゲームがユーザーのWANTリストからPLAYINGリストに移動する' do
+        it 'プレイ中ボタンを押すとゲームがユーザーのプレイ予定リストからプレイ中リストに移動する' do
+          basic_pass root_path
           sign_in(@user)
           visit game_path(@game)
 
-          # PLAYINGボタンを押した時にlistsテーブルのレコード数が変わらないことを確認
-          check_move_list(@game, 'PLAYING')
+          # プレイ中ボタンを押した時にlistsテーブルのレコード数が変わらないことを確認
+          check_move_list(@game, 'プレイ中')
 
-          # ユーザーのPlayingリスト一覧表示にゲームが表示されていることを確認
-          check_game_in_user_list(@game, @user, 'Playing')
+          # ユーザーのプレイ中リスト一覧表示にゲームが表示されていることを確認
+          check_game_in_user_list(@game, @user, 'プレイ中')
         end
 
-        it 'PLAYEDボタンを押すとゲームがユーザーのWANTリストからPLAYEDリストに移動する' do
+        it 'プレイ済みボタンを押すとゲームがユーザーのプレイ予定リストからプレイ済みリストに移動する' do
+          basic_pass root_path
           sign_in(@user)
           visit game_path(@game)
 
-          # PLAYEDボタンを押した時にlistsテーブルのレコード数が変わらないことを確認
-          check_move_list(@game, 'PLAYED')
+          # プレイ済みボタンを押した時にlistsテーブルのレコード数が変わらないことを確認
+          check_move_list(@game, 'プレイ済み')
 
-          # ユーザーのPlayedリスト一覧表示にゲームが表示されていることを確認
-          check_game_in_user_list(@game, @user, 'Played')
+          # ユーザーのプレイ済みリスト一覧表示にゲームが表示されていることを確認
+          check_game_in_user_list(@game, @user, 'プレイ済み')
         end
       end
 
-      context 'ユーザーがゲームをPLAYINGリストに追加している場合' do
+      context 'ユーザーがゲームをプレイ中リストに追加している場合' do
         before do
           @user.playing_games << @game
         end
 
-        it 'WANTボタンを押すとゲームがユーザーのPLAYINGリストからWANTリストに移動する' do
+        it 'プレイ予定ボタンを押すとゲームがユーザーのプレイ中リストからプレイ予定リストに移動する' do
+          basic_pass root_path
           sign_in(@user)
           visit game_path(@game)
 
-          # WANTボタンを押した時にlistsテーブルのレコード数が変わらないことを確認
-          check_move_list(@game, 'WANT')
+          # プレイ予定ボタンを押した時にlistsテーブルのレコード数が変わらないことを確認
+          check_move_list(@game, 'プレイ予定')
 
-          # ユーザーのWant to Playリスト一覧表示にゲームが表示されていることを確認
-          check_game_in_user_list(@game, @user, 'Want to Play')
+          # ユーザーのプレイ予定リスト一覧表示にゲームが表示されていることを確認
+          check_game_in_user_list(@game, @user, 'プレイ予定')
         end
 
-        it 'PLAYINGボタンを押すとゲームがユーザーのPLAYINGリストから削除される' do
+        it 'プレイ中ボタンを押すとゲームがユーザーのプレイ中リストから削除される' do
+          basic_pass root_path
           sign_in(@user)
           visit game_path(@game)
 
-          # PLAYINGボタンを押すとlistsテーブルのレコードが減ることを確認
-          check_delete_list(@game, 'PLAYING')
+          # プレイ中ボタンを押すとlistsテーブルのレコードが減ることを確認
+          check_delete_list(@game, 'プレイ中')
 
-          # ユーザーのPlayingリスト一覧表示にゲームが表示されていないことを確認
-          check_game_not_in_user_list(@game, @user, 'Playing')
+          # ユーザーのプレイ中リスト一覧表示にゲームが表示されていないことを確認
+          check_game_not_in_user_list(@game, @user, 'プレイ中')
         end
 
-        it 'PLAYEDボタンを押すとゲームがユーザーのPLAYINGリストからPLAYEDリストに移動する' do
+        it 'プレイ済みボタンを押すとゲームがユーザーのプレイ中リストからプレイ済みリストに移動する' do
+          basic_pass root_path
           sign_in(@user)
           visit game_path(@game)
 
-          # PLAYEDボタンを押した時にlistsテーブルのレコード数が変わらないことを確認
-          check_move_list(@game, 'PLAYED')
+          # プレイ済みボタンを押した時にlistsテーブルのレコード数が変わらないことを確認
+          check_move_list(@game, 'プレイ済み')
 
-          # ユーザーのPlayedリスト一覧表示にゲームが表示されていることを確認
-          check_game_in_user_list(@game, @user, 'Played')
+          # ユーザーのプレイ済みリスト一覧表示にゲームが表示されていることを確認
+          check_game_in_user_list(@game, @user, 'プレイ済み')
         end
       end
 
-      context 'ユーザーがゲームをPLAYEDリストに追加している場合' do
+      context 'ユーザーがゲームをプレイ済みリストに追加している場合' do
         before do
           @user.played_games << @game
         end
 
-        it 'WANTボタンを押すとゲームがユーザーのPLAYEDリストからWANTリストに移動する' do
+        it 'プレイ予定ボタンを押すとゲームがユーザーのプレイ済みリストからプレイ予定リストに移動する' do
+          basic_pass root_path
           sign_in(@user)
           visit game_path(@game)
 
-          # WANTボタンを押した時にlistsテーブルのレコード数が変わらないことを確認
-          check_move_list(@game, 'WANT')
+          # プレイ予定ボタンを押した時にlistsテーブルのレコード数が変わらないことを確認
+          check_move_list(@game, 'プレイ予定')
 
-          # ユーザーのWant to Playリスト一覧表示にゲームが表示されていることを確認
-          check_game_in_user_list(@game, @user, 'Want to Play')
+          # ユーザーのプレイ予定リスト一覧表示にゲームが表示されていることを確認
+          check_game_in_user_list(@game, @user, 'プレイ予定')
         end
 
-        it 'PLAYINGボタンを押すとゲームがユーザーのPLAYEDリストからPLAYINGリストに移動する' do
+        it 'プレイ中ボタンを押すとゲームがユーザーのプレイ済みリストからプレイ中リストに移動する' do
+          basic_pass root_path
           sign_in(@user)
           visit game_path(@game)
 
-          # PLAYINGボタンを押した時にlistsテーブルのレコード数が変わらないことを確認
-          check_move_list(@game, 'PLAYING')
+          # プレイ中ボタンを押した時にlistsテーブルのレコード数が変わらないことを確認
+          check_move_list(@game, 'プレイ中')
 
-          # ユーザーのPlayingリスト一覧表示にゲームが表示されていることを確認
-          check_game_in_user_list(@game, @user, 'Playing')
+          # ユーザーのプレイ中リスト一覧表示にゲームが表示されていることを確認
+          check_game_in_user_list(@game, @user, 'プレイ中')
         end
 
-        it 'PLAYEDボタンを押すとゲームがユーザーのPLAYEDリストから削除される' do
+        it 'プレイ済みボタンを押すとゲームがユーザーのプレイ済みリストから削除される' do
+          basic_pass root_path
           sign_in(@user)
           visit game_path(@game)
 
-          # PLAYEDボタンを押すとlistsテーブルのレコードが減ることを確認
-          check_delete_list(@game, 'PLAYED')
+          # プレイ済みボタンを押すとlistsテーブルのレコードが減ることを確認
+          check_delete_list(@game, 'プレイ済み')
 
-          # ユーザーのPlayedリスト一覧表示にゲームが表示されていないことを確認
-          check_game_not_in_user_list(@game, @user, 'Played')
+          # ユーザーのプレイ済みリスト一覧表示にゲームが表示されていないことを確認
+          check_game_not_in_user_list(@game, @user, 'プレイ済み')
         end
       end
     end
 
     context 'ユーザーがログインしていない場合' do
-      it 'WANTボタンを押すとログイン画面に遷移する'do
+      it 'プレイ予定ボタンを押すとログイン画面に遷移する'do
+        basic_pass root_path
         visit game_path(@game)
 
-        click_on('WANT')
+        click_on('プレイ予定')
         expect(current_path).to eq new_user_session_path
       end
 
-      it 'PLAYINGボタンを押すとログイン画面に遷移する'do
+      it 'プレイ中ボタンを押すとログイン画面に遷移する'do
+        basic_pass root_path
         visit game_path(@game)
 
-        click_on('PLAYING')
+        click_on('プレイ中')
         expect(current_path).to eq new_user_session_path
       end
 
-      it 'PLAYEDボタンを押すとログイン画面に遷移する'do
+      it 'プレイ済みボタンを押すとログイン画面に遷移する'do
+        basic_pass root_path
         visit game_path(@game)
 
-        click_on('PLAYED')
+        click_on('プレイ済み')
         expect(current_path).to eq new_user_session_path
       end
     end
