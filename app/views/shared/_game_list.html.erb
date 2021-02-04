@@ -1,16 +1,16 @@
 <h2 class="ui header"><%= menu_title %></h2>
 
 <div class="ui menu">
-  <div class="borderless header item">Sorting</div>
+  <div class="borderless header item">並び替え</div>
   <div class="right menu">
     <div class="item">
-      <%= sort_link(q, :metascore, "Metascore") %>
+      <%= sort_link(q, :metascore, "メタスコア") %>
     </div>
     <div class="ui item">
-      <%= sort_link(q, :title, "Title") %>
+      <%= sort_link(q, :title, "タイトル") %>
     </div>
     <div class="ui item">
-      <%= sort_link(q, :release_date, "Release Date") %>
+      <%= sort_link(q, :release_date, "発売日") %>
     </div>
   </div>
 </div>
@@ -30,8 +30,8 @@
         <%= link_to game.title, game_path(game), class: "header" %>
         <span><%= "(#{game.platform.name})" if game.platform.present? %></span>
         <div class="meta">
-          <p><%= game.release_date if game.release_date.present? %></p>
-          <p><%= "Metascore: #{game.metascore}" if game.metascore.present? %></p>
+          <p><%= game.release_date.to_s(:stamp) if game.release_date.present? %></p>
+          <p><%= "メタスコア: #{game.metascore}" if game.metascore.present? %></p>
         </div>
       </div>
     </div>

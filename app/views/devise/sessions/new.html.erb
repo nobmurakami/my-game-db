@@ -1,7 +1,7 @@
 <%= render "shared/header" %>
 
 <div class="ui main text container">
-  <h1 class="ui header">Log In</h1>
+  <h1 class="ui header">ログイン</h1>
 
   <%= form_with model: @user, url: user_session_path, local: true, class: "ui form error" do |f| %>
     <%= render 'shared/error_messages', model: f.object %>
@@ -25,7 +25,7 @@
       </div>
     <% end %>
 
-    <%= f.submit "Log In", class: "ui right floated button"%>
+    <%= f.submit "ログイン", class: "ui right floated primary button"%>
 
   <% end %>
 
