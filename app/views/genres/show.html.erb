@@ -1,0 +1,19 @@
+<%= render 'shared/header' %>
+
+<div class='ui main container'>
+  <h1 class="ui header">ジャンル別ゲーム一覧</h1>
+  <div class="ui divider"></div>
+
+  <div class="ui two column grid">
+    <div class="four wide column">
+    
+      <%= render 'shared/category_menu', { categories: @genres, category: @genre, link_path: "genre_path" } %>
+
+    </div>
+    <div class="twelve wide column">
+
+      <%= render 'shared/game_list', { games: @games, q: @q, menu_title: @genre.name } %>
+
+    </div>
+  </div>
+</div>

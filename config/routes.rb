@@ -21,5 +21,8 @@ Rails.application.routes.draw do
       get 'played'
     end
   end
-
+  resources :genres, only: [:show]
+  resources :platforms, only: [:show]
+  resources :tags, only: [:show]
+  resources :companies, only: [:show]
 end
