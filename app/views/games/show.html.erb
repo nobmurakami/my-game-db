@@ -153,15 +153,22 @@
     <h2 class='ui sub header'>
       Tags
     </h2>
-    <% @tags.each do |tag| %>
-      <span class="ui tag label"><%= "#{tag.name}(#{tag.taggings.where(game_id: @game).count})" %></span>
+    <% @tags.each_with_index do |tag, i| %>
+      <% if i != 0 %>
+        <span>, </span>
+      <% end %>
+      <%= link_to "#{tag.name}(#{tag.taggings.where(game_id: @game).count})", tag_path(tag) %>
     <% end %>
   <% end %>
 
   <% if user_signed_in? %>
     <div class="ui segment">
-      <h3 class='ui header'>
-        Your Tags
+      <h3 class="ui header">
+        <i class="tags icon"></i>
+        <div class="content">
+          自分のタグ
+          <div class="sub header">クリックで削除</div>
+        </div>
       </h3>
       <% current_user.taggings.where(game_id: @game).each do |tagging| %>
         <%= link_to tagging.tag.name, game_tagging_path(@game, tagging), method: :delete, class: 'ui tag label' %>
@@ -169,13 +176,13 @@
 
       <%= form_with model: @your_tag, url: game_taggings_path(@game), local: true do |f| %>
         <h2 class='ui sub header'>
-          <%= f.label :tag, 'Add Your Tag' %>
+          <%= f.label :tag, '新しいタグを入力' %>
         </h2>
         <div class="ui left icon input">
           <i class="tags icon"></i>
-          <%= f.text_field :tag, placeholder: 'Enter Tag' %>
+          <%= f.text_field :tag, placeholder: 'タグを入力' %>
         </div>
-        <%= f.submit 'Add', class: "ui button" %>            
+        <%= f.submit '追加', class: "ui button" %>            
       <% end %>
     </div>
   <% end %>
