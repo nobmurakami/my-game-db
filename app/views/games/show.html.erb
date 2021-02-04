@@ -114,7 +114,7 @@
   <h2 class='ui sub header'>
     Platform
   </h2>
-  <span><%= @game.platform.try(:name) %></span>
+  <%= link_to @game.platform.name, platform_path(@game.platform) %>
 
   <% if @game.metascore.present? %>
     <h2 class='ui sub header'>
