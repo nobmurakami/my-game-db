@@ -5,7 +5,7 @@
       <% if user_signed_in? %>
         <div class="item">
           <i class="plus circle icon"></i>
-          <%= link_to 'Add Game', new_game_path %>
+          <%= link_to 'ゲームを追加', new_game_path %>
         </div>
         <div class="ui dropdown item">
           <div class="header">
@@ -14,17 +14,17 @@
           </div>
           <div class="menu">
             <%= link_to user_path(current_user), class: 'item' do %>
-              <small>My Page</small>
+              <small>マイページ</small>
             <% end %>
             <%= link_to destroy_user_session_path, method: :delete, class: 'item' do %>
-              <small>Log Out</small>
+              <small>ログアウト</small>
             <% end %>
           </div>
         </div>
         
       <% else %>
-        <%= link_to 'SIGN UP', new_user_registration_path, class: "ui item" %>
-        <%= link_to 'LOG IN', new_user_session_path, class: "ui item" %>
+        <%= link_to '新規登録', new_user_registration_path, class: "ui item" %>
+        <%= link_to 'ログイン', new_user_session_path, class: "ui item" %>
       <% end %>
      
       

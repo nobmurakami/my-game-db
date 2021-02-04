@@ -1,49 +1,49 @@
 <%= form_with model: form, url: path, method: method, local: true, class: "ui form error" do |f| %>
   <%= render 'shared/error_messages', model: f.object %>
   <div class="field">
-    <%= f.label :title, 'Title:' %>
+    <%= f.label :title, 'タイトル：' %>
     <%= f.text_field :title %>
   </div>
   <div class="field">
-    <%= f.label :image, 'Game cover:' %>
+    <%= f.label :image, '画像：' %>
     <%= f.file_field :image %>
   </div>
   <div class="field">
-    <%= f.label :description, 'Description:' %>
+    <%= f.label :description, '説明文：' %>
     <%= f.text_area :description, rows: 10 %>
   </div>
   <div class='ui three fields'>
     <div class="field">
-      <%= f.label :metascore, 'Metascore:' %>
+      <%= f.label :metascore, 'メタスコア：' %>
       <%= f.text_field :metascore %>
     </div>
     <div class="field">
-      <%= f.label :platform_name, 'Platform:' %>
+      <%= f.label :platform_name, '機種：' %>
       <%= f.text_field :platform_name %>
     </div>
     <div class="field">
-      <%= f.label :release_date, 'Release Date:' %>
+      <%= f.label :release_date, '発売日：' %>
       <%= f.date_field :release_date, min: '1970-01-01', max: Date.today.next_year(4) %>
     </div>
   </div>
   <div class="field">
-    <%= f.label :genre_names, 'Genres:' %>
+    <%= f.label :genre_names, 'ジャンル：' %>
     <%= f.text_field :genre_names %>
   </div>
   <div class='ui two fields'>
     <div class="field">
-      <%= f.label :developer_names, 'Developers:' %>
+      <%= f.label :developer_names, '開発元：' %>
       <%= f.text_field :developer_names %>
     </div>
     <div class="field">
-      <%= f.label :publisher_names, 'Publishers:' %>
+      <%= f.label :publisher_names, 'パブリッシャー：' %>
       <%= f.text_field :publisher_names %>
     </div>
   </div>
   <div class="field">
-    <%= f.label :steam, 'Steam:' %>
+    <%= f.label :steam, 'Steam：' %>
     <%= f.text_field :steam, placeholder: 'Steam store URL' %>
   </div>
 
-  <%= f.submit submit_text, class: "ui right floated button" %>
+  <%= f.submit submit_text, class: "ui right floated primary button" %>
 <% end %>

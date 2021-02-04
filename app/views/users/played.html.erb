@@ -1,7 +1,7 @@
 <%= render 'shared/header' %>
 
 <div class='ui main container'>
-  <h1 class="ui header"><%= "#{@user.name}'s List" %></h1>
+  <h1 class="ui header"><%= "#{@user.name}さんのリスト" %></h1>
   <div class="ui divider"></div>
 
   <div class="ui two column grid">
@@ -12,7 +12,7 @@
     </div>
     <div class="twelve wide column">
 
-      <%= render 'shared/game_list', { games: @games, q: @q, menu_title: 'Played' } %>
+      <%= render 'shared/game_list', { games: @games, q: @q, menu_title: 'プレイ済み' } %>
 
     </div>
   </div>

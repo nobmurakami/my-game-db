@@ -2,18 +2,16 @@
 
 <div class='ui main text container'>
   <% if user_signed_in? %>
-    <div class='ui right floated secondary menu'>
-      <div class='right menu'>
-        <%= link_to 'Edit', edit_game_path, class: 'item' %>
-        <%= link_to 'Delete Game', game_path(@game), method: :delete, data: { confirm: 'Are you sure?' }, class:'item' %>
-      </div>
+    <div class='ui right floated menu'>
+      <%= link_to '編集', edit_game_path, class: 'item' %>
+      <%= link_to '削除', game_path(@game), method: :delete, data: { confirm: '本当によろしいですか？' }, class:'item' %>
     </div>
   <% end %>
 
   <h1 class='banner-title'><%= @game.title %></h1>
   <h2 class='ui header'>
     <% if @game.release_date.present? %>
-      <span><%= @game.release_date %></span>
+      <span><%= @game.release_date.to_s(:stamp) %></span>
     <% else %>
       <span>TBD</span>
     <% end %>
@@ -22,7 +20,7 @@
   <% if @game.image.attached? %>
     <%= image_tag @game.image, class: 'ui centered medium image'  %>
     <div class="ui center aligned basic segment">
-      <%= link_to 'Delete Game Cover', delete_image_attachment_game_path(@game), method: :delete, data: { confirm: 'Are you sure?' } %>
+      <%= link_to '画像を削除する', delete_image_attachment_game_path(@game), method: :delete, data: { confirm: '本当によろしいですか？' } %>
     </div>
   <% elsif @game.steam_image.present? %>
     <%= image_tag @game.steam_image, class: 'ui centered medium image' %>
@@ -36,14 +34,14 @@
         <%= link_to game_lists_path(@game), method: :delete do %>
           <div class="ui red icon button">
             <i class="clock icon"></i>
-            <%= " WANT (#{@game.want_users.count})" %>
+            <%= " プレイ予定 (#{@game.プレイ予定_users.count})" %>
           </div>
         <% end %>
       <% else %>
         <%= link_to want_game_lists_path(@game), method: :post do %>
           <div class="ui icon button">
             <i class="clock icon"></i>
-            <%= " WANT (#{@game.want_users.count})" %>
+            <%= " プレイ予定 (#{@game.want_users.count})" %>
           </div>
         <% end %>
       <% end %>
@@ -52,14 +50,14 @@
         <%= link_to game_lists_path(@game), method: :delete do %>
           <div class="ui red icon button">
             <i class="gamepad icon"></i>
-            <%= " PLAYING (#{@game.playing_users.count})" %>
+            <%= " プレイ中 (#{@game.playing_users.count})" %>
           </div>
         <% end %>
       <% else %>
         <%= link_to playing_game_lists_path(@game), method: :post do %>
           <div class="ui icon button">
             <i class="gamepad icon"></i>
-            <%= " PLAYING (#{@game.playing_users.count})" %>
+            <%= " プレイ中 (#{@game.playing_users.count})" %>
           </div>
         <% end %>
       <% end %>
@@ -68,7 +66,7 @@
         <%= link_to game_lists_path(@game), method: :delete do %>
           <div class="ui red icon button">
             <i class="check circle icon"></i>
-            <%= " PLAYED (#{@game.played_users.count})" %>
+            <%= " プレイ済み (#{@game.played_users.count})" %>
           </div>
         <% end %>
       <% else %>
@@ -84,13 +82,13 @@
       <%= link_to new_user_session_path do %>
         <div class="ui icon button">
           <i class="clock icon"></i>
-          <%= " WANT (#{@game.want_users.count})" %>
+          <%= " プレイ予定 (#{@game.want_users.count})" %>
         </div>
       <% end %>
       <%= link_to new_user_session_path do %>
         <div class="ui icon button">
           <i class="gamepad icon"></i>
-          <%= " PLAYING (#{@game.playing_users.count})" %>
+          <%= " プレイ中 (#{@game.playing_users.count})" %>
         </div>
       <% end %>
       <%= link_to new_user_session_path do %>
@@ -112,20 +110,20 @@
   <% end %>
 
   <h2 class='ui sub header'>
-    Platform
+    機種
   </h2>
   <%= link_to @game.platform.name, platform_path(@game.platform) %>
 
   <% if @game.metascore.present? %>
     <h2 class='ui sub header'>
-      Metascore
+      メタスコア
     </h2>
     <span><%= @game.metascore %></span>
   <% end %>
   
   <% if @game.developers.present? %>
     <h2 class='ui sub header'>
-      Developers
+      開発元
     </h2>
     <% @game.developers.each_with_index do |developer, i| %>
       <% if i != 0 %>
@@ -137,7 +135,7 @@
 
   <% if @game.publishers.present? %>
     <h2 class='ui sub header'>
-      Publishers
+      パブリッシャー
     </h2>
     <% @game.publishers.each_with_index do |publisher, i| %>
       <% if i != 0 %>
@@ -149,7 +147,7 @@
 
   <% if @game.genres.present? %>
     <h2 class='ui sub header'>
-      Genre
+      ジャンル
     </h2>
     <% @game.genres.each_with_index do |genre, i| %>
       <% if i != 0 %>
@@ -161,7 +159,7 @@
 
   <% if @game.tags.present? %>
     <h2 class='ui sub header'>
-      Tags
+      タグ
     </h2>
     <% @tags.each_with_index do |tag, i| %>
       <% if i != 0 %>

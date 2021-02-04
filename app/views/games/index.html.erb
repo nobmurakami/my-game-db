@@ -1,7 +1,7 @@
 <%= render "shared/header" %>
 
 <div class="ui main container">
-  <h1 class="ui header">Search</h1>
+  <h1 class="ui header">詳細検索</h1>
 
   <div class="ui divider"></div>
 
@@ -10,24 +10,25 @@
 
       <%= search_form_for @q, class: "ui form" do |f| %>
         <div class="field">
-          <%= f.label :title_or_description, 'Title or Description' %>
+          <%= f.label :title_or_description, 'タイトルまたは説明' %>
           <div class="ui input">
-            <%= f.search_field :title_or_description_cont, placeholder: "Search" %>
+            <%= f.search_field :title_or_description_cont, placeholder: "検索" %>
+          </div>
+        </div>
+
+        <div class="two fields">
+          <div class="field">
+            <%= f.label :metascore_gteq, 'メタスコアの下限' %>
+            <%= f.text_field :metascore_gteq, placeholder:"1" %>
+          </div>
+          <div class="field">
+            <%= f.label :metascore_lteq, 'メタスコアの上限' %>
+            <%= f.text_field :metascore_lteq, placeholder:"100" %>
           </div>
         </div>
 
         <div class="field">
-          <%= f.label :metascore_gteq, 'Minimum Metascore' %>
-          <%= f.text_field :metascore_gteq, placeholder:"1" %>
-        </div>
-
-        <div class="field">
-          <%= f.label :metascore_lteq, 'Maximum Metascore' %>
-          <%= f.text_field :metascore_lteq, placeholder:"100" %>
-        </div>
-
-        <div class="field">
-          <%= f.label :platform_name_cont, 'Platform' %>
+          <%= f.label :platform_name_cont, '機種' %>
           <div class="ui input">
             <%= f.text_field :platform_name_cont, list: 'platform' %>
             <datalist id="platform">
@@ -37,12 +38,12 @@
         </div>
 
         <div class="field">
-          <%= f.label :release_date_during_year, 'Year' %>
+          <%= f.label :release_date_during_year, '発売した年' %>
           <%= f.date_select :release_date_during_year, start_year: 1970, end_year: Date.today.next_year(4).year, discard_day: true, discard_month: true, prompt: 'All' %>
         </div>
 
         <div class="field">
-          <%= f.label :genres_name_cont, 'Genres' %>
+          <%= f.label :genres_name_cont, 'ジャンル' %>
           <div class="ui input">
             <%= f.text_field :genres_name_cont, list: 'genre' %>
             <datalist id="genre">
@@ -52,7 +53,7 @@
         </div>
 
         <div class="field">
-          <%= f.label :tags_name_cont, 'Tags' %>
+          <%= f.label :tags_name_cont, 'タグ' %>
           <div class="ui input">
             <%= f.text_field :tags_name_cont, list: 'tag' %>
             <datalist id="tag">
@@ -62,7 +63,7 @@
         </div>
 
         <div class="field">
-          <%= f.label :companies_name_cont, 'Companies' %>
+          <%= f.label :companies_name_cont, '会社' %>
           <div class="ui input">
             <%= f.text_field :companies_name_cont, list: 'company' %>
             <datalist id="company">
@@ -71,14 +72,14 @@
           </div>
         </div>
 
-        <%= link_to "All Reset", request.path, class: 'ui button' %>
-        <%= f.submit 'Submit', class: 'ui button' %>
+        <%= link_to "すべてクリア", request.path, class: 'ui secondary button' %>
+        <%= f.submit '検索', class: 'ui primary button' %>
       <% end %>
 
     </div>
     <div class="twelve wide column">
 
-      <%= render 'shared/game_list', { games: @games, q: @q, menu_title: 'Sorting' } %>
+      <%= render 'shared/game_list', { games: @games, q: @q, menu_title: '検索結果' } %>
 
     </div>
 
