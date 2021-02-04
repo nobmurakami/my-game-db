@@ -3,7 +3,7 @@ class GenresController < ApplicationController
     @genre = Genre.find(params[:id])
     @q = @genre.games.ransack(params[:q])
     @q.sorts = 'metascore DESC' if @q.sorts.empty?
-    @games = @q.result.page(params[:page]).per(10).order('created_at DESC')
+    @games = @q.result(distinct: true).page(params[:page]).per(10).order('created_at DESC')
     @genres = Genre.joins(:game_genres).group(:genre_id).order('count(game_id) desc').limit(20)
   end
 end
