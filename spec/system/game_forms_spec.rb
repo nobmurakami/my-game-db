@@ -10,6 +10,7 @@ RSpec.describe "ゲーム情報の投稿", type: :system do
     
     context '登録に成功したとき' do
       it 'ゲームの登録に成功すると、ゲーム一覧に遷移して、登録したゲームが表示されている' do
+        basic_pass root_path
         # サインインする
         sign_in(@user)
 
@@ -21,7 +22,7 @@ RSpec.describe "ゲーム情報の投稿", type: :system do
         fill_in 'game_form_title', with: @game.title
         fill_in 'game_form_platform_name', with: @game.platform_name
         expect {
-          click_on("Create Game")
+          click_on("登録")
         }.to change { Game.count }.by(1)
         expect(current_path).to eq root_path
 
@@ -31,6 +32,7 @@ RSpec.describe "ゲーム情報の投稿", type: :system do
       end
 
       it 'Steam以外の全ての項目を入力してゲームを登録すると、ゲーム一覧と詳細ページに入力した内容が表示されている' do
+        basic_pass root_path
         # サインインする
         sign_in(@user)
 
@@ -45,13 +47,13 @@ RSpec.describe "ゲーム情報の投稿", type: :system do
         attach_file('game_form_image', image_path)
         fill_in 'game_form_description', with: @game.description
         fill_in 'game_form_metascore', with: @game.metascore
-        fill_in 'game_form_release_date', with: @game.release_date
+        fill_in 'game_form_release_date', with: @game.release_date.to_s(:stamp)
         fill_in 'game_form_genre_names', with: @game.genre_names
         fill_in 'game_form_developer_names', with: @game.developer_names
         fill_in 'game_form_publisher_names', with: @game.publisher_names
 
         expect {
-          click_on("Create Game")
+          click_on("登録")
         }.to change { Game.count }.by(1)
         expect(current_path).to eq root_path
 
@@ -59,8 +61,8 @@ RSpec.describe "ゲーム情報の投稿", type: :system do
         expect(page).to have_content(@game.title)
         expect(page).to have_content(@game.platform_name)
         expect(page).to have_selector("img[src$='game_sample.png']")
-        expect(page).to have_content("Metascore: #{@game.metascore}")
-        expect(page).to have_content(@game.release_date)
+        expect(page).to have_content("メタスコア：#{@game.metascore}")
+        expect(page).to have_content(@game.release_date.to_s(:stamp))
 
         # ゲーム詳細ページに入力した内容が表示されている
         click_on(@game.title)
@@ -69,14 +71,18 @@ RSpec.describe "ゲーム情報の投稿", type: :system do
         expect(page).to have_content(@game.platform_name)
         expect(page).to have_selector("img[src$='game_sample.png']")
         expect(page).to have_content(@game.metascore)
-        expect(page).to have_content(@game.release_date)
+        expect(page).to have_content(@game.release_date.to_s(:stamp))
         expect(page).to have_content(@game.description)
-        expect(page).to have_content(@game.genre_names)
-        expect(page).to have_content(@game.developer_names)
-        expect(page).to have_content(@game.publisher_names)
+        expect(page).to have_content(@game.genre_names.split(', ')[0])
+        expect(page).to have_content(@game.genre_names.split(', ')[1])
+        expect(page).to have_content(@game.developer_names.split(', ')[0])
+        expect(page).to have_content(@game.developer_names.split(', ')[1])
+        expect(page).to have_content(@game.publisher_names.split(', ')[0])
+        expect(page).to have_content(@game.publisher_names.split(', ')[1])
       end
 
       it 'ジャンルにスペースだけ入力しても空文字のレコードが作られない' do
+        basic_pass root_path
         # サインインする
         sign_in(@user)
 
@@ -89,7 +95,7 @@ RSpec.describe "ゲーム情報の投稿", type: :system do
         fill_in 'game_form_platform_name', with: @game.platform_name
         fill_in 'game_form_genre_names', with: " 　" #半角スペースと全角スペース
         expect {
-          click_on("Create Game")
+          click_on("登録")
         }.to change { Game.count }.by(1)
 
         # genresテーブルのカウントが増えないことを確認
@@ -97,6 +103,7 @@ RSpec.describe "ゲーム情報の投稿", type: :system do
       end
 
       it 'ジャンルを複数入力する場合にスペースだけの入力があっても空文字のレコードが作られない' do
+        basic_pass root_path
         # サインインする
         sign_in(@user)
 
@@ -109,7 +116,7 @@ RSpec.describe "ゲーム情報の投稿", type: :system do
         fill_in 'game_form_platform_name', with: @game.platform_name
         fill_in 'game_form_genre_names', with: ", ,　,a, 　 , b,,,"
         expect {
-          click_on("Create Game")
+          click_on("登録")
         }.to change { Game.count }.by(1)
 
         # genresテーブルのカウントが、空以外の要素分しか増えないことを確認
@@ -117,6 +124,7 @@ RSpec.describe "ゲーム情報の投稿", type: :system do
       end
 
       it '開発元と発売元にスペースだけ入力しても空文字のレコードが作られない' do
+        basic_pass root_path
         # サインインする
         sign_in(@user)
 
@@ -130,7 +138,7 @@ RSpec.describe "ゲーム情報の投稿", type: :system do
         fill_in 'game_form_developer_names', with: " 　" #半角スペースと全角スペース
         fill_in 'game_form_publisher_names', with: " 　" #半角スペースと全角スペース
         expect {
-          click_on("Create Game")
+          click_on("登録")
         }.to change { Game.count }.by(1)
 
         # companiesテーブルのカウントが増えないことを確認
@@ -138,6 +146,7 @@ RSpec.describe "ゲーム情報の投稿", type: :system do
       end
 
       it '開発元と発売元を複数入力する場合にスペースだけの入力があっても空文字のレコードが作られない' do
+        basic_pass root_path
         # サインインする
         sign_in(@user)
 
@@ -151,7 +160,7 @@ RSpec.describe "ゲーム情報の投稿", type: :system do
         fill_in 'game_form_developer_names', with: ", ,　,a, 　 , b,,,"
         fill_in 'game_form_publisher_names', with: ", ,　,c, 　 , d,,,"
         expect {
-          click_on("Create Game")
+          click_on("登録")
         }.to change { Game.count }.by(1)
 
         # companiesテーブルのカウントが空以外の要素分しか増えないことを確認
@@ -161,6 +170,7 @@ RSpec.describe "ゲーム情報の投稿", type: :system do
 
     context '登録に失敗したとき' do
       it 'タイトルを入力しないと登録に失敗する' do
+        basic_pass root_path
         # サインインする
         sign_in(@user)
 
@@ -174,24 +184,25 @@ RSpec.describe "ゲーム情報の投稿", type: :system do
         attach_file('game_form_image', image_path)
         fill_in 'game_form_description', with: @game.description
         fill_in 'game_form_metascore', with: @game.metascore
-        fill_in 'game_form_release_date', with: @game.release_date
+        fill_in 'game_form_release_date', with: @game.release_date.to_s(:stamp)
         fill_in 'game_form_genre_names', with: @game.genre_names
         fill_in 'game_form_developer_names', with: @game.developer_names
         fill_in 'game_form_publisher_names', with: @game.publisher_names
 
         # 登録ボタンを押してもDBに保存されない
         expect {
-          click_on("Create Game")
+          click_on("登録")
         }.not_to change { Game.count }
 
         # 元のページに戻ってくる
         expect(current_path).to eq "/games"
         
         # エラーメッセージが表示されていることを確認
-        expect(page).to have_content("Title can't be blank")
+        expect(page).to have_content("タイトルを入力してください")
       end
 
       it '機種を入力しないと登録に失敗する' do
+        basic_pass root_path
         # サインインする
         sign_in(@user)
 
@@ -205,21 +216,21 @@ RSpec.describe "ゲーム情報の投稿", type: :system do
         attach_file('game_form_image', image_path)
         fill_in 'game_form_description', with: @game.description
         fill_in 'game_form_metascore', with: @game.metascore
-        fill_in 'game_form_release_date', with: @game.release_date
+        fill_in 'game_form_release_date', with: @game.release_date.to_s(:stamp)
         fill_in 'game_form_genre_names', with: @game.genre_names
         fill_in 'game_form_developer_names', with: @game.developer_names
         fill_in 'game_form_publisher_names', with: @game.publisher_names
 
         # 登録ボタンを押してもDBに保存されないことを確認
         expect {
-          click_on("Create Game")
+          click_on("登録")
         }.not_to change { Game.count }
 
         # 元のページに戻ってくることを確認
         expect(current_path).to eq "/games"
         
         # エラーメッセージが表示されていることを確認
-        expect(page).to have_content("Platform name can't be blank")
+        expect(page).to have_content("機種を入力してください")
       end
     end
   end
@@ -240,6 +251,7 @@ RSpec.describe "ゲーム情報の投稿", type: :system do
     
     context '更新に成功したとき' do
       it 'ゲームの更新に成功すると、ゲーム詳細ページに遷移して、更新した内容が表示されている' do
+        basic_pass root_path
         # サインインする
         sign_in(@user)
 
@@ -248,7 +260,7 @@ RSpec.describe "ゲーム情報の投稿", type: :system do
         expect(current_path).to eq game_path(@game)
 
         # ゲーム編集ページに遷移する
-        click_on('Edit')
+        click_on('編集')
         expect(current_path).to eq edit_game_path(@game)
 
         # 全ての項目を書き換える
@@ -272,7 +284,7 @@ RSpec.describe "ゲーム情報の投稿", type: :system do
         fill_in 'game_form_publisher_names', with: @edit.publisher_names
 
         # フォームを送信するとゲーム詳細ページに遷移する
-        click_on("Update Game")
+        click_on("更新")
         expect(current_path).to eq game_path(@game)
 
         # ゲーム詳細ページに更新した内容が表示されている
@@ -280,14 +292,18 @@ RSpec.describe "ゲーム情報の投稿", type: :system do
         expect(page).to have_content(@edit.platform_name)
         expect(page).to have_selector("img[src$='game_sample2.png']")
         expect(page).to have_content(@edit.metascore)
-        expect(page).to have_content(@edit.release_date)
+        expect(page).to have_content(@edit.release_date.to_s(:stamp))
         expect(page).to have_content(@edit.description)
-        expect(page).to have_content(@edit.genre_names)
-        expect(page).to have_content(@edit.developer_names)
-        expect(page).to have_content(@edit.publisher_names)
+        expect(page).to have_content(@edit.genre_names.split(', ')[0])
+        expect(page).to have_content(@edit.genre_names.split(', ')[1])
+        expect(page).to have_content(@edit.developer_names.split(', ')[0])
+        expect(page).to have_content(@edit.developer_names.split(', ')[1])
+        expect(page).to have_content(@edit.publisher_names.split(', ')[0])
+        expect(page).to have_content(@edit.publisher_names.split(', ')[1])
       end
 
       it '何も編集せずに更新しても元のデータが消えない' do
+        basic_pass root_path
         # サインインする
         sign_in(@user)
 
@@ -296,11 +312,11 @@ RSpec.describe "ゲーム情報の投稿", type: :system do
         expect(current_path).to eq game_path(@game)
 
         # ゲーム編集ページに遷移する
-        click_on('Edit')
+        click_on('編集')
         expect(current_path).to eq edit_game_path(@game)
 
         # 編集せずにフォームを送信する
-        click_on("Update Game")
+        click_on("更新")
         expect(current_path).to eq game_path(@game)
 
         # ゲーム詳細ページに元の内容が表示されている
@@ -308,7 +324,7 @@ RSpec.describe "ゲーム情報の投稿", type: :system do
         expect(page).to have_content(@game.platform.name)
         expect(page).to have_selector("img[src$='game_sample.png']")
         expect(page).to have_content(@game.metascore)
-        expect(page).to have_content(@game.release_date)
+        expect(page).to have_content(@game.release_date.to_s(:stamp))
         expect(page).to have_content(@game.description)
         expect(page).to have_content(@game.genres[0].name)
         expect(page).to have_content(@game.genres[1].name)
@@ -321,6 +337,7 @@ RSpec.describe "ゲーム情報の投稿", type: :system do
 
     context '更新に失敗したとき' do
       it 'タイトルを入力しないと更新に失敗する' do
+        basic_pass root_path
         # サインインする
         sign_in(@user)
 
@@ -329,19 +346,20 @@ RSpec.describe "ゲーム情報の投稿", type: :system do
         expect(current_path).to eq game_path(@game)
 
         # ゲーム編集ページに遷移する
-        click_on('Edit')
+        click_on('編集')
         expect(current_path).to eq edit_game_path(@game)
 
         # 入力されているタイトルを消してフォーム送信
         fill_in 'game_form_title', with: ''
-        click_on("Update Game")
+        click_on("更新")
       
         # 元のページに戻されてエラーメッセージが表示される
         expect(current_path).to eq "/games/#{@game.id}"
-        expect(page).to have_content("Title can't be blank")
+        expect(page).to have_content("タイトルを入力してください")
       end
 
       it '機種を入力しないと更新に失敗する' do
+        basic_pass root_path
         # サインインする
         sign_in(@user)
 
@@ -350,16 +368,16 @@ RSpec.describe "ゲーム情報の投稿", type: :system do
         expect(current_path).to eq game_path(@game)
 
         # ゲーム編集ページに遷移する
-        click_on('Edit')
+        click_on('編集')
         expect(current_path).to eq edit_game_path(@game)
 
         # 入力されている機種を消してフォーム送信
         fill_in 'game_form_platform_name', with: ''
-        click_on("Update Game")
+        click_on("更新")
       
         # 元のページに戻されてエラーメッセージが表示される
         expect(current_path).to eq "/games/#{@game.id}"
-        expect(page).to have_content("Platform name can't be blank")
+        expect(page).to have_content("機種を入力してください")
       end
     end
   end
@@ -371,6 +389,7 @@ RSpec.describe "ゲーム情報の投稿", type: :system do
       end
 
       it '一覧表示でタイトルと機種が表示されている' do
+        basic_pass root_path
         visit root_path
 
         expect(page).to have_content(@game.title)
@@ -402,15 +421,17 @@ RSpec.describe "ゲーム情報の投稿", type: :system do
       end
 
       it '一覧表示で添付画像、タイトル、機種、メタスコア 、発売日が表示されている' do
+        basic_pass root_path
         visit root_path
         expect(page).to have_content(@game.title)
         expect(page).to have_content(@game.platform.name)
         expect(page).to have_selector("img[src$='game_sample.png']")
-        expect(page).to have_content("Metascore: #{@game.metascore}")
-        expect(page).to have_content(@game.release_date)
+        expect(page).to have_content("メタスコア：#{@game.metascore}")
+        expect(page).to have_content(@game.release_date.to_s(:stamp))
       end
 
       it '詳細表示で全ての情報が表示されている' do
+        basic_pass root_path
         visit game_path(@game)
 
         # 登録されている情報が表示されていることを確認
@@ -418,7 +439,7 @@ RSpec.describe "ゲーム情報の投稿", type: :system do
         expect(page).to have_content(@game.platform.name)
         expect(page).to have_selector("img[src$='game_sample.png']")
         expect(page).to have_content(@game.metascore)
-        expect(page).to have_content(@game.release_date)
+        expect(page).to have_content(@game.release_date.to_s(:stamp))
         expect(page).to have_content(@game.description)
         expect(page).to have_content(@game.genres[0].name)
         expect(page).to have_content(@game.genres[1].name)
@@ -436,6 +457,7 @@ RSpec.describe "ゲーム情報の投稿", type: :system do
       end
 
       it '一覧表示と詳細表示にSteamのゲーム画像が表示されている' do
+        basic_pass root_path
         visit root_path
         expect(page).to have_selector("img[src='#{@game.steam_image}']")
 

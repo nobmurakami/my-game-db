@@ -34,7 +34,7 @@
         <%= link_to game_lists_path(@game), method: :delete do %>
           <div class="ui red icon button">
             <i class="clock icon"></i>
-            <%= " プレイ予定 (#{@game.プレイ予定_users.count})" %>
+            <%= " プレイ予定 (#{@game.want_users.count})" %>
           </div>
         <% end %>
       <% else %>
@@ -73,7 +73,7 @@
         <%= link_to played_game_lists_path(@game), method: :post do %>
           <div class="ui icon button">
             <i class="check circle icon"></i>
-            <%= " PLAYED (#{@game.played_users.count})" %>
+            <%= " プレイ済み (#{@game.played_users.count})" %>
           </div>
         <% end %>
       <% end %>
@@ -94,7 +94,7 @@
       <%= link_to new_user_session_path do %>
         <div class="ui icon button">
           <i class="check circle icon"></i>
-          <%= " PLAYED (#{@game.played_users.count})" %>
+          <%= " プレイ済み (#{@game.played_users.count})" %>
         </div>
       <% end %>
     <% end %>

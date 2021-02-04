@@ -18,7 +18,7 @@ RSpec.describe Genre, type: :model do
         @another_genre = FactoryBot.build(:genre)
         @another_genre.name = @genre.name
         @another_genre.valid?
-        expect(@another_genre.errors.full_messages).to include "Name has already been taken"
+        expect(@another_genre.errors.full_messages).to include "ジャンルはすでに存在します"
       end
     end
   end
