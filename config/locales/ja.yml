@@ -1,0 +1,25 @@
+ja:
+ activerecord:
+   attributes:
+     user:
+       name: 名前
+     game:
+       title: タイトル
+       image: 画像
+       description: 説明文
+       metascore: メタスコア
+       release_date: 発売日
+       platform: 機種
+ activemodel:
+   attributes:
+     game_form:
+       title: タイトル
+       image: 画像
+       description: 説明文
+       metascore: メタスコア
+       release_date: 発売日
+       platform_name: 機種
+       genre_names: ジャンル
+       developer_names: 開発元
+       publisher_names: パブリッシャー
+       steam: STEAM
