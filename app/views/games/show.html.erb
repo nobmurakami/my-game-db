@@ -127,14 +127,24 @@
     <h2 class='ui sub header'>
       Developers
     </h2>
-    <span><%= @game.developers.pluck(:name).join(', ') %></span>
+    <% @game.developers.each_with_index do |developer, i| %>
+      <% if i != 0 %>
+        <span>, </span>
+      <% end %>
+      <%= link_to developer.name, company_path(developer) %>
+    <% end %>
   <% end %>
 
   <% if @game.publishers.present? %>
     <h2 class='ui sub header'>
       Publishers
     </h2>
-    <span><%= @game.publishers.pluck(:name).join(', ') %></span>
+    <% @game.publishers.each_with_index do |publisher, i| %>
+      <% if i != 0 %>
+        <span>, </span>
+      <% end %>
+      <%= link_to publisher.name, company_path(publisher) %>
+    <% end %>
   <% end %>
 
   <% if @game.genres.present? %>
