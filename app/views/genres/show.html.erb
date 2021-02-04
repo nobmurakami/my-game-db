@@ -7,15 +7,7 @@
   <div class="ui two column grid">
     <div class="four wide column">
     
-      <div class="ui vertical fluid menu">
-        <% @genres.each do |genre| %>
-          <% if genre == @genre %>
-            <%= link_to genre.name, genre_path(genre), class: 'active item' %>
-          <% else %>
-            <%= link_to genre.name, genre_path(genre), class: 'item' %>
-          <% end %>
-        <% end %>
-      </div>
+      <%= render 'shared/category_menu', { categories: @genres, category: @genre, link_path: "genre_path" } %>
 
     </div>
     <div class="twelve wide column">
