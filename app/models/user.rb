@@ -19,5 +19,7 @@ class User < ApplicationRecord
 
   has_many :play_lists, dependent: :destroy
 
+  has_many :my_lists, dependent: :destroy
+
   validates :name, presence: true
 end
