@@ -1,12 +1,58 @@
-<div class="ui inverted borderless attached menu">
+<div class="ui inverted attached menu">
   <div class="ui container">
     <a class="header item" href="/">My Game DB</a>
-    <div class="right menu">
-      <% if user_signed_in? %>
-        <div class="item">
-          <i class="plus circle icon"></i>
-          <%= link_to 'ゲームを追加', new_game_path %>
+
+    <div class="item">
+      <%= search_form_for @search, url: games_path, as: :header_search do |f| %>
+        <div class="ui inverted transparent left icon input">
+          <%= f.text_field :title_or_description_cont ,placeholder: '検索' %>
+          <i class="search icon"></i>
         </div>
+      <% end %>
+    </div>
+    
+    <div class="ui dropdown item">
+      <div class="header">
+        <i class="database icon"></i>
+        <span>データベース</span>
+        <i class="caret down icon"></i>
+      </div>
+      <div class="menu">
+        <%= link_to games_path, class: 'item' do %>
+          <i class="search icon"></i>
+          <span>詳細検索</span>
+        <% end %>
+        <%= link_to new_game_path, class: 'item' do %>
+          <i class="plus circle icon"></i>
+          <span>ゲームを追加</span>
+        <% end %>
+      </div>
+    </div>
+
+    <% if user_signed_in? %>
+      <div class="ui dropdown item">
+        <div class="header">
+          <i class="list alternate outline icon"></i>
+          <span>マイリスト</span>
+          <i class="caret down icon"></i>
+        </div>
+        <div class="menu">
+          <%= link_to want_to_play_user_path(current_user), class: 'item' do %>
+            <i class="clock icon"></i>
+            <span>プレイ予定</span>
+          <% end %>
+          <%= link_to playing_user_path(current_user), class: 'item' do %>
+            <i class="gamepad icon"></i>
+            <span>プレイ中</span>
+          <% end %>
+          <%= link_to played_user_path(current_user), class: 'item' do %>
+            <i class="circle check icon"></i>
+            <span>プレイ済み</span>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="right menu">
         <div class="ui dropdown item">
           <div class="header">
             <span><%= current_user.name %></span>
@@ -14,10 +60,10 @@
           </div>
           <div class="menu">
             <%= link_to user_path(current_user), class: 'item' do %>
-              <small>マイページ</small>
+              <span>マイページ</span>
             <% end %>
             <%= link_to destroy_user_session_path, method: :delete, class: 'item' do %>
-              <small>ログアウト</small>
+              <span>ログアウト</span>
             <% end %>
           </div>
         </div>
