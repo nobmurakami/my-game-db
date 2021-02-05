@@ -8,6 +8,8 @@ class UsersController < ApplicationController
     @q = @user.want_games.ransack(params[:q])
     @q.sorts = "metascore DESC" if @q.sorts.empty?
     @games = @q.result.page(params[:page]).per(10).order("created_at DESC")
+
+
   end
 
   def playing

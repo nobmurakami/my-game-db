@@ -6,7 +6,7 @@ Rails.application.routes.draw do
       delete :delete_image_attachment
     end
     resources :taggings, only: [:create, :destroy]
-    resource :lists, only: [:destroy] do
+    resource :play_lists, only: [:destroy] do
       collection do
         post 'want'
         post 'playing'

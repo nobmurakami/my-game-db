@@ -1,4 +1,4 @@
-class List < ApplicationRecord
+class PlayList < ApplicationRecord
   belongs_to :user
   belongs_to :game
 

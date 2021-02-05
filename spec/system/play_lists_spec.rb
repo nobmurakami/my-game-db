@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "Lists", type: :system do
+RSpec.describe "PlayLists", type: :system do
   describe "詳細画面でゲームをリストに追加する" do
     before do
       @user = FactoryBot.create(:user)
@@ -14,12 +14,12 @@ RSpec.describe "Lists", type: :system do
           sign_in(@user)
           visit game_path(@game)
 
-          # プレイ予定ボタンを押すとlistsテーブルのレコードが増えることを確認
+          # プレイ予定ボタンを押すとplay_listsテーブルのレコードが増えることを確認
           check_create_list(@game, "プレイ予定")
 
           # ユーザーのリストの削除リンクがあることを確認
-          expect(page).to have_selector("a[href='/games/#{@game.id}/lists'][data-method='delete']")
-
+          expect(page).to have_selector("a[href='/games/#{@game.id}/play_lists'][data-method='delete']")
+        
           # ユーザーのプレイ予定リスト一覧表示にゲームが表示されていることを確認
           check_game_in_user_list(@game, @user, "プレイ予定")
         end
@@ -29,11 +29,11 @@ RSpec.describe "Lists", type: :system do
           sign_in(@user)
           visit game_path(@game)
 
-          # プレイ中ボタンを押すとlistsテーブルのレコードが増えることを確認
+          # プレイ中ボタンを押すとplay_listsテーブルのレコードが増えることを確認
           check_create_list(@game, "プレイ中")
 
           # ユーザーのリストの削除リンクがあることを確認
-          expect(page).to have_selector("a[href='/games/#{@game.id}/lists'][data-method='delete']")
+          expect(page).to have_selector("a[href='/games/#{@game.id}/play_lists'][data-method='delete']")
 
           # ユーザーのプレイ中リスト一覧表示にゲームが表示されていることを確認
           check_game_in_user_list(@game, @user, "プレイ中")
@@ -44,11 +44,11 @@ RSpec.describe "Lists", type: :system do
           sign_in(@user)
           visit game_path(@game)
 
-          # プレイ済みボタンを押すとlistsテーブルのレコードが増えることを確認
+          # プレイ済みボタンを押すとplay_listsテーブルのレコードが増えることを確認
           check_create_list(@game, "プレイ済み")
 
           # ユーザーのリストの削除リンクがあることを確認
-          expect(page).to have_selector("a[href='/games/#{@game.id}/lists'][data-method='delete']")
+          expect(page).to have_selector("a[href='/games/#{@game.id}/play_lists'][data-method='delete']")
 
           # ユーザーのプレイ済みリスト一覧表示にゲームが表示されていることを確認
           check_game_in_user_list(@game, @user, "プレイ済み")
@@ -65,7 +65,7 @@ RSpec.describe "Lists", type: :system do
           sign_in(@user)
           visit game_path(@game)
 
-          # プレイ予定ボタンを押すとlistsテーブルのレコードが減ることを確認
+          # プレイ予定ボタンを押すとplay_listsテーブルのレコードが減ることを確認
           check_delete_list(@game, "プレイ予定")
 
           # ユーザーのプレイ予定リスト一覧表示にゲームが表示されていないことを確認
@@ -77,7 +77,7 @@ RSpec.describe "Lists", type: :system do
           sign_in(@user)
           visit game_path(@game)
 
-          # プレイ中ボタンを押した時にlistsテーブルのレコード数が変わらないことを確認
+          # プレイ中ボタンを押した時にplay_listsテーブルのレコード数が変わらないことを確認
           check_move_list(@game, "プレイ中")
 
           # ユーザーのプレイ中リスト一覧表示にゲームが表示されていることを確認
@@ -89,7 +89,7 @@ RSpec.describe "Lists", type: :system do
           sign_in(@user)
           visit game_path(@game)
 
-          # プレイ済みボタンを押した時にlistsテーブルのレコード数が変わらないことを確認
+          # プレイ済みボタンを押した時にplay_listsテーブルのレコード数が変わらないことを確認
           check_move_list(@game, "プレイ済み")
 
           # ユーザーのプレイ済みリスト一覧表示にゲームが表示されていることを確認
@@ -107,7 +107,7 @@ RSpec.describe "Lists", type: :system do
           sign_in(@user)
           visit game_path(@game)
 
-          # プレイ予定ボタンを押した時にlistsテーブルのレコード数が変わらないことを確認
+          # プレイ予定ボタンを押した時にplay_listsテーブルのレコード数が変わらないことを確認
           check_move_list(@game, "プレイ予定")
 
           # ユーザーのプレイ予定リスト一覧表示にゲームが表示されていることを確認
@@ -119,7 +119,7 @@ RSpec.describe "Lists", type: :system do
           sign_in(@user)
           visit game_path(@game)
 
-          # プレイ中ボタンを押すとlistsテーブルのレコードが減ることを確認
+          # プレイ中ボタンを押すとplay_listsテーブルのレコードが減ることを確認
           check_delete_list(@game, "プレイ中")
 
           # ユーザーのプレイ中リスト一覧表示にゲームが表示されていないことを確認
@@ -131,7 +131,7 @@ RSpec.describe "Lists", type: :system do
           sign_in(@user)
           visit game_path(@game)
 
-          # プレイ済みボタンを押した時にlistsテーブルのレコード数が変わらないことを確認
+          # プレイ済みボタンを押した時にplay_listsテーブルのレコード数が変わらないことを確認
           check_move_list(@game, "プレイ済み")
 
           # ユーザーのプレイ済みリスト一覧表示にゲームが表示されていることを確認
@@ -149,7 +149,7 @@ RSpec.describe "Lists", type: :system do
           sign_in(@user)
           visit game_path(@game)
 
-          # プレイ予定ボタンを押した時にlistsテーブルのレコード数が変わらないことを確認
+          # プレイ予定ボタンを押した時にplay_listsテーブルのレコード数が変わらないことを確認
           check_move_list(@game, "プレイ予定")
 
           # ユーザーのプレイ予定リスト一覧表示にゲームが表示されていることを確認
@@ -161,7 +161,7 @@ RSpec.describe "Lists", type: :system do
           sign_in(@user)
           visit game_path(@game)
 
-          # プレイ中ボタンを押した時にlistsテーブルのレコード数が変わらないことを確認
+          # プレイ中ボタンを押した時にplay_listsテーブルのレコード数が変わらないことを確認
           check_move_list(@game, "プレイ中")
 
           # ユーザーのプレイ中リスト一覧表示にゲームが表示されていることを確認
@@ -173,7 +173,7 @@ RSpec.describe "Lists", type: :system do
           sign_in(@user)
           visit game_path(@game)
 
-          # プレイ済みボタンを押すとlistsテーブルのレコードが減ることを確認
+          # プレイ済みボタンを押すとplay_listsテーブルのレコードが減ることを確認
           check_delete_list(@game, "プレイ済み")
 
           # ユーザーのプレイ済みリスト一覧表示にゲームが表示されていないことを確認

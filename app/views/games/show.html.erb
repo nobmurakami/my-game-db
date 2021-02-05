@@ -31,14 +31,14 @@
   <div class="ui center aligned basic segment">
     <% if user_signed_in? %>
       <% if @game.is_wanted_by?(current_user) %>
-        <%= link_to game_lists_path(@game), method: :delete do %>
+        <%= link_to game_play_lists_path(@game), method: :delete do %>
           <div class="ui red icon button">
             <i class="clock icon"></i>
             <%= " プレイ予定 (#{@game.want_users.count})" %>
           </div>
         <% end %>
       <% else %>
-        <%= link_to want_game_lists_path(@game), method: :post do %>
+        <%= link_to want_game_play_lists_path(@game), method: :post do %>
           <div class="ui icon button">
             <i class="clock icon"></i>
             <%= " プレイ予定 (#{@game.want_users.count})" %>
@@ -47,14 +47,14 @@
       <% end %>
 
       <% if @game.is_playing_by?(current_user) %>
-        <%= link_to game_lists_path(@game), method: :delete do %>
+        <%= link_to game_play_lists_path(@game), method: :delete do %>
           <div class="ui red icon button">
             <i class="gamepad icon"></i>
             <%= " プレイ中 (#{@game.playing_users.count})" %>
           </div>
         <% end %>
       <% else %>
-        <%= link_to playing_game_lists_path(@game), method: :post do %>
+        <%= link_to playing_game_play_lists_path(@game), method: :post do %>
           <div class="ui icon button">
             <i class="gamepad icon"></i>
             <%= " プレイ中 (#{@game.playing_users.count})" %>
@@ -63,14 +63,14 @@
       <% end %>
 
       <% if @game.was_played_by?(current_user) %>
-        <%= link_to game_lists_path(@game), method: :delete do %>
+        <%= link_to game_play_lists_path(@game), method: :delete do %>
           <div class="ui red icon button">
             <i class="check circle icon"></i>
             <%= " プレイ済み (#{@game.played_users.count})" %>
           </div>
         <% end %>
       <% else %>
-        <%= link_to played_game_lists_path(@game), method: :post do %>
+        <%= link_to played_game_play_lists_path(@game), method: :post do %>
           <div class="ui icon button">
             <i class="check circle icon"></i>
             <%= " プレイ済み (#{@game.played_users.count})" %>

@@ -1,4 +1,4 @@
-class ListsController < ApplicationController
+class PlayListsController < ApplicationController
   before_action :authenticate_user!
 
   def want
@@ -17,7 +17,7 @@ class ListsController < ApplicationController
   end
 
   def destroy
-    list = List.find_by(game_id: params[:game_id], user_id: current_user.id)
+    list = PlayList.find_by(game_id: params[:game_id], user_id: current_user.id)
     list.destroy
     redirect_back(fallback_location: root_path)
   end
@@ -26,8 +26,8 @@ class ListsController < ApplicationController
 
   def save_list(new_list)
     if Game.find(params[:game_id]).is_listed_by?(current_user)
-      List.transaction do
-        old_list = current_user.lists.find_by(game_id: params[:game_id])
+      PlayList.transaction do
+        old_list = current_user.play_lists.find_by(game_id: params[:game_id])
         old_list.destroy!
         new_list.save!
       end

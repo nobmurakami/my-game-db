@@ -1,22 +1,22 @@
-module ListSupport
+module PlayListSupport
   def check_create_list(game, button)
     expect do
       click_on(button)
-    end.to change { List.count }.by(1)
+    end.to change { PlayList.count }.by(1)
     expect(current_path).to eq game_path(game)
   end
 
   def check_move_list(game, button)
     expect do
       click_on(button)
-    end.to change { List.count }.by(0)
+    end.to change { PlayList.count }.by(0)
     expect(current_path).to eq game_path(game)
   end
 
   def check_delete_list(game, button)
     expect do
       click_on(button)
-    end.to change { List.count }.by(-1)
+    end.to change { PlayList.count }.by(-1)
     expect(current_path).to eq game_path(game)
   end
 
