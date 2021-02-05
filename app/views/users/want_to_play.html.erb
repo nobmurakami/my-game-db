@@ -1,4 +1,4 @@
-<%= render 'shared/header' %>
+<% breadcrumb :want_list %>
 
 <div class='ui main container'>
   <h1 class="ui header"><%= "#{@user.name}さんのリスト" %></h1>
@@ -12,7 +12,7 @@
     </div>
     <div class="twelve wide column">
 
-      <%= render 'shared/game_list', { games: @games, q: @q, menu_title: 'プレイ予定' } %>
+      <%= render 'shared/game_list', { games: @games, q: @q, menu_title: 'プレイ予定のゲーム' } %>
 
     </div>
   </div>
