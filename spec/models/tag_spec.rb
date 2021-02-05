@@ -1,19 +1,19 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe Tag, type: :model do
-  describe 'Tag新規登録' do
+  describe "Tag新規登録" do
     before do
       @tag = FactoryBot.build(:tag)
     end
 
-    context '新規登録できるとき' do
-      it 'nameがあれば登録できる' do
+    context "新規登録できるとき" do
+      it "nameがあれば登録できる" do
         expect(@tag).to be_valid
       end
     end
 
-    context '新規登録できないとき' do
-      it 'nameが既に存在すると登録できない' do
+    context "新規登録できないとき" do
+      it "nameが既に存在すると登録できない" do
         @tag.save
         @another_tag = FactoryBot.build(:tag)
         @another_tag.name = @tag.name

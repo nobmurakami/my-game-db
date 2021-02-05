@@ -1,6 +1,6 @@
 class ListsController < ApplicationController
   before_action :authenticate_user!
-  
+
   def want
     new_list = current_user.want_lists.find_or_initialize_by(game_id: params[:game_id])
     save_list(new_list)
