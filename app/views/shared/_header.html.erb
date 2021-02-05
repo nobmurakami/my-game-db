@@ -67,12 +67,15 @@
             <% end %>
           </div>
         </div>
-        
-      <% else %>
+      </div>
+
+    <% else %>
+      <div class="right menu">
         <%= link_to '新規登録', new_user_registration_path, class: "ui item" %>
         <%= link_to 'ログイン', new_user_session_path, class: "ui item" %>
-      <% end %>
+      </div>
+    <% end %>
      
-    </div>
+    
   </div>
 </div>
