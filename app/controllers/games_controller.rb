@@ -3,12 +3,12 @@ class GamesController < ApplicationController
 
   def index
     @q = Game.ransack(params[:q])
-    @q.sorts = 'metascore DESC' if @q.sorts.empty?
-    @games = @q.result(distinct: true).page(params[:page]).per(10).order('created_at DESC')
-    @platform_names = Platform.all.order('name ASC').pluck(:name)
-    @tag_names = Tag.joins(:taggings).group(:tag_id).order('count(user_id) desc').limit(10).pluck(:name)
-    @genre_names = Genre.all.order('name ASC').pluck(:name)
-    @company_names = Company.all.order('name ASC').pluck(:name)
+    @q.sorts = "metascore DESC" if @q.sorts.empty?
+    @games = @q.result(distinct: true).page(params[:page]).per(10).order("created_at DESC")
+    @platform_names = Platform.all.order("name ASC").pluck(:name)
+    @tag_names = Tag.joins(:taggings).group(:tag_id).order("count(user_id) desc").limit(10).pluck(:name)
+    @genre_names = Genre.all.order("name ASC").pluck(:name)
+    @company_names = Company.all.order("name ASC").pluck(:name)
   end
 
   def new
@@ -27,7 +27,7 @@ class GamesController < ApplicationController
 
   def show
     load_game
-    @tags = Tag.joins(:taggings).where(taggings: { game_id: @game }).group(:tag_id).order('count(user_id) desc').limit(10)
+    @tags = Tag.joins(:taggings).where(taggings: { game_id: @game }).group(:tag_id).order("count(user_id) desc").limit(10)
     @your_tag = Tag.new
   end
 

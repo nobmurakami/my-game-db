@@ -1,9 +1,9 @@
 class TaggingsController < ApplicationController
   before_action :authenticate_user!
-  
+
   def create
     if tag_params[:tag].present?
-      tag = Tag.find_or_create_by(name: tag_params[:tag].strip_all_space) 
+      tag = Tag.find_or_create_by(name: tag_params[:tag].strip_all_space)
       Tagging.find_or_create_by(game_id: tag_params[:game_id], tag_id: tag.id, user_id: tag_params[:user_id])
     end
     redirect_back(fallback_location: root_path)

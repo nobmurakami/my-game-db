@@ -79,3 +79,8 @@ Style/FrozenStringLiteralComment:
 # メソッドパラメータ名の最小文字数を設定
 Naming/MethodParameterName:
  MinNameLength: 1
+
+# 文字列はダブルクォートで囲む
+Style/StringLiterals:
+  Enabled: true
+  EnforcedStyle: double_quotes

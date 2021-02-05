@@ -13,9 +13,9 @@ class GameForm
       metascore: game.metascore,
       release_date: game.release_date,
       platform_name: game.platform.try(:name),
-      genre_names: game.genres.pluck(:name).join(', '),
-      developer_names: game.developers.pluck(:name).join(', '),
-      publisher_names: game.publishers.pluck(:name).join(', '),
+      genre_names: game.genres.pluck(:name).join(", "),
+      developer_names: game.developers.pluck(:name).join(", "),
+      publisher_names: game.publishers.pluck(:name).join(", "),
       steam: game.steam
     }
     super(params)
@@ -23,7 +23,7 @@ class GameForm
 
   def save
     return if invalid?
-    
+
     ActiveRecord::Base.transaction do
       platform = Platform.find_or_create_by!(name: platform_name.strip_all_space)
       genres = split_and_delete_space(genre_names).map { |genre| Genre.find_or_create_by!(name: genre) }
@@ -46,20 +46,20 @@ class GameForm
         @game.update!(developers: @steam_developers) if @game.developers.blank?
         @game.update!(publishers: @steam_publishers) if @game.publishers.blank?
       else
-        @game.update!(steam: '')
+        @game.update!(steam: "")
       end
     end
   end
 
   def steam_appids
-    @game.steam.split('/')[4]
+    @game.steam.split("/")[4]
   end
 
   validates :title, presence: true
   validates :platform_name, presence: true
   validates :metascore,
             numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 100, allow_blank: true }
-  VALID_STEAM_URL = /\Ahttps:\/\/store\.steampowered\.com\/app\/\d+.+/
+  VALID_STEAM_URL = %r{\Ahttps://store\.steampowered\.com/app/\d+.+}
   validates :steam, format: { with: VALID_STEAM_URL, allow_blank: true }
 
   private
@@ -74,7 +74,7 @@ class GameForm
 
   def steam_data
     if steam_json.dig(steam_appids, "success") == true
-      json = steam_json[steam_appids]["data"] 
+      json = steam_json[steam_appids]["data"]
       @steam_image = json.dig("header_image")
       # @steam_description = json.dig("short_description")
       @steam_metascore = json.dig("metacritic", "score")
@@ -91,6 +91,6 @@ class GameForm
   end
 
   def split_and_delete_space(str)
-    str.split(',').grep(/[^[:space:]]/).map { |i| i.strip_all_space }
+    str.split(",").grep(/[^[:space:]]/).map { |i| i.strip_all_space }
   end
 end
