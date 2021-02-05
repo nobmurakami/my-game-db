@@ -9,6 +9,25 @@
         </div>
         <div class="ui dropdown item">
           <div class="header">
+            <i class="list alternate outline icon"></i>
+            <span>マイリスト</span>
+            <i class="caret down icon"></i>
+          </div>
+          <div class="menu">
+            <%= link_to want_to_play_user_path(current_user), class: 'item' do %>
+              <small>プレイ予定</small>
+            <% end %>
+            <%= link_to playing_user_path(current_user), class: 'item' do %>
+              <small>プレイ中</small>
+            <% end %>
+            <%= link_to played_user_path(current_user), class: 'item' do %>
+              <small>プレイ済み</small>
+            <% end %>
+          </div>
+        </div>
+
+        <div class="ui dropdown item">
+          <div class="header">
             <span><%= current_user.name %></span>
             <i class="caret down icon"></i>
           </div>
