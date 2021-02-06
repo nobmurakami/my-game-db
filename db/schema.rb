@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_29_050051) do
+ActiveRecord::Schema.define(version: 2021_02_06_092359) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -87,6 +87,23 @@ ActiveRecord::Schema.define(version: 2021_01_29_050051) do
     t.index ["user_id"], name: "index_lists_on_user_id"
   end
 
+  create_table "my_list_games", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "my_list_id", null: false
+    t.bigint "game_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["game_id"], name: "index_my_list_games_on_game_id"
+    t.index ["my_list_id"], name: "index_my_list_games_on_my_list_id"
+  end
+
+  create_table "my_lists", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_my_lists_on_user_id"
+  end
+
   create_table "platforms", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
     t.datetime "created_at", precision: 6, null: false
@@ -146,6 +163,9 @@ ActiveRecord::Schema.define(version: 2021_01_29_050051) do
   add_foreign_key "games", "platforms"
   add_foreign_key "lists", "games"
   add_foreign_key "lists", "users"
+  add_foreign_key "my_list_games", "games"
+  add_foreign_key "my_list_games", "my_lists"
+  add_foreign_key "my_lists", "users"
   add_foreign_key "releases", "games"
   add_foreign_key "releases", "platforms"
   add_foreign_key "taggings", "games"
