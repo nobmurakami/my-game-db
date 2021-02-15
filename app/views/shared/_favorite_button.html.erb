@@ -1,13 +1,13 @@
 <% if user_signed_in? %>
   <% if game.favorited_by?(current_user) %> 
-    <%=link_to game_favorites_path(game.id), method: :delete do %>
+    <%=link_to game_favorites_path(game.id), method: :delete, remote: true do %>
       <div class="ui pink icon mini button">
         <i class="heart icon"></i>
         <%= " お気に入り (#{game.favorites.count})" %>
       </div>
     <% end %>
   <% else %>
-    <%=link_to game_favorites_path(game.id), method: :post do %>
+    <%=link_to game_favorites_path(game.id), method: :post, remote: true do %>
       <div class="ui icon mini button">
         <i class="heart icon"></i>
         <%= " お気に入り (#{game.favorites.count})" %>

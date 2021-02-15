@@ -33,9 +33,11 @@
           <p><%= game.release_date.to_s(:stamp) if game.release_date.present? %></p>
           <p><%= "メタスコア：#{game.metascore}" if game.metascore.present? %></p>
         </div>
-        <%= render 'shared/favorite', { game: game } %>
-        <span>｜</span>
-        <%= render 'shared/play_status', { game: game } %>
+        <span id="game_<%= game.id %>">
+          <%= render 'shared/favorite_button', { game: game } %>
+        </span>
+          <span>｜</span>
+          <%= render 'shared/play_status', { game: game } %>
       </div>
     </div>
   <% end %>
