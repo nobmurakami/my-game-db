@@ -7,6 +7,11 @@ crumb :user do
   parent :root
 end
 
+crumb :favorite_list do
+  link "お気に入りのゲーム", favorite_user_path
+  parent :user
+end
+
 crumb :want_list do
   link "プレイ予定のゲーム", want_to_play_user_path
   parent :user

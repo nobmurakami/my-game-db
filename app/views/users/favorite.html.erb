@@ -1,0 +1,19 @@
+<% breadcrumb :favorite_list %>
+
+<div class='ui main container'>
+  <h1 class="ui header"><%= "#{@user.name}さんのリスト" %></h1>
+  <div class="ui divider"></div>
+
+  <div class="ui two column grid">
+    <div class="four wide column">
+
+      <%= render 'shared/lists_menu', { user: @user, favorite_class: 'active item', want_class: 'item', playing_class: 'item', played_class: 'item' } %>
+
+    </div>
+    <div class="twelve wide column">
+
+      <%= render 'shared/game_list', { games: @games, q: @q, menu_title: 'お気に入りのゲーム' } %>
+
+    </div>
+  </div>
+</div>
