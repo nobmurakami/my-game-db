@@ -20,6 +20,7 @@
 - has_many :playing_games, through: :playing_lists, source: :game
 - has_many :played_lists, -> { where play_status: 'played' }, class_name: 'List', dependent: :destroy
 - has_many :played_games, through: :played_lists, source: :game
+- has_many :favorites, dependent: :destroy
 
 ## lists テーブル
 
@@ -37,6 +38,19 @@
 ### Notes
 
 - enum list_type: { want: 0, playing: 1, played: 2 }
+
+## favorites テーブル
+
+| Column      | Type       | Options                        |
+| ----------- | ---------- | ------------------------------ |
+| user        | references | null: false, foreign_key: true |
+| game        | references | null: false, foreign_key: true |
+
+### Association
+
+- belongs_to :user
+- belongs_to :game
+
 
 ## games テーブル
 
@@ -70,6 +84,7 @@
 - has_many :playing_users, through: :playing_lists, source: :user
 - has_many :played_lists, -> { where play_status: 'played' }, class_name: 'List', dependent: :destroy
 - has_many :played_users, through: :played_lists, source: :user
+- has_many :favorites, dependent: :destroy
 
 ## platforms テーブル
 
