@@ -29,11 +29,13 @@
   <% end %>
 
   <div class="ui center aligned basic segment">
-    <span id="game_<%= @game.id %>">
+    <span id="favorite_game_<%= @game.id %>">
       <%= render 'shared/favorite_button', { game: @game } %>
     </span>
     <span>｜</span>
-    <%= render 'shared/play_status', { game: @game } %>
+    <span id="play_status_game_<%= @game.id %>">
+      <%= render 'shared/play_status', { game: @game } %>
+    </span>
   </div>
 
   <p><%= @game.description %></p>

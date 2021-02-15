@@ -1,1 +1,1 @@
-document.getElementById('game_<%= @game.id %>').innerHTML = '<%= escape_javascript(render 'shared/favorite_button', { game: @game }) %>'
+document.getElementById('favorite_game_<%= @game.id %>').innerHTML = '<%= escape_javascript(render 'shared/favorite_button', { game: @game }) %>'
