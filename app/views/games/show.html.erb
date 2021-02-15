@@ -29,75 +29,9 @@
   <% end %>
 
   <div class="ui center aligned basic segment">
-    <% if user_signed_in? %>
-      <% if @game.is_wanted_by?(current_user) %>
-        <%= link_to game_lists_path(@game), method: :delete do %>
-          <div class="ui red icon button">
-            <i class="clock icon"></i>
-            <%= " プレイ予定 (#{@game.want_users.count})" %>
-          </div>
-        <% end %>
-      <% else %>
-        <%= link_to want_game_lists_path(@game), method: :post do %>
-          <div class="ui icon button">
-            <i class="clock icon"></i>
-            <%= " プレイ予定 (#{@game.want_users.count})" %>
-          </div>
-        <% end %>
-      <% end %>
-
-      <% if @game.is_playing_by?(current_user) %>
-        <%= link_to game_lists_path(@game), method: :delete do %>
-          <div class="ui red icon button">
-            <i class="gamepad icon"></i>
-            <%= " プレイ中 (#{@game.playing_users.count})" %>
-          </div>
-        <% end %>
-      <% else %>
-        <%= link_to playing_game_lists_path(@game), method: :post do %>
-          <div class="ui icon button">
-            <i class="gamepad icon"></i>
-            <%= " プレイ中 (#{@game.playing_users.count})" %>
-          </div>
-        <% end %>
-      <% end %>
-
-      <% if @game.was_played_by?(current_user) %>
-        <%= link_to game_lists_path(@game), method: :delete do %>
-          <div class="ui red icon button">
-            <i class="check circle icon"></i>
-            <%= " プレイ済み (#{@game.played_users.count})" %>
-          </div>
-        <% end %>
-      <% else %>
-        <%= link_to played_game_lists_path(@game), method: :post do %>
-          <div class="ui icon button">
-            <i class="check circle icon"></i>
-            <%= " プレイ済み (#{@game.played_users.count})" %>
-          </div>
-        <% end %>
-      <% end %>
-
-    <% else %>
-      <%= link_to new_user_session_path do %>
-        <div class="ui icon button">
-          <i class="clock icon"></i>
-          <%= " プレイ予定 (#{@game.want_users.count})" %>
-        </div>
-      <% end %>
-      <%= link_to new_user_session_path do %>
-        <div class="ui icon button">
-          <i class="gamepad icon"></i>
-          <%= " プレイ中 (#{@game.playing_users.count})" %>
-        </div>
-      <% end %>
-      <%= link_to new_user_session_path do %>
-        <div class="ui icon button">
-          <i class="check circle icon"></i>
-          <%= " プレイ済み (#{@game.played_users.count})" %>
-        </div>
-      <% end %>
-    <% end %>
+    <%= render 'shared/favorite', { game: @game } %>
+    <span>｜</span>
+    <%= render 'shared/play_status', { game: @game } %>
   </div>
 
   <p><%= @game.description %></p>
