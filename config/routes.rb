@@ -20,6 +20,7 @@ Rails.application.routes.draw do
       get 'want-to-play'
       get 'playing'
       get 'played'
+      get 'favorite'
     end
   end
   resources :genres, only: [:show]
