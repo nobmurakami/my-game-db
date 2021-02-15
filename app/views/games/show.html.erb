@@ -29,7 +29,9 @@
   <% end %>
 
   <div class="ui center aligned basic segment">
-    <%= render 'shared/favorite_button', { game: @game } %>
+    <span id="game_<%= @game.id %>">
+      <%= render 'shared/favorite_button', { game: @game } %>
+    </span>
     <span>｜</span>
     <%= render 'shared/play_status', { game: @game } %>
   </div>
