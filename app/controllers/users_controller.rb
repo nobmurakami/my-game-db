@@ -23,4 +23,11 @@ class UsersController < ApplicationController
     @q.sorts = "metascore DESC" if @q.sorts.empty?
     @games = @q.result.page(params[:page]).per(10).order("created_at DESC")
   end
+
+  def favorite
+    @user = User.find(params[:id])
+    @q = @user.favorite_games.ransack(params[:q])
+    @q.sorts = "metascore DESC" if @q.sorts.empty?
+    @games = @q.result.page(params[:page]).per(10).order("created_at DESC")
+  end
 end

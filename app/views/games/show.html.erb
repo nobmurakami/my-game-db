@@ -100,6 +100,12 @@
     <% end %>
   </div>
 
+  <div class="ui center aligned basic container">
+
+    <%= render 'shared/favorite', { game: @game } %>
+    
+  </div>
+
   <p><%= @game.description %></p>
 
   <% if @game.steam.present? %>

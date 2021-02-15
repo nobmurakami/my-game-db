@@ -19,5 +19,12 @@ class User < ApplicationRecord
 
   has_many :lists, dependent: :destroy
 
+  has_many :favorites, dependent: :destroy
+  has_many :favorite_games, through: :favorites, source: :game
+
   validates :name, presence: true
+
+  def favorited?(item)
+    self.favorites.exists?(item_id: item.id)
+  end
 end
