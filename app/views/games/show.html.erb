@@ -100,31 +100,10 @@
     <% end %>
   </div>
 
-  <div class="ui center aligned basic segment">
-    <% if user_signed_in? %>
-      <% if @game.favorited_by?(current_user) %> <!-- ログインしているユーザーがファボしたかどうかで分岐 -->
-        <%=link_to game_favorites_path(@game.id), method: :delete do %>
-          <div class="ui pink icon button">
-            <i class="heart icon"></i>
-            <%= " お気に入り (#{@game.favorites.count})" %>
-          </div>
-        <% end %>
-      <% else %>
-        <%=link_to game_favorites_path(@game.id), method: :post do %>
-          <div class="ui icon button">
-            <i class="heart icon"></i>
-            <%= " お気に入り (#{@game.favorites.count})" %>
-          </div>
-        <% end %>
-      <% end %>
-    <% else %>
-      <%= link_to new_user_session_path do %>
-        <div class="ui icon button">
-          <i class="heart icon"></i>
-            <%= " お気に入り (#{@game.favorites.count})" %>
-        </div>
-      <% end %>
-    <% end %>
+  <div class="ui center aligned basic container">
+
+    <%= render 'shared/favorite', { game: @game } %>
+    
   </div>
 
   <p><%= @game.description %></p>
