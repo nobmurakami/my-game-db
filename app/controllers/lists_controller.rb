@@ -1,5 +1,6 @@
 class ListsController < ApplicationController
   before_action :authenticate_user!
+  before_action :game_params
 
   def want
     new_list = current_user.want_lists.find_or_initialize_by(game_id: params[:game_id])
@@ -19,7 +20,6 @@ class ListsController < ApplicationController
   def destroy
     list = List.find_by(game_id: params[:game_id], user_id: current_user.id)
     list.destroy
-    redirect_back(fallback_location: root_path)
   end
 
   private
@@ -34,6 +34,10 @@ class ListsController < ApplicationController
     else
       new_list.save
     end
-    redirect_back(fallback_location: root_path)
+    # redirect_back(fallback_location: root_path)
+  end
+
+  def game_params
+    @game = Game.find(params[:game_id])
   end
 end
