@@ -1,0 +1,1 @@
+document.getElementById('play_status_game_<%= @game.id %>').innerHTML = '<%= escape_javascript(render 'shared/play_status', { game: @game }) %>'
