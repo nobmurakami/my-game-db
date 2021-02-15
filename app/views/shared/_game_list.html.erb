@@ -34,6 +34,8 @@
           <p><%= "メタスコア：#{game.metascore}" if game.metascore.present? %></p>
         </div>
         <%= render 'shared/favorite', { game: game } %>
+        <span>｜</span>
+        <%= render 'shared/play_status', { game: game } %>
       </div>
     </div>
   <% end %>
