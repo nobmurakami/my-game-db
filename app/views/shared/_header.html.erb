@@ -37,6 +37,10 @@
           <i class="caret down icon"></i>
         </div>
         <div class="menu">
+          <%= link_to favorite_user_path(current_user), class: 'item' do %>
+            <i class="heart icon"></i>
+            <span>お気に入り</span>
+          <% end %>
           <%= link_to want_to_play_user_path(current_user), class: 'item' do %>
             <i class="clock icon"></i>
             <span>プレイ予定</span>
