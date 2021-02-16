@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_15_061648) do
+ActiveRecord::Schema.define(version: 2021_02_16_073631) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -77,6 +77,7 @@ ActiveRecord::Schema.define(version: 2021_02_15_061648) do
     t.bigint "platform_id"
     t.string "steam"
     t.string "steam_image"
+    t.string "youtube"
     t.index ["platform_id"], name: "index_games_on_platform_id"
   end
 
