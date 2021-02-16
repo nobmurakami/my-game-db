@@ -1,142 +1,152 @@
 <% breadcrumb :game %>
 
 <div class='ui main text container'>
-  <% if user_signed_in? %>
-    <div class='ui right floated menu'>
-      <%= link_to '編集', edit_game_path, class: 'item' %>
-      <%= link_to '削除', game_path(@game), method: :delete, data: { confirm: '本当によろしいですか？' }, class:'item' %>
-    </div>
-  <% end %>
-
   <h1 class='banner-title'><%= @game.title %></h1>
+  
+
   <h2 class='ui header'>
+    <%= link_to @game.platform.name, platform_path(@game.platform) %>
+    <span> | </span>
     <% if @game.release_date.present? %>
       <span><%= @game.release_date.to_s(:stamp) %></span>
     <% else %>
       <span>TBD</span>
     <% end %>
   </h2>
+</div>
+
+<div class='ui main container'>
   
-  <% if @game.image.attached? %>
-    <%= image_tag @game.image, class: 'ui centered medium image'  %>
-    <div class="ui center aligned basic segment">
-      <%= link_to '画像を削除する', delete_image_attachment_game_path(@game), method: :delete, data: { confirm: '本当によろしいですか？' } %>
-    </div>
-  <% elsif @game.steam_image.present? %>
-    <%= image_tag @game.steam_image, class: 'ui centered medium image' %>
-  <% else %>
-    <%= image_tag 'noimage.png', class: 'ui centered medium image' %>
-  <% end %>
 
-  <div class="ui center aligned basic segment">
-    <span id="favorite_game_<%= @game.id %>">
-      <%= render 'shared/favorite_button', { game: @game } %>
-    </span>
-    <span>｜</span>
-    <span id="play_status_game_<%= @game.id %>">
-      <%= render 'shared/play_status', { game: @game } %>
-    </span>
-  </div>
-
-  <p><%= @game.description %></p>
-
-  <% if @game.steam.present? %>
-    <%= link_to(@game.steam, target: :_blank, rel: "noopener noreferrer nofollow", class: 'ui icon button') do %>
-      <i class="steam icon"></i>
-      Steam
-    <% end %>
-  <% end %>
-
-  <h2 class='ui sub header'>
-    機種
-  </h2>
-  <%= link_to @game.platform.name, platform_path(@game.platform) %>
-
-  <% if @game.metascore.present? %>
-    <h2 class='ui sub header'>
-      メタスコア
-    </h2>
-    <span><%= @game.metascore %></span>
-  <% end %>
-  
-  <% if @game.developers.present? %>
-    <h2 class='ui sub header'>
-      開発元
-    </h2>
-    <% @game.developers.each_with_index do |developer, i| %>
-      <% if i != 0 %>
-        <span>, </span>
-      <% end %>
-      <%= link_to developer.name, company_path(developer) %>
-    <% end %>
-  <% end %>
-
-  <% if @game.publishers.present? %>
-    <h2 class='ui sub header'>
-      パブリッシャー
-    </h2>
-    <% @game.publishers.each_with_index do |publisher, i| %>
-      <% if i != 0 %>
-        <span>, </span>
-      <% end %>
-      <%= link_to publisher.name, company_path(publisher) %>
-    <% end %>
-  <% end %>
-
-  <% if @game.genres.present? %>
-    <h2 class='ui sub header'>
-      ジャンル
-    </h2>
-    <% @game.genres.each_with_index do |genre, i| %>
-      <% if i != 0 %>
-        <span>, </span>
-      <% end %>
-      <%= link_to genre.name, genre_path(genre) %>
-    <% end %>
-  <% end %>
-
-  <% if @game.tags.present? %>
-    <h2 class='ui sub header'>
-      タグ
-    </h2>
-    <% @tags.each_with_index do |tag, i| %>
-      <% if i != 0 %>
-        <span>, </span>
-      <% end %>
-      <%= link_to "#{tag.name}(#{tag.taggings.where(game_id: @game).count})", tag_path(tag) %>
-    <% end %>
-  <% end %>
-
-  <% if user_signed_in? %>
-    <div class="ui segment">
-      <h3 class="ui header">
-        <i class="tags icon"></i>
-        <div class="content">
-          自分のタグ
-          <div class="sub header">クリックで削除</div>
-        </div>
-      </h3>
-      <% current_user.taggings.where(game_id: @game).each do |tagging| %>
-        <%= link_to tagging.tag.name, game_tagging_path(@game, tagging), method: :delete, class: 'ui tag label' %>
-      <% end %>
-
-      <%= form_with model: @your_tag, url: game_taggings_path(@game), local: true do |f| %>
+  <div class="ui three column grid">
+    <div class="four wide column">
+      
+      <% if @game.metascore.present? %>
         <h2 class='ui sub header'>
-          <%= f.label :tag, '新しいタグを入力' %>
+          メタスコア
         </h2>
-        <div class="ui left icon input">
-          <i class="tags icon"></i>
-          <%= f.text_field :tag, placeholder: 'タグを入力' %>
-        </div>
-        <%= f.submit '追加', class: "ui button" %>            
+        <span><%= @game.metascore %></span>
+      <% end %>
+      
+      <% if @game.developers.present? %>
+        <h2 class='ui sub header'>
+          開発元
+        </h2>
+        <% @game.developers.each_with_index do |developer, i| %>
+          <% if i != 0 %>
+            <span>, </span>
+          <% end %>
+          <%= link_to developer.name, company_path(developer) %>
+        <% end %>
+      <% end %>
+
+      <% if @game.publishers.present? %>
+        <h2 class='ui sub header'>
+          パブリッシャー
+        </h2>
+        <% @game.publishers.each_with_index do |publisher, i| %>
+          <% if i != 0 %>
+            <span>, </span>
+          <% end %>
+          <%= link_to publisher.name, company_path(publisher) %>
+        <% end %>
+      <% end %>
+
+      <% if @game.genres.present? %>
+        <h2 class='ui sub header'>
+          ジャンル
+        </h2>
+        <% @game.genres.each_with_index do |genre, i| %>
+          <% if i != 0 %>
+            <span>, </span>
+          <% end %>
+          <%= link_to genre.name, genre_path(genre) %>
+        <% end %>
       <% end %>
     </div>
-  <% end %>
 
-  <h2 class='ui sub header'>
-    <%= "このゲームを好きな人におすすめのゲーム" %>
-  </h2>
+    <div class="eight wide column">        
+      <% if @game.image.attached? %>
+        <div class="ui center aligned basic segment">
+          <%= image_tag @game.image, class: 'ui centered medium image'  %>
+          <%= link_to '画像を削除する', delete_image_attachment_game_path(@game), method: :delete, data: { confirm: '本当によろしいですか？' } %>
+        </div>
+      <% elsif @game.steam_image.present? %>
+        <%= image_tag @game.steam_image, class: 'ui centered medium image' %>
+      <% else %>
+        <%= image_tag 'noimage.png', class: 'ui centered medium image' %>
+      <% end %>
 
-    <%= render 'shared/game_list_simple', { games: @recommend_games } %>
+      <div class="ui center aligned basic segment">
+        <span id="favorite_game_<%= @game.id %>">
+          <%= render 'shared/favorite_button', { game: @game } %>
+        </span>
+        <span>｜</span>
+        <span id="play_status_game_<%= @game.id %>">
+          <%= render 'shared/play_status', { game: @game } %>
+        </span>
+      </div>
 
+      <p><%= @game.description %></p>
+
+      <% if @game.steam.present? %>
+        <%= link_to(@game.steam, target: :_blank, rel: "noopener noreferrer nofollow", class: 'ui icon button') do %>
+          <i class="steam icon"></i>
+          Steam
+        <% end %>
+      <% end %>
+
+      <h2 class='ui sub header'>
+        <%= "このゲームを好きな人におすすめのゲーム" %>
+      </h2>
+
+        <%= render 'shared/game_list_simple', { games: @recommend_games } %>
+    </div>
+
+    <div class="four wide column">
+      <% if user_signed_in? %>
+        <div class='ui two item mini menu'>
+          <%= link_to '編集', edit_game_path, class: 'item' %>
+          <%= link_to '削除', game_path(@game), method: :delete, data: { confirm: '本当によろしいですか？' }, class:'item' %>
+        </div>
+      <% end %>
+
+      <% if @game.tags.present? %>
+        <h2 class='ui sub header'>
+          タグ
+        </h2>
+        <% @tags.each_with_index do |tag, i| %>
+          <% if i != 0 %>
+            <span>, </span>
+          <% end %>
+          <%= link_to "#{tag.name}(#{tag.taggings.where(game_id: @game).count})", tag_path(tag) %>
+        <% end %>
+      <% end %>
+
+      <% if user_signed_in? %>
+        <div class="ui segment">
+          <h3 class="ui header">
+            <i class="tags icon"></i>
+            <div class="content">
+              自分のタグ
+              <div class="sub header">クリックで削除</div>
+            </div>
+          </h3>
+          <% current_user.taggings.where(game_id: @game).each do |tagging| %>
+            <%= link_to tagging.tag.name, game_tagging_path(@game, tagging), method: :delete, class: 'ui small tag label' %>
+          <% end %>
+
+          <%= form_with model: @your_tag, url: game_taggings_path(@game), local: true do |f| %>
+            <h2 class='ui sub header'>
+              <%= f.label :tag, '新しいタグを入力' %>
+            </h2>
+            <div class="ui mini input">
+              <%= f.text_field :tag, placeholder: 'タグを入力' %>
+            </div>
+            <%= f.submit '追加', class: "ui mini button" %>            
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
 </div>
