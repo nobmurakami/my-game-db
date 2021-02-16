@@ -67,7 +67,7 @@ class GamesController < ApplicationController
 
   def game_params
     params.require(:game_form).permit(:title, :image, :description, :metascore, :release_date, :platform_name,
-                                      :genre_names, :developer_names, :publisher_names, :steam).merge(user_id: current_user.id)
+                                      :genre_names, :developer_names, :publisher_names, :steam, :youtube).merge(user_id: current_user.id)
   end
 
   def load_game

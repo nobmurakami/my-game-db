@@ -1,91 +1,96 @@
 <% breadcrumb :game %>
 
 <div class='ui main text container'>
-  <h1 class='banner-title'><%= @game.title %></h1>
-  
+  <div class="ui basic segment">
+    <h1 class='banner-title'><%= @game.title %></h1>
+    
+    <h2 class='ui header'>
+      <%= link_to @game.platform.name, platform_path(@game.platform) %>
+      <span> | </span>
+      <% if @game.release_date.present? %>
+        <span><%= @game.release_date.to_s(:stamp) %></span>
+      <% else %>
+        <span>TBD</span>
+      <% end %>
+    </h2>
+  </div>
 
-  <h2 class='ui header'>
-    <%= link_to @game.platform.name, platform_path(@game.platform) %>
-    <span> | </span>
-    <% if @game.release_date.present? %>
-      <span><%= @game.release_date.to_s(:stamp) %></span>
-    <% else %>
-      <span>TBD</span>
-    <% end %>
-  </h2>
+  <% if @game.image.attached? %>
+    <div class="ui center aligned basic segment">
+      <%= image_tag @game.image, class: 'ui centered medium image'  %>
+      <%= link_to '画像を削除する', delete_image_attachment_game_path(@game), method: :delete, data: { confirm: '本当によろしいですか？' } %>
+    </div>
+  <% elsif @game.steam_image.present? %>
+    <%= image_tag @game.steam_image, class: 'ui centered medium image' %>
+  <% else %>
+    <%= image_tag 'noimage.png', class: 'ui centered medium image' %>
+  <% end %>
+
+  <div class="ui center aligned basic segment">
+    <span id="favorite_game_<%= @game.id %>">
+      <%= render 'shared/favorite_button', { game: @game } %>
+    </span>
+    <span>｜</span>
+    <span id="play_status_game_<%= @game.id %>">
+      <%= render 'shared/play_status', { game: @game } %>
+    </span>
+  </div>
 </div>
+
+<div class="ui divider"></div>
 
 <div class='ui main container'>
   
-
   <div class="ui three column grid">
     <div class="four wide column">
-      
-      <% if @game.metascore.present? %>
-        <h2 class='ui sub header'>
-          メタスコア
-        </h2>
-        <span><%= @game.metascore %></span>
-      <% end %>
-      
-      <% if @game.developers.present? %>
-        <h2 class='ui sub header'>
-          開発元
-        </h2>
-        <% @game.developers.each_with_index do |developer, i| %>
-          <% if i != 0 %>
-            <span>, </span>
-          <% end %>
-          <%= link_to developer.name, company_path(developer) %>
-        <% end %>
-      <% end %>
+      <h2 class='ui sub header'>
+        <%= "このゲームを好きな人におすすめのゲーム" %>
+      </h2>
 
-      <% if @game.publishers.present? %>
-        <h2 class='ui sub header'>
-          パブリッシャー
-        </h2>
-        <% @game.publishers.each_with_index do |publisher, i| %>
-          <% if i != 0 %>
-            <span>, </span>
-          <% end %>
-          <%= link_to publisher.name, company_path(publisher) %>
-        <% end %>
+        <%= render 'shared/game_list_side', { games: @recommend_games } %>
+      
+    </div>
+
+    <div class="eight wide column">        
+  
+      <% if @game.metascore.present? %>
+        <span class='ui sub header'>メタスコア：</span>
+        <span><%= @game.metascore %></span>
+        <br>
       <% end %>
 
       <% if @game.genres.present? %>
-        <h2 class='ui sub header'>
-          ジャンル
-        </h2>
+        <span class='ui sub header'>ジャンル：</span>
         <% @game.genres.each_with_index do |genre, i| %>
           <% if i != 0 %>
             <span>, </span>
           <% end %>
           <%= link_to genre.name, genre_path(genre) %>
         <% end %>
+        <br>
       <% end %>
-    </div>
-
-    <div class="eight wide column">        
-      <% if @game.image.attached? %>
-        <div class="ui center aligned basic segment">
-          <%= image_tag @game.image, class: 'ui centered medium image'  %>
-          <%= link_to '画像を削除する', delete_image_attachment_game_path(@game), method: :delete, data: { confirm: '本当によろしいですか？' } %>
-        </div>
-      <% elsif @game.steam_image.present? %>
-        <%= image_tag @game.steam_image, class: 'ui centered medium image' %>
-      <% else %>
-        <%= image_tag 'noimage.png', class: 'ui centered medium image' %>
+      
+      <% if @game.developers.present? %>
+        <span class='ui sub header'>開発元：</span>
+        <% @game.developers.each_with_index do |developer, i| %>
+          <% if i != 0 %>
+            <span>, </span>
+          <% end %>
+          <%= link_to developer.name, company_path(developer) %>
+        <% end %>
+        <br>
       <% end %>
 
-      <div class="ui center aligned basic segment">
-        <span id="favorite_game_<%= @game.id %>">
-          <%= render 'shared/favorite_button', { game: @game } %>
-        </span>
-        <span>｜</span>
-        <span id="play_status_game_<%= @game.id %>">
-          <%= render 'shared/play_status', { game: @game } %>
-        </span>
-      </div>
+      <% if @game.publishers.present? %>
+        <span class='ui sub header'>パブリッシャー：</span>
+        <% @game.publishers.each_with_index do |publisher, i| %>
+          <% if i != 0 %>
+            <span>, </span>
+          <% end %>
+          <%= link_to publisher.name, company_path(publisher) %>
+        <% end %>
+        <br>
+      <% end %>
 
       <p><%= @game.description %></p>
 
@@ -96,11 +101,12 @@
         <% end %>
       <% end %>
 
-      <h2 class='ui sub header'>
-        <%= "このゲームを好きな人におすすめのゲーム" %>
-      </h2>
+      <% if @game.youtube.present? %>
+        <div class="ui center aligned basic segment">
+          <iframe width="100%" height="315" src="https://www.youtube.com/embed/<%= @game.youtube.last(11) %>" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+      <% end %>
 
-        <%= render 'shared/game_list_simple', { games: @recommend_games } %>
     </div>
 
     <div class="four wide column">
@@ -147,6 +153,8 @@
           <% end %>
         </div>
       <% end %>
+
+      
     </div>
   </div>
 </div>
