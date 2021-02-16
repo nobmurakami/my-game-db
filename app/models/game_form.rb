@@ -2,7 +2,7 @@ class GameForm
   include ActiveModel::Model
 
   attr_accessor :title, :image, :description, :metascore, :release_date, :platform_name, :genre_names,
-                :developer_names, :publisher_names, :user_id, :steam, :steam_image
+                :developer_names, :publisher_names, :user_id, :steam, :steam_image, :youtube
 
   def initialize(params = nil, game: Game.new)
     @game = game
@@ -16,7 +16,8 @@ class GameForm
       genre_names: game.genres.pluck(:name).join(", "),
       developer_names: game.developers.pluck(:name).join(", "),
       publisher_names: game.publishers.pluck(:name).join(", "),
-      steam: game.steam
+      steam: game.steam,
+      youtube: game.youtube
     }
     super(params)
   end
@@ -31,7 +32,7 @@ class GameForm
       publishers = split_and_delete_space(publisher_names).map { |pub| Company.find_or_create_by!(name: pub) }
 
       @game.update!(title: title.strip_all_space, description: description.strip_all_space, metascore: metascore, release_date: release_date,
-                    platform_id: platform.id, genres: genres, steam: steam)
+                    platform_id: platform.id, genres: genres, steam: steam, youtube: youtube)
       @game.update!(developers: developers, publishers: publishers)
 
       # フォームで画像が選択されている場合のみ、画像を更新する。（編集時に元の画像を消さないため）
@@ -51,10 +52,6 @@ class GameForm
     end
   end
 
-  def steam_appids
-    @game.steam.split("/")[4]
-  end
-
   validates :title, presence: true
   validates :platform_name, presence: true
   validates :metascore,
@@ -63,6 +60,10 @@ class GameForm
   validates :steam, format: { with: VALID_STEAM_URL, allow_blank: true }
 
   private
+
+  def steam_appids
+    @game.steam.split("/")[4]
+  end
 
   def steam_json
     # url = "https://store.steampowered.com/api/appdetails?l=japanese&appids=#{steam_appids}"
