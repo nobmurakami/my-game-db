@@ -29,6 +29,8 @@ class GamesController < ApplicationController
     load_game
     @tags = Tag.joins(:taggings).where(taggings: { game_id: @game }).group(:tag_id).order("count(user_id) desc").limit(10)
     @your_tag = Tag.new
+
+    @recommend_games = recommendation_for(@game).joins(:favorites).group(:game_id).order("count(user_id) desc").limit(5)
   end
 
   def edit
@@ -65,10 +67,20 @@ class GamesController < ApplicationController
 
   def game_params
     params.require(:game_form).permit(:title, :image, :description, :metascore, :release_date, :platform_name,
-                                      :genre_names, :developer_names, :publisher_names, :steam).merge(user_id: current_user.id)
+                                      :genre_names, :developer_names, :publisher_names, :steam, :youtube).merge(user_id: current_user.id)
   end
 
   def load_game
     @game = Game.find(params[:id])
+  end
+
+  def recommendation_for(game)
+    recommend_games = []
+    game.favorite_users.each do |user|
+      user.favorite_games.each do |game|
+        recommend_games.push(game)
+      end
+    end
+    Game.where(id: recommend_games.uniq.map(&:id))
   end
 end

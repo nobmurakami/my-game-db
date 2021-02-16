@@ -1,0 +1,23 @@
+<div class="ui items">
+  <% games.each_with_index do |game, i| %>
+    <% if i != 0 %>
+      <div class="ui divider"></div>
+    <% end %>
+    
+    <div class="item">
+      <span class="ui tiny image">
+        <% if game.image.attached? %>
+          <%= image_tag game.image %>
+        <% elsif game.steam_image.present? %>
+          <%= image_tag game.steam_image %>
+        <% else %>
+          <%= image_tag 'noimage.png' %>
+        <% end %>
+      </span>
+      <div class="content">
+        <%= link_to game.title, game_path(game), class: "header" %>
+        <span><%= "(#{game.platform.name})" if game.platform.present? %></span>
+      </div>
+    </div>
+  <% end %>
+</div>
