@@ -30,6 +30,7 @@ class Game < ApplicationRecord
   has_many :list_users, through: :lists, source: :user
 
   has_many :favorites, dependent: :destroy
+  has_many :favorite_users, through: :favorites, source: :user
 
   def is_wanted_by?(user)
     want_users.where(id: user.id).exists?

@@ -2,13 +2,47 @@
 
 <div class='ui main text container'>
   <h1 class="ui header"><%= @user.name %></h1>
-
   <div class="ui divider"></div>
 
   <h2 class='ui sub header'>
-    <%= "#{@user.name}さんのリスト" %>
+    <%= "リスト" %>
   </h2>
+  <%= render 'shared/lists_menu_horizontal', { user: @user, favorite_class: 'item', want_class: 'item', playing_class: 'item', played_class: 'item' } %>
 
-  <%= render 'shared/lists_menu', { user: @user, favorite_class: 'item', want_class: 'item', playing_class: 'item', played_class: 'item' } %>
-
+  <% if user_signed_in? && current_user == @user %>
+    <h2 class='ui sub header'>
+      <%= "おすすめのゲーム" %>
+    </h2>
+    <div class="ui items">
+      <% @recommend_games.each do |game| %>
+        <div class="item">
+          <div class="image">
+            <% if game.image.attached? %>
+              <%= image_tag game.image %>
+            <% elsif game.steam_image.present? %>
+              <%= image_tag game.steam_image %>
+            <% else %>
+              <%= image_tag 'noimage.png' %>
+            <% end %>
+          </div>
+          <div class="content">
+            <%= link_to game.title, game_path(game), class: "header" %>
+            <span><%= "(#{game.platform.name})" if game.platform.present? %></span>
+            <div class="meta">
+              <p><%= game.release_date.to_s(:stamp) if game.release_date.present? %></p>
+              <p><%= "メタスコア：#{game.metascore}" if game.metascore.present? %></p>
+            </div>
+            <span id="favorite_game_<%= game.id %>">
+              <%= render 'shared/favorite_button', { game: game } %>
+            </span>
+              <span>｜</span>
+            <span id="play_status_game_<%= game.id %>">
+              <%= render 'shared/play_status', { game: game } %>
+            </span> 
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+  
 </div>
