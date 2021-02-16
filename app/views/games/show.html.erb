@@ -132,4 +132,11 @@
       <% end %>
     </div>
   <% end %>
+
+  <h2 class='ui sub header'>
+    <%= "このゲームを好きな人におすすめのゲーム" %>
+  </h2>
+
+    <%= render 'shared/game_list_simple', { games: @recommend_games } %>
+
 </div>

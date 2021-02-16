@@ -1,0 +1,30 @@
+<div class="ui items">
+  <% games.each do |game| %>
+    <div class="item">
+      <div class="image">
+        <% if game.image.attached? %>
+          <%= image_tag game.image %>
+        <% elsif game.steam_image.present? %>
+          <%= image_tag game.steam_image %>
+        <% else %>
+          <%= image_tag 'noimage.png' %>
+        <% end %>
+      </div>
+      <div class="content">
+        <%= link_to game.title, game_path(game), class: "header" %>
+        <span><%= "(#{game.platform.name})" if game.platform.present? %></span>
+        <div class="meta">
+          <p><%= game.release_date.to_s(:stamp) if game.release_date.present? %></p>
+          <p><%= "メタスコア：#{game.metascore}" if game.metascore.present? %></p>
+        </div>
+        <span id="favorite_game_<%= game.id %>">
+          <%= render 'shared/favorite_button', { game: game } %>
+        </span>
+          <span>｜</span>
+        <span id="play_status_game_<%= game.id %>">
+          <%= render 'shared/play_status', { game: game } %>
+        </span> 
+      </div>
+    </div>
+  <% end %>
+</div>

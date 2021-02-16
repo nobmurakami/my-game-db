@@ -42,8 +42,7 @@ class UsersController < ApplicationController
         favorite_games.push(game)
       end
     end
-    favorite_games.uniq
-    Game.where(id: favorite_games.map(&:id))
+    Game.where(id: favorite_games.uniq.map(&:id))
   end
 
   def recommendation_for(user)
