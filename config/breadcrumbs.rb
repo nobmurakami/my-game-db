@@ -2,6 +2,11 @@ crumb :root do
   link "Home", root_path
 end
 
+crumb :contact do
+  link "お問い合わせフォーム", new_contact_path
+  parent :root
+end
+
 crumb :user do
   link User.find(params[:id]).name, user_path
   parent :root

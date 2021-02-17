@@ -24,13 +24,13 @@
       </div>
     </div>
     <div>
-        <span id="favorite_game_<%= game.id %>">
-          <%= render 'shared/favorite_button', { game: game } %>
-        </span>
-          <span>｜</span>
-        <span id="play_status_game_<%= game.id %>">
-          <%= render 'shared/play_status', { game: game } %>
-        </span> 
-      </div>
+      <span id="favorite_game_<%= game.id %>">
+        <%= render 'shared/favorite_button', { game: game } %>
+      </span>
+        <span>｜</span>
+      <span id="play_status_game_<%= game.id %>">
+        <%= render 'shared/play_status', { game: game } %>
+      </span> 
+    </div>
   <% end %>
 </div>

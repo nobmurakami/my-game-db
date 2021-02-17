@@ -1,0 +1,23 @@
+<% breadcrumb :contact %>
+
+<div class="ui main text container">
+  <h1 class="ui header">お問い合わせフォーム</h1>
+
+  <%= form_with model: @contact, local: true, class: "ui form error" do |f| %>
+    <%= render 'shared/error_messages', model: f.object %>
+    <div class="field">
+      <%= f.label :name, 'お名前：' %>
+      <%= f.text_field :name, autofocus: true, autocomplete: "name" %>
+    </div>
+    <div class="field">
+      <%= f.label :email %>
+      <%= f.email_field :email, autocomplete: "email" %>
+    </div>
+    <div class="field">
+      <%= f.label :message, 'お問合せ内容：' %>
+      <%= f.text_area :message, rows: 10 %>
+    </div>
+    <%= f.submit"送信", class: "ui right floated primary button" %>
+  <% end %>
+
+</div>
