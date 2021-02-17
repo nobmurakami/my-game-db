@@ -30,7 +30,7 @@ class GamesController < ApplicationController
     @tags = Tag.joins(:taggings).where(taggings: { game_id: @game }).group(:tag_id).order("count(user_id) desc").limit(10)
     @your_tag = Tag.new
 
-    @recommend_games = recommendation_for(@game).joins(:favorites).group(:game_id).order("count(user_id) desc").limit(5)
+    @recommend_games = recommendation_for(@game).joins(:favorites).group(:game_id).order("count(user_id) desc").limit(10)
   end
 
   def edit
@@ -78,6 +78,11 @@ class GamesController < ApplicationController
     recommend_games = []
     game.favorite_users.each do |user|
       user.favorite_games.each do |game|
+        recommend_games.push(game)
+      end
+    end
+    game.list_users.each do |user|
+      user.list_games.each do |game|
         recommend_games.push(game)
       end
     end
