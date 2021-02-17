@@ -10,10 +10,13 @@
   </head>
 
   <body>
-    <%= render 'shared/header' %>
-    <div class='ui container'>
-      <%= breadcrumbs separator: "#{content_tag(:i, '', :class=>'right angle icon divider')}", class: "ui breadcrumb" %>
+    <div class="content">
+      <%= render 'shared/header' %>
+      <div class='ui container'>
+        <%= breadcrumbs separator: "#{content_tag(:i, '', :class=>'right angle icon divider')}", class: "ui breadcrumb" %>
+      </div>
+      <%= yield %>
     </div>
-    <%= yield %>
+    <%= render 'shared/footer' %>
   </body>
 </html>
