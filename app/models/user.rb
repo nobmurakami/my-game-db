@@ -18,6 +18,7 @@ class User < ApplicationRecord
   has_many :played_games, through: :played_lists, source: :game
 
   has_many :lists, dependent: :destroy
+  has_many :list_games, through: :lists, source: :game
 
   has_many :favorites, dependent: :destroy
   has_many :favorite_games, through: :favorites, source: :game
