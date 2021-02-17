@@ -18,6 +18,10 @@ ja:
        name: 機種
      tag:
        name: タグ
+     contact:
+       name: お名前
+       email: メールアドレス
+       message: お問合せ内容
  activemodel:
    attributes:
      game_form:
