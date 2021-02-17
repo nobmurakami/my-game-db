@@ -27,4 +27,5 @@ Rails.application.routes.draw do
   resources :platforms, only: [:show]
   resources :tags, only: [:show]
   resources :companies, only: [:show]
+  resources :contacts, only: [:new, :create]
 end
