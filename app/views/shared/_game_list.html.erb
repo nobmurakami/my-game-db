@@ -4,6 +4,9 @@
   <div class="borderless header item">並び替え</div>
   <div class="right menu">
     <div class="item">
+      <%= sort_link(q, :favorites_count, "お気に入り") %>
+    </div>
+    <div class="item">
       <%= sort_link(q, :metascore, "メタスコア") %>
     </div>
     <div class="ui item">
