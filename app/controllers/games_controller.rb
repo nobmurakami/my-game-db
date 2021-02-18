@@ -3,7 +3,7 @@ class GamesController < ApplicationController
 
   def index
     @q = Game.ransack(params[:q])
-    @q.sorts = "metascore DESC" if @q.sorts.empty?
+    @q.sorts = "favorites_count DESC" if @q.sorts.empty?
     @games = @q.result(distinct: true).page(params[:page]).per(10).order("created_at DESC")
     @platform_names = Platform.all.order("name ASC").pluck(:name)
     @tag_names = Tag.joins(:taggings).group(:tag_id).order("count(user_id) desc").limit(10).pluck(:name)
