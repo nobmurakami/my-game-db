@@ -92,7 +92,7 @@
         <br>
       <% end %>
 
-      <p><%= @game.description %></p>
+      <%= simple_format(@game.description) %>
 
       <% if @game.steam.present? %>
         <%= link_to(@game.steam, target: :_blank, rel: "noopener noreferrer nofollow", class: 'ui icon button') do %>
