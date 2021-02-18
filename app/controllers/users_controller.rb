@@ -7,28 +7,28 @@ class UsersController < ApplicationController
   def want_to_play
     @user = User.find(params[:id])
     @q = @user.want_games.ransack(params[:q])
-    @q.sorts = "metascore DESC" if @q.sorts.empty?
+    @q.sorts = "favorites_count DESC" if @q.sorts.empty?
     @games = @q.result.page(params[:page]).per(10).order("created_at DESC")
   end
 
   def playing
     @user = User.find(params[:id])
     @q = @user.playing_games.ransack(params[:q])
-    @q.sorts = "metascore DESC" if @q.sorts.empty?
+    @q.sorts = "favorites_count DESC" if @q.sorts.empty?
     @games = @q.result.page(params[:page]).per(10).order("created_at DESC")
   end
 
   def played
     @user = User.find(params[:id])
     @q = @user.played_games.ransack(params[:q])
-    @q.sorts = "metascore DESC" if @q.sorts.empty?
+    @q.sorts = "favorites_count DESC" if @q.sorts.empty?
     @games = @q.result.page(params[:page]).per(10).order("created_at DESC")
   end
 
   def favorite
     @user = User.find(params[:id])
     @q = @user.favorite_games.ransack(params[:q])
-    @q.sorts = "metascore DESC" if @q.sorts.empty?
+    @q.sorts = "favorites_count DESC" if @q.sorts.empty?
     @games = @q.result.page(params[:page]).per(10).order("created_at DESC")
   end
 
