@@ -4,16 +4,16 @@
   <div class="borderless header item">並び替え</div>
   <div class="right menu">
     <div class="item">
-      <%= sort_link(q, :favorites_count, "お気に入り") %>
+      <%= sort_link(q, :favorites_count, "お気に入り", default_order: :desc) %>
     </div>
     <div class="item">
-      <%= sort_link(q, :metascore, "メタスコア") %>
+      <%= sort_link(q, :metascore, "メタスコア", default_order: :desc) %>
     </div>
     <div class="ui item">
       <%= sort_link(q, :title, "タイトル") %>
     </div>
     <div class="ui item">
-      <%= sort_link(q, :release_date, "発売日") %>
+      <%= sort_link(q, :release_date, "発売日", default_order: :desc) %>
     </div>
   </div>
 </div>
