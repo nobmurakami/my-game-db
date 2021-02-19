@@ -3,7 +3,7 @@
     <a class="header item" href="/">My Game DB</a>
 
     <div class="item">
-      <%= search_form_for @search, url: games_path, as: :header_search do |f| %>
+      <%= search_form_for @q_header, url: games_path do |f| %>
         <div class="ui inverted transparent left icon input">
           <%= f.text_field :title_or_description_cont ,placeholder: '検索' %>
           <i class="search icon"></i>
