@@ -77,13 +77,13 @@ class GamesController < ApplicationController
   def recommendation_for(game)
     recommend_games = []
     game.favorite_users.each do |user|
-      user.favorite_games.each do |game|
-        recommend_games.push(game)
+      user.favorite_games.each do |other_game|
+        recommend_games.push(other_game) unless other_game == game
       end
     end
     game.list_users.each do |user|
-      user.list_games.each do |game|
-        recommend_games.push(game)
+      user.list_games.each do |other_game|
+        recommend_games.push(other_game) unless other_game == game
       end
     end
     Game.where(id: recommend_games.uniq.map(&:id))
