@@ -42,8 +42,9 @@ class GameForm
         @game.update!(steam_image: @steam_image)
         @game.update!(description: @steam_description) if @game.description.blank?
         @game.update!(metascore: @steam_metascore) if @game.metascore.blank?
-        @game.update!(release_date: @steam_release_date) if @game.release_date.blank?
-        @game.update!(genres: @steam_genres) if @game.genres.blank?
+        # @game.update!(release_date: @steam_release_date) if @game.release_date.blank?
+        # @game.update!(genres: @steam_genres) if @game.genres.blank?
+        # 取得する情報を英語にしたため、発売日とジャンルの情報は自動保存しない
         @game.update!(developers: @steam_developers) if @game.developers.blank?
         @game.update!(publishers: @steam_publishers) if @game.publishers.blank?
       else
