@@ -111,9 +111,9 @@
 
     <div class="four wide column">
       <% if user_signed_in? %>
-        <div class='ui two item mini menu'>
+        <div class='ui one item mini menu'>
           <%= link_to '編集', edit_game_path, class: 'item' %>
-          <%= link_to '削除', game_path(@game), method: :delete, data: { confirm: '本当によろしいですか？' }, class:'item' %>
+          <%#<%= link_to '削除', game_path(@game), method: :delete, data: { confirm: '本当によろしいですか？' }, class:'item' %>
         </div>
       <% end %>
 

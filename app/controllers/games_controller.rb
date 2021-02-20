@@ -53,11 +53,11 @@ class GamesController < ApplicationController
     end
   end
 
-  def destroy
-    load_game
-    @game.destroy
-    redirect_to root_path
-  end
+  # def destroy
+  #   load_game
+  #   @game.destroy
+  #   redirect_to root_path
+  # end
 
   def delete_image_attachment
     load_game
