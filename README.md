@@ -44,48 +44,93 @@ z4neiy
 - これまで遊んできたゲームの記録を思い出として残したい。
 
 # DEMO
-## 詳細検索機能（ヘッダーメニュー > [データベース] > [詳細検索]）
-様々な条件での絞り込み表示と並び替えが可能です。
+## 詳細検索機能／並び替え機能(ransack)
+ヘッダーメニュー > [データベース] > [詳細検索]<br>
+様々な条件での絞り込み表示と並び替えが可能です。<br>
 ![image](https://user-images.githubusercontent.com/76082764/108618286-43510e00-7460-11eb-9f83-c9ebe6dda731.png)
 
 ## ゲームの詳細表示
-一覧からゲームのタイトルをクリックすると、登録されているゲーム情報が表示されます。
-画面右の[編集]ボタンから情報の編集が可能です。（ログイン中のみ）
+一覧からゲームのタイトルをクリックすると、登録されているゲーム情報が表示されます。<br>
+画面右の[編集]ボタンから情報の編集が可能です。（ログイン中のみ）<br>
 ![image](https://user-images.githubusercontent.com/76082764/108618528-6ed4f800-7462-11eb-8b1d-6d258aa50ceb.png)
 
 ## タグ機能／「自分のタグ」機能
-ゲーム詳細画面でゲームに「自分のタグ」を設定できます。
-各ユーザーが設定したタグは集計され、設定したユーザーが多い順にゲームのタグとして表示されます。
+ゲーム詳細画面でゲームに「自分のタグ」を設定できます。<br>
+各ユーザーが設定したタグは集計され、設定したユーザーが多い順にゲームのタグとして表示されます。<br>
 ![image](https://user-images.githubusercontent.com/76082764/108627546-7cf23b00-7499-11eb-9883-6a92a72fe9ea.png)
 
 ## カテゴリ別一覧表示
-ゲーム詳細画面で機種、ジャンル、開発元、パブリッシャー、タグのリンクをクリックするとカテゴリ別一覧表示画面に遷移します。
+ゲーム詳細画面で機種、ジャンル、開発元、パブリッシャー、タグのリンクをクリックするとカテゴリ別一覧表示画面に遷移します。<br>
 ![image](https://user-images.githubusercontent.com/76082764/108627492-44526180-7499-11eb-8ba6-4981c3674197.png)
 
 ## マイリスト
-詳細画面や一覧表示に表示されている[お気に入り][プレイ予定][プレイ中][プレイ済み]ボタンを押すと、マイリストにゲームが追加されます。
+詳細画面や一覧表示に表示されている[お気に入り][プレイ予定][プレイ中][プレイ済み]ボタンを押すと、マイリストにゲームが追加されます。<br>
 ![image](https://user-images.githubusercontent.com/76082764/108628951-00635a80-74a1-11eb-9667-71819f8e5ac0.png)
 ![image](https://user-images.githubusercontent.com/76082764/108629223-4d93fc00-74a2-11eb-91ef-c88503166987.png)
 
 ## おすすめのゲーム（ヘッダーメニュー > ユーザー名 > [マイページ]）
-ゲームを[お気に入り]すると、 マイページに[おすすめのゲーム]が紹介されます。
+ゲームを[お気に入り]すると、 マイページに[おすすめのゲーム]が紹介されます。<br>
 ![image](https://user-images.githubusercontent.com/76082764/108629629-2b02e280-74a4-11eb-9801-b929c2dde025.png)
 
 ## ゲーム新規登録機能（ヘッダーメニュー > [データベース] > [ゲームを追加]）
-データベースに存在しないゲームを新たに登録します。
+### データベースに存在しないゲームを新たに登録します。
 ![image](https://user-images.githubusercontent.com/76082764/108630890-8afc8780-74aa-11eb-9b21-38bbf398ca13.png)
 
-## Steamからの情報取得
-ゲームの情報にSteamのストアページURLを登録すると、Steamからゲーム画像や一部のゲーム情報を取得します。
-* ユーザーがアップロードした情報がある場合はそちらが優先して表示されます。
+### ジャンル、開発元、パブリッシャーはカンマ(,)で区切ることで複数登録可能です。
+![image](https://user-images.githubusercontent.com/76082764/108632919-ac627100-74b4-11eb-8b20-ee7871597099.png)
+**↓**<br>
+![image](https://user-images.githubusercontent.com/76082764/108632980-0cf1ae00-74b5-11eb-9a44-0b542bbaee2f.png)
+
+### Steamからの情報取得
+ゲームの情報にSteamのストアページURLを登録すると、Steamからゲーム画像や一部のゲーム情報を取得します。<br>
+※ユーザーがアップロードした情報がある場合はそちらが優先して表示されます。<br>
+また、ゲーム詳細ページにSteamへのリンクボタンが設置されます。<br>
 ![image](https://user-images.githubusercontent.com/76082764/108631222-16c2e380-74ac-11eb-8651-d0d2c5660dd3.png)
 
-## 
+## YouTube動画埋め込み
+ゲームの情報にYouTubeの公式トレイラー動画のURLを登録すると、ゲーム詳細ページに動画を埋め込み表示します。。<br>
+![image](https://user-images.githubusercontent.com/76082764/108633640-a1a9db00-74b8-11eb-82ab-73a6816c8c65.png)
+![image](https://user-images.githubusercontent.com/76082764/108633608-7f17c200-74b8-11eb-956e-f25057e7f50e.png)
 
+## ユーザー登録／ログイン機能(Devise)
+![image](https://user-images.githubusercontent.com/76082764/108633930-5b557b80-74ba-11eb-950c-067b53865cb1.png)
+![image](https://user-images.githubusercontent.com/76082764/108633955-70caa580-74ba-11eb-87a3-e70ebdf5825c.png)
+
+## お問合せフォーム（Action Mailer）
+フッターのボタンからお問い合わせフォームに遷移します。<br>
+本番環境ではフォームを送信するとGmailで指定したアドレスにメールが送信されます。。<br>
+![image](https://user-images.githubusercontent.com/76082764/108634909-68289e00-74bf-11eb-9aae-a748af509d34.png)
 
 # 工夫したポイント
 
+
 # 使用技術（開発環境）
+## バックエンド
+Ruby, Ruby on Rails, Steam Web API
+
+## フロントエンド
+Semantic UI, JavaScript, jQuery
+
+## データベース
+MySQL, Sequel Pro
+
+## インフラ
+AWS(EC2, S3), Capistrano
+
+## Webサーバー（本番環境）
+Nginx
+
+## アプリケーションサーバー（本番環境）
+unicorn
+
+## ソース管理
+GitHub, GitHub Desktop
+
+## テスト
+RSpec
+
+## エディタ
+VSCode
 
 # 課題・今後実装したい機能
 
