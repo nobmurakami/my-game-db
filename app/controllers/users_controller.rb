@@ -46,10 +46,14 @@ class UsersController < ApplicationController
   end
 
   def recommendation_for(user)
-    similar_users = user.similar_users
-    similar_users_favorites = favorite_games_by(similar_users)
+    if user.favorites.blank?
+      Game.all
+    else
+      similar_users = user.similar_users
+      similar_users_favorites = favorite_games_by(similar_users)
 
-    recommend_games = similar_users_favorites - user.favorite_games
-    Game.where(id: recommend_games.map(&:id))
+      recommend_games = similar_users_favorites - user.favorite_games
+      Game.where(id: recommend_games.map(&:id))
+    end
   end
 end
