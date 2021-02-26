@@ -3,6 +3,6 @@
 <div class="ui main text container">
   <h1 class="ui header">情報の編集</h1>
 
-  <%= render 'shared/game_form', { form: @form, path: game_path, method: :patch, submit_text: '更新' } %>
+  <%= render 'shared/game_form', { form: @form, path: game_path, method: :patch, submit_text: '更新', titles: @titles, platform_names: @platform_names } %>
 
 </div>

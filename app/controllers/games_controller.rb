@@ -1,5 +1,7 @@
 class GamesController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
+  before_action :set_titles
+  before_action :set_platform_names
 
   def index
     @q = Game.ransack(params[:q])
@@ -8,7 +10,6 @@ class GamesController < ApplicationController
     if @header_search
       @games = @q_header.result(distinct: true).page(params[:page]).per(10).order("created_at DESC")
     end
-    @platform_names = Platform.all.order("name ASC").pluck(:name)
     @tag_names = Tag.joins(:taggings).group(:tag_id).order("count(user_id) desc").limit(10).pluck(:name)
     @genre_names = Genre.all.order("name ASC").pluck(:name)
     @company_names = Company.all.order("name ASC").pluck(:name)
@@ -90,5 +91,13 @@ class GamesController < ApplicationController
       end
     end
     Game.where(id: recommend_games.uniq.map(&:id))
+  end
+
+  def set_titles
+    @titles = Game.all.order("title ASC").pluck(:title)
+  end
+
+  def set_platform_names
+    @platform_names = Platform.all.order("name ASC").pluck(:name)
   end
 end

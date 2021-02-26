@@ -1,8 +1,11 @@
 <%= form_with model: form, url: path, method: method, local: true, class: "ui form error" do |f| %>
   <%= render 'shared/error_messages', model: f.object %>
   <div class="field">
-    <%= f.label :title, 'タイトル：' %>
-    <%= f.text_field :title %>
+    <%= f.label :title, 'タイトル (必須)：' %>
+    <%= f.text_field :title, list: 'title' %>
+    <datalist id="title">
+      <%= options_for_select(titles) %>
+    </datalist>
   </div>
   <div class="field">
     <%= f.label :image, '画像：' %>
@@ -18,8 +21,11 @@
       <%= f.text_field :metascore %>
     </div>
     <div class="field">
-      <%= f.label :platform_name, '機種：' %>
-      <%= f.text_field :platform_name %>
+      <%= f.label :platform_name, '機種 (必須)：' %>
+      <%= f.text_field :platform_name, list: 'platform' %>
+      <datalist id="platform">
+        <%= options_for_select(platform_names) %>
+      </datalist>
     </div>
     <div class="field">
       <%= f.label :release_date, '発売日：' %>
@@ -28,16 +34,16 @@
   </div>
   <div class="field">
     <%= f.label :genre_names, 'ジャンル：' %>
-    <%= f.text_field :genre_names %>
+    <%= f.text_field :genre_names, placeholder: '複数入力する場合はカンマ( , )で区切ってください' %>
   </div>
   <div class='ui two fields'>
     <div class="field">
       <%= f.label :developer_names, '開発元：' %>
-      <%= f.text_field :developer_names %>
+      <%= f.text_field :developer_names, placeholder: '複数入力する場合はカンマ( , )で区切ってください' %>
     </div>
     <div class="field">
       <%= f.label :publisher_names, 'パブリッシャー：' %>
-      <%= f.text_field :publisher_names %>
+      <%= f.text_field :publisher_names, placeholder: '複数入力する場合はカンマ( , )で区切ってください' %>
     </div>
   </div>
   <div class="field">
