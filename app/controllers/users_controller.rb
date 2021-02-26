@@ -1,35 +1,31 @@
 class UsersController < ApplicationController
   def show
-    @user = User.find(params[:id])
-    @recommend_games = recommendation_for(@user).joins(:favorites).group(:game_id).order("count(user_id) desc").limit(5)
+    set_user
+    @recommend_games = recommendation_for(@user).joins(:favorites).group(:game_id).order("count(user_id) desc").limit(5).with_attached_image.includes(:platform)
   end
 
   def want_to_play
-    @user = User.find(params[:id])
+    set_user
     @q = @user.want_games.ransack(params[:q])
-    @q.sorts = "favorites_count DESC" if @q.sorts.empty?
-    @games = @q.result.page(params[:page]).per(10).order("created_at DESC")
+    set_game_list
   end
 
   def playing
-    @user = User.find(params[:id])
+    set_user
     @q = @user.playing_games.ransack(params[:q])
-    @q.sorts = "favorites_count DESC" if @q.sorts.empty?
-    @games = @q.result.page(params[:page]).per(10).order("created_at DESC")
+    set_game_list
   end
 
   def played
-    @user = User.find(params[:id])
+    set_user
     @q = @user.played_games.ransack(params[:q])
-    @q.sorts = "favorites_count DESC" if @q.sorts.empty?
-    @games = @q.result.page(params[:page]).per(10).order("created_at DESC")
+    set_game_list
   end
 
   def favorite
-    @user = User.find(params[:id])
+    set_user
     @q = @user.favorite_games.ransack(params[:q])
-    @q.sorts = "favorites_count DESC" if @q.sorts.empty?
-    @games = @q.result.page(params[:page]).per(10).order("created_at DESC")
+    set_game_list
   end
 
   private
@@ -55,5 +51,14 @@ class UsersController < ApplicationController
       recommend_games = similar_users_favorites - user.favorite_games
       Game.where(id: recommend_games.map(&:id))
     end
+  end
+
+  def set_user
+    @user = User.find(params[:id])
+  end
+
+  def set_game_list
+    @q.sorts = "favorites_count DESC" if @q.sorts.empty?
+    @games = @q.result.page(params[:page]).per(10).order("created_at DESC").with_attached_image.includes(:platform)
   end
 end
