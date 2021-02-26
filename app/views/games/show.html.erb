@@ -138,7 +138,7 @@
               <div class="sub header">クリックで削除</div>
             </div>
           </h3>
-          <% current_user.taggings.where(game_id: @game).each do |tagging| %>
+          <% current_user.taggings.includes(:tag).where(game_id: @game).each do |tagging| %>
             <%= link_to tagging.tag.name, game_tagging_path(@game, tagging), method: :delete, class: 'ui small tag label' %>
           <% end %>
 

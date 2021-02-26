@@ -6,9 +6,9 @@ class GamesController < ApplicationController
   def index
     @q = Game.ransack(params[:q])
     @q.sorts = "favorites_count DESC" if @q.sorts.empty?
-    @games = @q.result(distinct: true).page(params[:page]).per(10).order("created_at DESC")
+    @games = @q.result(distinct: true).page(params[:page]).per(10).order("created_at DESC").with_attached_image.includes(:platform)
     if @header_search
-      @games = @q_header.result(distinct: true).page(params[:page]).per(10).order("created_at DESC")
+      @games = @q_header.result(distinct: true).page(params[:page]).per(10).order("created_at DESC").with_attached_image.includes(:platform)
     end
     @tag_names = Tag.joins(:taggings).group(:tag_id).order("count(user_id) desc").limit(10).pluck(:name)
     @genre_names = Genre.all.order("name ASC").pluck(:name)
@@ -34,7 +34,7 @@ class GamesController < ApplicationController
     @tags = Tag.joins(:taggings).where(taggings: { game_id: @game }).group(:tag_id).order("count(user_id) desc").limit(10)
     @your_tag = Tag.new
 
-    @recommend_games = recommendation_for(@game).joins(:favorites).group(:game_id).order("count(user_id) desc").limit(10)
+    @recommend_games = recommendation_for(@game).joins(:favorites).group(:game_id).order("count(user_id) desc").limit(10).with_attached_image.includes(:platform)
   end
 
   def edit
@@ -80,12 +80,12 @@ class GamesController < ApplicationController
 
   def recommendation_for(game)
     recommend_games = []
-    game.favorite_users.each do |user|
+    game.favorite_users.includes(:favorites, :favorite_games).each do |user|
       user.favorite_games.each do |other_game|
         recommend_games.push(other_game) unless other_game == game
       end
     end
-    game.list_users.each do |user|
+    game.list_users.includes(:lists, :list_games).each do |user|
       user.list_games.each do |other_game|
         recommend_games.push(other_game) unless other_game == game
       end
