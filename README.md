@@ -106,7 +106,7 @@ Semantic UI, JavaScript, jQuery
 MySQL, Sequel Pro
 
 ## インフラ
-AWS(EC2, S3), Capistrano
+AWS(EC2, S3, Route 53), Capistrano
 
 ## Webサーバー（本番環境）
 Nginx
