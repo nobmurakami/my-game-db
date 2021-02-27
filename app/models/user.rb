@@ -26,18 +26,17 @@ class User < ApplicationRecord
   validates :name, presence: true
 
   def favorited?(game)
-    self.favorites.exists?(game_id: game.id)
+    favorites.exists?(game_id: game.id)
   end
 
   def similar_users
     similar_users = []
 
-    self.favorite_games.each do |game|
+    favorite_games.each do |game|
       game.favorite_users.each do |user|
         similar_users.push(user) unless user == self
       end
     end
     similar_users.uniq
   end
-
 end
