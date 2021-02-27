@@ -33,7 +33,7 @@ class GamesController < ApplicationController
     load_game
     @tags = Tag.joins(:taggings).where(taggings: { game_id: @game }).group(:tag_id).order("count(user_id) desc").limit(10)
     @your_tag = Tag.new
-    @tag_names = Tag.joins(:taggings).group(:tag_id).order("count(user_id) desc").limit(10).pluck(:name) 
+    @tag_names = Tag.joins(:taggings).group(:tag_id).order("count(user_id) desc").limit(10).pluck(:name)
 
     @recommend_games = recommendation_for(@game).joins(:favorites).group(:game_id).order("count(user_id) desc").limit(10).with_attached_image.includes(:platform)
   end

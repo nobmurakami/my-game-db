@@ -121,12 +121,11 @@
         <h2 class='ui sub header'>
           タグ
         </h2>
-        <% @tags.each_with_index do |tag, i| %>
-          <% if i != 0 %>
-            <span>, </span>
-          <% end %>
-          <%= link_to "#{tag.name}(#{tag.taggings.where(game_id: @game).count})", tag_path(tag) %>
-        <% end %>
+
+        <span id="tags_<%= @game.id %>">
+          <%= render 'shared/tags', { game: @game, tags: @tags } %>
+        </span>
+
       <% end %>
 
       <% if user_signed_in? %>
@@ -138,11 +137,12 @@
               <div class="sub header">クリックで削除</div>
             </div>
           </h3>
-          <% current_user.taggings.includes(:tag).where(game_id: @game).each do |tagging| %>
-            <%= link_to tagging.tag.name, game_tagging_path(@game, tagging), method: :delete, class: 'ui small tag label' %>
-          <% end %>
 
-          <%= form_with model: @your_tag, url: game_taggings_path(@game), local: true do |f| %>
+          <span id="your_tags_<%= @game.id %>">
+            <%= render 'shared/your_tags', { game: @game } %>
+          </span>
+
+          <%= form_with model: @your_tag, url: game_taggings_path(@game) do |f| %>
             <h2 class='ui sub header'>
               <%= f.label :tag, '新しいタグを入力' %>
             </h2>
