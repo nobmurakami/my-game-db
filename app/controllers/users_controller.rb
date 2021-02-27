@@ -48,7 +48,7 @@ class UsersController < ApplicationController
       similar_users = user.similar_users
       similar_users_favorites = favorite_games_by(similar_users)
 
-      recommend_games = similar_users_favorites - user.favorite_games
+      recommend_games = similar_users_favorites - user.favorite_games - user.list_games
       Game.where(id: recommend_games.map(&:id))
     end
   end
