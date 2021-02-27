@@ -147,7 +147,10 @@
               <%= f.label :tag, '新しいタグを入力' %>
             </h2>
             <div class="ui mini input">
-              <%= f.text_field :tag, placeholder: 'タグを入力' %>
+              <%= f.text_field :tag, placeholder: 'タグを入力', list: "tag" %>
+              <datalist id="tag">
+                <%= options_for_select(@tag_names) %>
+              </datalist>
             </div>
             <%= f.submit '追加', class: "ui mini button" %>            
           <% end %>
