@@ -1,0 +1,6 @@
+<% tags.each_with_index do |tag, i| %>
+  <% if i != 0 %>
+    <span>, </span>
+  <% end %>
+  <%= link_to "#{tag.name}(#{tag.taggings.where(game_id: game).count})", tag_path(tag) %>
+<% end %>

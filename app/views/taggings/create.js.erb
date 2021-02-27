@@ -1,0 +1,3 @@
+document.getElementById('tags_<%= @game.id %>').innerHTML = '<%= escape_javascript(render 'shared/tags', { game: @game, tags: @tags }) %>'
+document.getElementById('your_tags_<%= @game.id %>').innerHTML = '<%= escape_javascript(render 'shared/your_tags', { game: @game }) %>'
+document.getElementById('tag_tag').value = ''
