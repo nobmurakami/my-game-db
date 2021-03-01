@@ -45,11 +45,13 @@ services:
       - "3000:3000"
     links:
       - db
+    depends_on: 
+      - chrome
 
-  selenium_chrome:
+  chrome:
     image: selenium/standalone-chrome:latest
     ports:
-      - "4444:4444"
+      - 4444:4444
 
 volumes:
   mysql-data: # DBの内容をローカルに保持
