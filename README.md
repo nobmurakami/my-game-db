@@ -72,8 +72,8 @@ z4neiy
 ![image](https://user-images.githubusercontent.com/76082764/108632980-0cf1ae00-74b5-11eb-9a44-0b542bbaee2f.png)
 
 ### Steamからの情報取得
-ゲームの情報にSteamのストアページURLを登録すると、Steamからゲーム画像や一部のゲーム情報を取得します。<br>
-※ユーザーがアップロードした情報がある場合はそちらが優先して表示されます。<br>
+ゲームの情報にSteamのストアページURLを登録すると、Steamからゲーム画像を取得します。<br>
+※ユーザーがアップロードした画像がある場合はそちらが優先して表示されます。<br>
 また、ゲーム詳細ページにSteamへのリンクボタンが設置されます。<br>
 ![image](https://user-images.githubusercontent.com/76082764/108631222-16c2e380-74ac-11eb-8651-d0d2c5660dd3.png)
 
