@@ -106,42 +106,10 @@ ActiveRecord::Schema.define(version: 2021_02_18_064320) do
     t.index ["user_id"], name: "index_lists_on_user_id"
   end
 
-  create_table "my_list_games", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.bigint "my_list_id", null: false
-    t.bigint "game_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["game_id"], name: "index_my_list_games_on_game_id"
-    t.index ["my_list_id"], name: "index_my_list_games_on_my_list_id"
-  end
-
-  create_table "my_lists", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "name", null: false
-    t.bigint "user_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["user_id"], name: "index_my_lists_on_user_id"
-  end
-
   create_table "platforms", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "regions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "name", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "releases", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.bigint "game_id", null: false
-    t.bigint "platform_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["game_id"], name: "index_releases_on_game_id"
-    t.index ["platform_id"], name: "index_releases_on_platform_id"
   end
 
   create_table "taggings", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -184,11 +152,6 @@ ActiveRecord::Schema.define(version: 2021_02_18_064320) do
   add_foreign_key "games", "platforms"
   add_foreign_key "lists", "games"
   add_foreign_key "lists", "users"
-  add_foreign_key "my_list_games", "games"
-  add_foreign_key "my_list_games", "my_lists"
-  add_foreign_key "my_lists", "users"
-  add_foreign_key "releases", "games"
-  add_foreign_key "releases", "platforms"
   add_foreign_key "taggings", "games"
   add_foreign_key "taggings", "tags"
   add_foreign_key "taggings", "users"
