@@ -57,7 +57,7 @@ class GameForm
   validates :platform_name, presence: true
   validates :metascore,
             numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 100, allow_blank: true }
-  VALID_STEAM_URL = %r{\Ahttps://store\.steampowered\.com/app/\d+.+}
+  VALID_STEAM_URL = %r{\Ahttps://store\.steampowered\.com/app/\d+.+}.freeze
   validates :steam, format: { with: VALID_STEAM_URL, allow_blank: true }
 
   private
@@ -77,7 +77,7 @@ class GameForm
   def steam_data
     if steam_json.dig(steam_appids, "success") == true
       json = steam_json[steam_appids]["data"]
-      @steam_image = json.dig("header_image")
+      @steam_image = json["header_image"]
       # @steam_description = json.dig("short_description")
       @steam_metascore = json.dig("metacritic", "score")
 
@@ -86,13 +86,13 @@ class GameForm
       # 日本語でjsonを取得した場合は以下を使用
       # @steam_release_date = Date.strptime(release_date, '%Y年%m月%d日')
 
-      @steam_genres = json.dig("genres").map { |genre| Genre.find_or_create_by!(name: genre["description"]) }
-      @steam_developers = json.dig("developers").map { |dev| Company.find_or_create_by!(name: dev) }
-      @steam_publishers = json.dig("publishers").map { |pub| Company.find_or_create_by!(name: pub) }
+      @steam_genres = json["genres"].map { |genre| Genre.find_or_create_by!(name: genre["description"]) }
+      @steam_developers = json["developers"].map { |dev| Company.find_or_create_by!(name: dev) }
+      @steam_publishers = json["publishers"].map { |pub| Company.find_or_create_by!(name: pub) }
     end
   end
 
   def split_and_delete_space(str)
-    str.split(",").grep(/[^[:space:]]/).map { |i| i.strip_all_space }
+    str.split(",").grep(/[^[:space:]]/).map(&:strip_all_space)
   end
 end
