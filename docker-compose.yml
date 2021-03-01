@@ -39,6 +39,7 @@ services:
     volumes:
       - .:/myproject    #ローカルのディレクトリをコンテナ上にマウント
       - bundle:/usr/local/bundle    #bundle installした後buildし直さなくてよくなる
+      - ~/.ssh:/root/.ssh #EC2にデプロイするために.sshディレクトリをコンテナにマウント
     # コンテナの外部に3000番を公開
     # 公開するポート番号：コンテナ内部の転送先ポート番号
     ports:
