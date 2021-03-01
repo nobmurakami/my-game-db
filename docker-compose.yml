@@ -1,0 +1,42 @@
+# docker-compose.ymlフォーマットのバージョン指定
+version: '2'
+services:
+  # MySQLコンテナ定義
+  db:
+    # mysqlを使用してコンテナ作成
+    image: mysql:5.6
+    # コンテナ内の環境変数を定義
+    environment:
+      # mysqlのルートユーザーのパスワード設定
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: root
+    volumes:
+      # ローカルで保持しているDBをコンテナにマウント
+      - mysql-data:/var/lib/mysql    #データの永続化のために必要
+    ports:
+      - "4306:3306"  #両方3306でもok
+
+  # Railsコンテナ定義
+  app:
+    tty: true          #コンテナ上でbinding.pryするために必要
+    stdin_open: true   #コンテナ上でbinding.pryするために必要
+    # Dockerfileを使用してイメージをビルド
+    build: .
+    # コンテナ起動時のデフォルトコマンド
+    # ポート番号：3000
+    # バインドするIPアドレス：0.0.0.0
+    # ポート3000が来たらrailsサーバーが応答
+    command: bundle exec rails s -p 3000 -b '0.0.0.0'
+    volumes:
+      - .:/myproject    #ローカルのディレクトリをコンテナ上にマウント
+      - bundle:/usr/local/bundle    #bundle installした後buildし直さなくてよくなる
+    # コンテナの外部に3000番を公開
+    # 公開するポート番号：コンテナ内部の転送先ポート番号
+    ports:
+      - "3000:3000"
+    links:
+      - db
+
+volumes:
+  mysql-data: # DBの内容をローカルに保持
+  bundle:      #bundle installした後buildし直さなくてよくなる
