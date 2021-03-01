@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "ゲーム情報の投稿", type: :system do
+RSpec.describe "ゲーム情報の投稿", type: :system, js: true do
   describe "新規登録" do
     before do
       @user = FactoryBot.create(:user)
