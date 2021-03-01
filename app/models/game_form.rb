@@ -23,8 +23,6 @@ class GameForm
   end
 
   def save
-    return if invalid?
-
     ActiveRecord::Base.transaction do
       platform = Platform.find_or_create_by!(name: platform_name.strip_all_space)
       genres = split_and_delete_space(genre_names).map { |genre| Genre.find_or_create_by!(name: genre) }
@@ -40,7 +38,6 @@ class GameForm
 
       if @game.steam.present? && steam_data
         @game.update!(steam_image: @steam_image)
-        @game.update!(description: @steam_description) if @game.description.blank?
         @game.update!(metascore: @steam_metascore) if @game.metascore.blank?
         # @game.update!(release_date: @steam_release_date) if @game.release_date.blank?
         # @game.update!(genres: @steam_genres) if @game.genres.blank?
