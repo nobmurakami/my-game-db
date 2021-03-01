@@ -20,7 +20,6 @@ services:
   app:
     # 環境変数の設定
     environment:
-      SELENIUM_DRIVER_URL: http://selenium_chrome:4444/wd/hub
       # AWS_ACCESS_KEY_ID:
       # AWS_SECRET_ACCESS_KEY:
       # BASIC_AUTH_USER:
@@ -48,9 +47,9 @@ services:
       - db
 
   selenium_chrome:
-    image: selenium/standalone-chrome-debug
-    logging:
-      driver: none
+    image: selenium/standalone-chrome:latest
+    ports:
+      - "4444:4444"
 
 volumes:
   mysql-data: # DBの内容をローカルに保持
