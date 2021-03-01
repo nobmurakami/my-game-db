@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "タグ付け機能", type: :system do
+RSpec.describe "タグ付け機能", type: :system, js: true do
   before do
     @user = FactoryBot.create(:user)
     @tagging_user1 = FactoryBot.create(:user)
@@ -30,6 +30,7 @@ RSpec.describe "タグ付け機能", type: :system do
         fill_in "tag_tag", with: "4th TAG"
         expect do
           click_on("追加")
+          visit current_path # Ajax化したらテストが通らなくなったため追記
         end.to change { Tag.count }.by(1).and change { Tagging.count }.by(1)
         expect(current_path).to eq game_path(@game)
 
@@ -50,6 +51,7 @@ RSpec.describe "タグ付け機能", type: :system do
         fill_in "tag_tag", with: @tag1.name
         expect do
           click_on("追加")
+          visit current_path # Ajax化したらテストが通らなくなったため追記
         end.to change { Tag.count }.by(0).and change { Tagging.count }.by(1)
         expect(current_path).to eq game_path(@game)
 
@@ -77,6 +79,7 @@ RSpec.describe "タグ付け機能", type: :system do
         # 何も入力せずに作成ボタンをクリックすると、tagsテーブルとtaggingsテーブルのどちらにもデータが保存されない
         expect do
           click_on("追加")
+          visit current_path # Ajax化したらテストが通らなくなったため追記
         end.to change { Tag.count }.by(0).and change { Tagging.count }.by(0)
 
         expect(current_path).to eq game_path(@game)
@@ -101,6 +104,7 @@ RSpec.describe "タグ付け機能", type: :system do
 
         expect do
           click_on(@tag.name)
+          visit current_path # Ajax化したらテストが通らなくなったため追記
         end.to change { Tag.count }.by(0).and change { Tagging.count }.by(-1)
 
         expect(current_path).to eq game_path(@game)
@@ -146,6 +150,7 @@ RSpec.describe "タグ付け機能", type: :system do
       fill_in "tag_tag", with: @tag2.name
       expect do
         click_on("追加")
+        visit current_path # Ajax化したらテストが通らなくなったため追記
       end.to change { Tag.count }.by(0).and change { Tagging.count }.by(1)
       expect(current_path).to eq game_path(@game)
 

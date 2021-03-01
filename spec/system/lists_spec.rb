@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "Lists", type: :system do
+RSpec.describe "Lists", type: :system, js: true do
   describe "詳細画面でゲームをリストに追加する" do
     before do
       @user = FactoryBot.create(:user)

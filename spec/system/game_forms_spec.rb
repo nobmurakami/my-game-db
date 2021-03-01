@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "ゲーム情報の投稿", type: :system do
+RSpec.describe "ゲーム情報の投稿", type: :system, js: true do
   describe "新規登録" do
     before do
       @user = FactoryBot.create(:user)
@@ -46,7 +46,7 @@ RSpec.describe "ゲーム情報の投稿", type: :system do
         attach_file("game_form_image", image_path)
         fill_in "game_form_description", with: @game.description
         fill_in "game_form_metascore", with: @game.metascore
-        fill_in "game_form_release_date", with: @game.release_date.to_s(:stamp)
+        fill_in "game_form_release_date", with: @game.release_date
         fill_in "game_form_genre_names", with: @game.genre_names
         fill_in "game_form_developer_names", with: @game.developer_names
         fill_in "game_form_publisher_names", with: @game.publisher_names
@@ -183,7 +183,7 @@ RSpec.describe "ゲーム情報の投稿", type: :system do
         attach_file("game_form_image", image_path)
         fill_in "game_form_description", with: @game.description
         fill_in "game_form_metascore", with: @game.metascore
-        fill_in "game_form_release_date", with: @game.release_date.to_s(:stamp)
+        fill_in "game_form_release_date", with: @game.release_date
         fill_in "game_form_genre_names", with: @game.genre_names
         fill_in "game_form_developer_names", with: @game.developer_names
         fill_in "game_form_publisher_names", with: @game.publisher_names
@@ -215,7 +215,7 @@ RSpec.describe "ゲーム情報の投稿", type: :system do
         attach_file("game_form_image", image_path)
         fill_in "game_form_description", with: @game.description
         fill_in "game_form_metascore", with: @game.metascore
-        fill_in "game_form_release_date", with: @game.release_date.to_s(:stamp)
+        fill_in "game_form_release_date", with: @game.release_date
         fill_in "game_form_genre_names", with: @game.genre_names
         fill_in "game_form_developer_names", with: @game.developer_names
         fill_in "game_form_publisher_names", with: @game.publisher_names
