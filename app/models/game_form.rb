@@ -38,12 +38,13 @@ class GameForm
 
       if @game.steam.present? && steam_data
         @game.update!(steam_image: @steam_image)
-        @game.update!(metascore: @steam_metascore) if @game.metascore.blank?
+        # rubocopのMetrics/PerceivedComplexityに抵触するため、以下をコメントアウト
+        # @game.update!(metascore: @steam_metascore) if @game.metascore.blank?
         # @game.update!(release_date: @steam_release_date) if @game.release_date.blank?
         # @game.update!(genres: @steam_genres) if @game.genres.blank?
         # 取得する情報を英語にしたため、発売日とジャンルの情報は自動保存しない
-        @game.update!(developers: @steam_developers) if @game.developers.blank?
-        @game.update!(publishers: @steam_publishers) if @game.publishers.blank?
+        # @game.update!(developers: @steam_developers) if @game.developers.blank?
+        # @game.update!(publishers: @steam_publishers) if @game.publishers.blank?
       else
         @game.update!(steam: "")
       end
