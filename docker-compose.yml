@@ -18,6 +18,15 @@ services:
 
   # Railsコンテナ定義
   app:
+    # 環境変数の設定
+    environment:
+      # AWS_ACCESS_KEY_ID:
+      # AWS_SECRET_ACCESS_KEY:
+      # BASIC_AUTH_USER:
+      # BASIC_AUTH_PASSWORD:
+      # GMAIL_USER_NAME:
+      # GMAIL_PASSWORD:
+      MAIL_TO:
     tty: true          #コンテナ上でbinding.pryするために必要
     stdin_open: true   #コンテナ上でbinding.pryするために必要
     # Dockerfileを使用してイメージをビルド
