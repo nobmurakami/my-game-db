@@ -21,7 +21,7 @@ RSpec.describe "タグ付け機能", type: :system do
   describe "タグの追加" do
     context "タグ付けできるとき" do
       it "DBに存在しないタグを作成してタグづけをすることができる" do
-        basic_pass root_path
+        # basic_pass root_path
         sign_in(@user)
         visit game_path(@game)
         expect(page).to have_button "追加"
@@ -41,7 +41,7 @@ RSpec.describe "タグ付け機能", type: :system do
       end
 
       it "DBに存在するタグを使用してタグづけをすることができる" do
-        basic_pass root_path
+        # basic_pass root_path
         sign_in(@user)
         visit game_path(@game)
         expect(page).to have_button "追加"
@@ -63,13 +63,13 @@ RSpec.describe "タグ付け機能", type: :system do
 
     context "タグ付けできないとき" do
       it "ログインしていないとタグ付けできない" do
-        basic_pass root_path
+        # basic_pass root_path
         visit game_path(@game)
         expect(page).not_to have_button "追加"
       end
 
       it "フォームが空だとタグ付けできない" do
-        basic_pass root_path
+        # basic_pass root_path
         sign_in(@user)
         visit game_path(@game)
         expect(page).to have_button "追加"
@@ -92,7 +92,7 @@ RSpec.describe "タグ付け機能", type: :system do
 
     context "タグの削除ができるとき" do
       it "ログインしていればゲーム詳細ページで自分のタグを削除できる" do
-        basic_pass root_path
+        # basic_pass root_path
         sign_in(@user)
         visit game_path(@game)
 
@@ -112,7 +112,7 @@ RSpec.describe "タグ付け機能", type: :system do
 
     context "タグの削除ができないとき" do
       it "ログインしていないと自分のタグを削除できない" do
-        basic_pass root_path
+        # basic_pass root_path
         visit game_path(@game)
 
         expect(page).to have_content(@tag.name)
@@ -123,7 +123,7 @@ RSpec.describe "タグ付け機能", type: :system do
 
   describe "タグの表示" do
     it "ゲームのタグはタグづけされた数の多い順に並んでいる" do
-      basic_pass root_path
+      # basic_pass root_path
       visit game_path(@game)
 
       tags = all("a[href^='/tags/']")
@@ -135,7 +135,7 @@ RSpec.describe "タグ付け機能", type: :system do
     it "タグづけされた数が変わると表示の順番が入れ替わる" do
       @game.taggings.create(tag: @tag2, user: @tagging_user3)
 
-      basic_pass root_path
+      # basic_pass root_path
       sign_in(@user)
       visit game_path(@game)
 

@@ -9,7 +9,7 @@ RSpec.describe "ゲーム情報の投稿", type: :system do
 
     context "登録に成功したとき" do
       it "ゲームの登録に成功すると、ゲーム一覧に遷移して、登録したゲームが表示されている" do
-        basic_pass root_path
+        # basic_pass root_path
         # サインインする
         sign_in(@user)
 
@@ -31,7 +31,7 @@ RSpec.describe "ゲーム情報の投稿", type: :system do
       end
 
       it "Steam以外の全ての項目を入力してゲームを登録すると、ゲーム一覧と詳細ページに入力した内容が表示されている" do
-        basic_pass root_path
+        # basic_pass root_path
         # サインインする
         sign_in(@user)
 
@@ -81,7 +81,7 @@ RSpec.describe "ゲーム情報の投稿", type: :system do
       end
 
       it "ジャンルにスペースだけ入力しても空文字のレコードが作られない" do
-        basic_pass root_path
+        # basic_pass root_path
         # サインインする
         sign_in(@user)
 
@@ -102,7 +102,7 @@ RSpec.describe "ゲーム情報の投稿", type: :system do
       end
 
       it "ジャンルを複数入力する場合にスペースだけの入力があっても空文字のレコードが作られない" do
-        basic_pass root_path
+        # basic_pass root_path
         # サインインする
         sign_in(@user)
 
@@ -123,7 +123,7 @@ RSpec.describe "ゲーム情報の投稿", type: :system do
       end
 
       it "開発元と発売元にスペースだけ入力しても空文字のレコードが作られない" do
-        basic_pass root_path
+        # basic_pass root_path
         # サインインする
         sign_in(@user)
 
@@ -145,7 +145,7 @@ RSpec.describe "ゲーム情報の投稿", type: :system do
       end
 
       it "開発元と発売元を複数入力する場合にスペースだけの入力があっても空文字のレコードが作られない" do
-        basic_pass root_path
+        # basic_pass root_path
         # サインインする
         sign_in(@user)
 
@@ -169,7 +169,7 @@ RSpec.describe "ゲーム情報の投稿", type: :system do
 
     context "登録に失敗したとき" do
       it "タイトルを入力しないと登録に失敗する" do
-        basic_pass root_path
+        # basic_pass root_path
         # サインインする
         sign_in(@user)
 
@@ -201,7 +201,7 @@ RSpec.describe "ゲーム情報の投稿", type: :system do
       end
 
       it "機種を入力しないと登録に失敗する" do
-        basic_pass root_path
+        # basic_pass root_path
         # サインインする
         sign_in(@user)
 
@@ -249,7 +249,7 @@ RSpec.describe "ゲーム情報の投稿", type: :system do
 
     context "更新に成功したとき" do
       it "ゲームの更新に成功すると、ゲーム詳細ページに遷移して、更新した内容が表示されている" do
-        basic_pass root_path
+        # basic_pass root_path
         # サインインする
         sign_in(@user)
 
@@ -301,7 +301,7 @@ RSpec.describe "ゲーム情報の投稿", type: :system do
       end
 
       it "何も編集せずに更新しても元のデータが消えない" do
-        basic_pass root_path
+        # basic_pass root_path
         # サインインする
         sign_in(@user)
 
@@ -335,7 +335,7 @@ RSpec.describe "ゲーム情報の投稿", type: :system do
 
     context "更新に失敗したとき" do
       it "タイトルを入力しないと更新に失敗する" do
-        basic_pass root_path
+        # basic_pass root_path
         # サインインする
         sign_in(@user)
 
@@ -357,7 +357,7 @@ RSpec.describe "ゲーム情報の投稿", type: :system do
       end
 
       it "機種を入力しないと更新に失敗する" do
-        basic_pass root_path
+        # basic_pass root_path
         # サインインする
         sign_in(@user)
 
@@ -387,7 +387,7 @@ RSpec.describe "ゲーム情報の投稿", type: :system do
       end
 
       it "一覧表示でタイトルと機種が表示されている" do
-        basic_pass root_path
+        # basic_pass root_path
         visit root_path
 
         expect(page).to have_content(@game.title)
@@ -419,7 +419,7 @@ RSpec.describe "ゲーム情報の投稿", type: :system do
       end
 
       it "一覧表示で添付画像、タイトル、機種、メタスコア 、発売日が表示されている" do
-        basic_pass root_path
+        # basic_pass root_path
         visit root_path
         expect(page).to have_content(@game.title)
         expect(page).to have_content(@game.platform.name)
@@ -429,7 +429,7 @@ RSpec.describe "ゲーム情報の投稿", type: :system do
       end
 
       it "詳細表示で全ての情報が表示されている" do
-        basic_pass root_path
+        # basic_pass root_path
         visit game_path(@game)
 
         # 登録されている情報が表示されていることを確認
@@ -455,7 +455,7 @@ RSpec.describe "ゲーム情報の投稿", type: :system do
       end
 
       it "一覧表示と詳細表示にSteamのゲーム画像が表示されている" do
-        basic_pass root_path
+        # basic_pass root_path
         visit root_path
         expect(page).to have_selector("img[src='#{@game.steam_image}']")
 

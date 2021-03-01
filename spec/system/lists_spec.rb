@@ -10,7 +10,7 @@ RSpec.describe "Lists", type: :system do
     context "ユーザーがログインしている場合" do
       context "ユーザーがゲームをリストに追加していない場合" do
         it "プレイ予定ボタンを押すとユーザーのプレイ予定リストにゲームが追加される" do
-          basic_pass root_path
+          # basic_pass root_path
           sign_in(@user)
           visit game_path(@game)
 
@@ -25,7 +25,7 @@ RSpec.describe "Lists", type: :system do
         end
 
         it "プレイ中ボタンを押すとユーザーのプレイ中リストにゲームが追加される" do
-          basic_pass root_path
+          # basic_pass root_path
           sign_in(@user)
           visit game_path(@game)
 
@@ -40,7 +40,7 @@ RSpec.describe "Lists", type: :system do
         end
 
         it "プレイ済みボタンを押すとユーザーのプレイ済みリストにゲームが追加される" do
-          basic_pass root_path
+          # basic_pass root_path
           sign_in(@user)
           visit game_path(@game)
 
@@ -61,7 +61,7 @@ RSpec.describe "Lists", type: :system do
         end
 
         it "プレイ予定ボタンを押すとゲームがユーザーのプレイ予定リストから削除される" do
-          basic_pass root_path
+          # basic_pass root_path
           sign_in(@user)
           visit game_path(@game)
 
@@ -73,7 +73,7 @@ RSpec.describe "Lists", type: :system do
         end
 
         it "プレイ中ボタンを押すとゲームがユーザーのプレイ予定リストからプレイ中リストに移動する" do
-          basic_pass root_path
+          # basic_pass root_path
           sign_in(@user)
           visit game_path(@game)
 
@@ -85,7 +85,7 @@ RSpec.describe "Lists", type: :system do
         end
 
         it "プレイ済みボタンを押すとゲームがユーザーのプレイ予定リストからプレイ済みリストに移動する" do
-          basic_pass root_path
+          # basic_pass root_path
           sign_in(@user)
           visit game_path(@game)
 
@@ -103,7 +103,7 @@ RSpec.describe "Lists", type: :system do
         end
 
         it "プレイ予定ボタンを押すとゲームがユーザーのプレイ中リストからプレイ予定リストに移動する" do
-          basic_pass root_path
+          # basic_pass root_path
           sign_in(@user)
           visit game_path(@game)
 
@@ -115,7 +115,7 @@ RSpec.describe "Lists", type: :system do
         end
 
         it "プレイ中ボタンを押すとゲームがユーザーのプレイ中リストから削除される" do
-          basic_pass root_path
+          # basic_pass root_path
           sign_in(@user)
           visit game_path(@game)
 
@@ -127,7 +127,7 @@ RSpec.describe "Lists", type: :system do
         end
 
         it "プレイ済みボタンを押すとゲームがユーザーのプレイ中リストからプレイ済みリストに移動する" do
-          basic_pass root_path
+          # basic_pass root_path
           sign_in(@user)
           visit game_path(@game)
 
@@ -145,7 +145,7 @@ RSpec.describe "Lists", type: :system do
         end
 
         it "プレイ予定ボタンを押すとゲームがユーザーのプレイ済みリストからプレイ予定リストに移動する" do
-          basic_pass root_path
+          # basic_pass root_path
           sign_in(@user)
           visit game_path(@game)
 
@@ -157,7 +157,7 @@ RSpec.describe "Lists", type: :system do
         end
 
         it "プレイ中ボタンを押すとゲームがユーザーのプレイ済みリストからプレイ中リストに移動する" do
-          basic_pass root_path
+          # basic_pass root_path
           sign_in(@user)
           visit game_path(@game)
 
@@ -169,7 +169,7 @@ RSpec.describe "Lists", type: :system do
         end
 
         it "プレイ済みボタンを押すとゲームがユーザーのプレイ済みリストから削除される" do
-          basic_pass root_path
+          # basic_pass root_path
           sign_in(@user)
           visit game_path(@game)
 
@@ -184,7 +184,7 @@ RSpec.describe "Lists", type: :system do
 
     context "ユーザーがログインしていない場合" do
       it "プレイ予定ボタンを押すとログイン画面に遷移する" do
-        basic_pass root_path
+        # basic_pass root_path
         visit game_path(@game)
 
         click_on("プレイ予定")
@@ -192,7 +192,7 @@ RSpec.describe "Lists", type: :system do
       end
 
       it "プレイ中ボタンを押すとログイン画面に遷移する" do
-        basic_pass root_path
+        # basic_pass root_path
         visit game_path(@game)
 
         click_on("プレイ中")
@@ -200,7 +200,7 @@ RSpec.describe "Lists", type: :system do
       end
 
       it "プレイ済みボタンを押すとログイン画面に遷移する" do
-        basic_pass root_path
+        # basic_pass root_path
         visit game_path(@game)
 
         click_on("プレイ済み")
