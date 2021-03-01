@@ -4,10 +4,10 @@ class TaggingsController < ApplicationController
   before_action :set_tags
 
   def create
-    if tag_params[:tag].present?
-      tag = Tag.find_or_create_by(name: tag_params[:tag].strip_all_space)
-      Tagging.find_or_create_by(game_id: tag_params[:game_id], tag_id: tag.id, user_id: tag_params[:user_id])
-    end
+    return unless tag_params[:tag].present?
+
+    tag = Tag.find_or_create_by(name: tag_params[:tag].strip_all_space)
+    Tagging.find_or_create_by(game_id: tag_params[:game_id], tag_id: tag.id, user_id: tag_params[:user_id])
   end
 
   def destroy

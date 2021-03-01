@@ -1,7 +1,8 @@
 class UsersController < ApplicationController
   def show
     set_user
-    @recommend_games = recommendation_for(@user).joins(:favorites).group(:game_id).order("count(user_id) desc").limit(5).with_attached_image.includes(:platform)
+    @recommend_games = recommendation_for(@user).joins(:favorites).group(:game_id).order("count(user_id) desc").limit(5)
+                                                .with_attached_image.includes(:platform)
   end
 
   def want_to_play
@@ -59,6 +60,7 @@ class UsersController < ApplicationController
 
   def set_game_list
     @q.sorts = "favorites_count DESC" if @q.sorts.empty?
-    @games = @q.result.page(params[:page]).per(10).order("created_at DESC").with_attached_image.includes(:platform)
+    @games = @q.result.page(params[:page]).per(10).order("created_at DESC")
+               .with_attached_image.includes(:platform)
   end
 end

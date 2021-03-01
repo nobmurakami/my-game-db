@@ -32,11 +32,11 @@ class Game < ApplicationRecord
   has_many :favorites, dependent: :destroy
   has_many :favorite_users, through: :favorites, source: :user
 
-  def is_wanted_by?(user)
+  def wanted_by?(user)
     want_users.where(id: user.id).exists?
   end
 
-  def is_playing_by?(user)
+  def playing_by?(user)
     playing_users.where(id: user.id).exists?
   end
 
@@ -44,7 +44,7 @@ class Game < ApplicationRecord
     played_users.where(id: user.id).exists?
   end
 
-  def is_listed_by?(user)
+  def listed_by?(user)
     list_users.where(id: user.id).exists?
   end
 

@@ -31,8 +31,8 @@ class GameForm
       developers = split_and_delete_space(developer_names).map { |dev| Company.find_or_create_by!(name: dev) }
       publishers = split_and_delete_space(publisher_names).map { |pub| Company.find_or_create_by!(name: pub) }
 
-      @game.update!(title: title.strip_all_space, description: description.strip_all_space, metascore: metascore, release_date: release_date,
-                    platform_id: platform.id, genres: genres, steam: steam, youtube: youtube)
+      @game.update!(title: title.strip_all_space, description: description.strip_all_space, metascore: metascore,
+                    release_date: release_date, platform_id: platform.id, genres: genres, steam: steam, youtube: youtube)
       @game.update!(developers: developers, publishers: publishers)
 
       # フォームで画像が選択されている場合のみ、画像を更新する。（編集時に元の画像を消さないため）
@@ -75,21 +75,21 @@ class GameForm
   end
 
   def steam_data
-    if steam_json.dig(steam_appids, "success") == true
-      json = steam_json[steam_appids]["data"]
-      @steam_image = json["header_image"]
-      # @steam_description = json.dig("short_description")
-      @steam_metascore = json.dig("metacritic", "score")
+    return unless steam_json.dig(steam_appids, "success") == true
 
-      # release_date = json.dig("release_date", "date")
-      # @steam_release_date = Date.strptime(release_date, '%d %b, %Y')
-      # 日本語でjsonを取得した場合は以下を使用
-      # @steam_release_date = Date.strptime(release_date, '%Y年%m月%d日')
+    json = steam_json[steam_appids]["data"]
+    @steam_image = json["header_image"]
+    # @steam_description = json.dig("short_description")
+    @steam_metascore = json.dig("metacritic", "score")
 
-      @steam_genres = json["genres"].map { |genre| Genre.find_or_create_by!(name: genre["description"]) }
-      @steam_developers = json["developers"].map { |dev| Company.find_or_create_by!(name: dev) }
-      @steam_publishers = json["publishers"].map { |pub| Company.find_or_create_by!(name: pub) }
-    end
+    # release_date = json.dig("release_date", "date")
+    # @steam_release_date = Date.strptime(release_date, '%d %b, %Y')
+    # 日本語でjsonを取得した場合は以下を使用
+    # @steam_release_date = Date.strptime(release_date, '%Y年%m月%d日')
+
+    @steam_genres = json["genres"].map { |genre| Genre.find_or_create_by!(name: genre["description"]) }
+    @steam_developers = json["developers"].map { |dev| Company.find_or_create_by!(name: dev) }
+    @steam_publishers = json["publishers"].map { |pub| Company.find_or_create_by!(name: pub) }
   end
 
   def split_and_delete_space(str)

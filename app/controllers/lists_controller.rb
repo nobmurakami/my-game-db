@@ -25,7 +25,7 @@ class ListsController < ApplicationController
   private
 
   def save_list(new_list)
-    if Game.find(params[:game_id]).is_listed_by?(current_user)
+    if Game.find(params[:game_id]).listed_by?(current_user)
       List.transaction do
         old_list = current_user.lists.find_by(game_id: params[:game_id])
         old_list.destroy!

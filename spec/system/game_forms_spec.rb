@@ -191,7 +191,7 @@ RSpec.describe "ゲーム情報の投稿", type: :system, js: true do
         # 登録ボタンを押してもDBに保存されない
         expect do
           click_on("登録")
-        end.not_to change { Game.count }
+        end.to change { Game.count }.by(0)
 
         # 元のページに戻ってくる
         expect(current_path).to eq "/games"
@@ -223,7 +223,7 @@ RSpec.describe "ゲーム情報の投稿", type: :system, js: true do
         # 登録ボタンを押してもDBに保存されないことを確認
         expect do
           click_on("登録")
-        end.not_to change { Game.count }
+        end.to change { Game.count }.by(0)
 
         # 元のページに戻ってくることを確認
         expect(current_path).to eq "/games"

@@ -6,9 +6,11 @@ class GamesController < ApplicationController
   def index
     @q = Game.ransack(params[:q])
     @q.sorts = "favorites_count DESC" if @q.sorts.empty?
-    @games = @q.result(distinct: true).page(params[:page]).per(10).order("created_at DESC").with_attached_image.includes(:platform)
+    @games = @q.result(distinct: true).page(params[:page]).per(10).order("created_at DESC")
+               .with_attached_image.includes(:platform)
     if @header_search
-      @games = @q_header.result(distinct: true).page(params[:page]).per(10).order("created_at DESC").with_attached_image.includes(:platform)
+      @games = @q_header.result(distinct: true).page(params[:page]).per(10).order("created_at DESC")
+                        .with_attached_image.includes(:platform)
     end
     @tag_names = Tag.joins(:taggings).group(:tag_id).order("count(user_id) desc").limit(10).pluck(:name)
     @genre_names = Genre.all.order("name ASC").pluck(:name)
@@ -35,7 +37,8 @@ class GamesController < ApplicationController
     @your_tag = Tag.new
     @tag_names = Tag.joins(:taggings).group(:tag_id).order("count(user_id) desc").limit(10).pluck(:name)
 
-    @recommend_games = recommendation_for(@game).joins(:favorites).group(:game_id).order("count(user_id) desc").limit(10).with_attached_image.includes(:platform)
+    @recommend_games = recommendation_for(@game).joins(:favorites).group(:game_id).order("count(user_id) desc").limit(10)
+                                                .with_attached_image.includes(:platform)
   end
 
   def edit
@@ -72,7 +75,8 @@ class GamesController < ApplicationController
 
   def game_params
     params.require(:game_form).permit(:title, :image, :description, :metascore, :release_date, :platform_name,
-                                      :genre_names, :developer_names, :publisher_names, :steam, :youtube).merge(user_id: current_user.id)
+                                      :genre_names, :developer_names, :publisher_names, :steam,
+                                      :youtube).merge(user_id: current_user.id)
   end
 
   def load_game
