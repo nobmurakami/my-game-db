@@ -117,16 +117,9 @@
         </div>
       <% end %>
 
-      <% if @game.tags.present? %>
-        <h2 class='ui sub header'>
-          タグ
-        </h2>
-
-        <span id="tags_<%= @game.id %>">
-          <%= render 'shared/tags', { game: @game, tags: @tags } %>
-        </span>
-
-      <% end %>
+      <span id="tags_<%= @game.id %>">
+        <%= render 'shared/tags', { game: @game, tags: @tags } %>
+      </span>
 
       <% if user_signed_in? %>
         <div class="ui segment">

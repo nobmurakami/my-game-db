@@ -1,6 +1,13 @@
-<% tags.each_with_index do |tag, i| %>
-  <% if i != 0 %>
-    <span>, </span>
+<% if @game.tags.present? %>
+  <h2 class='ui sub header'>
+    タグ
+  </h2>
+
+  <% tags.each_with_index do |tag, i| %>
+    <% if i != 0 %>
+      <span>, </span>
+    <% end %>
+    <%= link_to "#{tag.name}(#{tag.taggings.where(game_id: game).count})", tag_path(tag) %>
   <% end %>
-  <%= link_to "#{tag.name}(#{tag.taggings.where(game_id: game).count})", tag_path(tag) %>
+
 <% end %>
