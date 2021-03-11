@@ -17,25 +17,37 @@
     </div>
   </div>
 </div>
+
 <div class="ui items">
-  <% games.each do |game| %>
+  <% games.each_with_index do |game, i| %>
+    <% if i != 0 %>
+      <div class="ui divider"></div>
+    <% end %>
+    
     <div class="item">
       <div class="image">
         <% if game.image.attached? %>
-          <%= image_tag game.image %>
+          <%= link_to image_tag(game.image), game_path(game), class: "ui medium image" %>
         <% elsif game.steam_image.present? %>
-          <%= image_tag game.steam_image %>
+          <%= link_to image_tag(game.steam_image), game_path(game), class: "ui medium image" %>
         <% else %>
-          <%= image_tag 'noimage.png' %>
+          <%= link_to image_tag('noimage.png'), game_path(game), class: "ui medium image" %>
         <% end %>
       </div>
+      
       <div class="content">
-        <%= link_to game.title, game_path(game), class: "header" %>
-        <span><%= "(#{game.platform.name})" if game.platform.present? %></span>
-        <div class="meta">
-          <p><%= game.release_date.to_s(:stamp) if game.release_date.present? %></p>
-          <p><%= "メタスコア：#{game.metascore}" if game.metascore.present? %></p>
-        </div>
+        <%= link_to game_path(game) do %>
+          <div>
+            <span class="ui header">
+              <%= game.title %>
+              <small><%= "(#{game.platform.name})" if game.platform.present? %></small>
+            </span>
+          </div>
+          <div class="meta">
+            <p><%= game.release_date.to_s(:stamp) if game.release_date.present? %></p>
+            <p><%= "メタスコア：#{game.metascore}" if game.metascore.present? %></p>
+          </div>
+        <% end %>
         <span id="favorite_game_<%= game.id %>">
           <%= render 'shared/favorite_button', { game: game } %>
         </span>
