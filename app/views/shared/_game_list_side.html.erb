@@ -7,16 +7,22 @@
     <div class="item">
       <span class="ui tiny image">
         <% if game.image.attached? %>
-          <%= image_tag game.image %>
+          <%= link_to image_tag(game.image), game_path(game) %>
         <% elsif game.steam_image.present? %>
-          <%= image_tag game.steam_image %>
+          <%= link_to image_tag(game.steam_image), game_path(game) %>
         <% else %>
-          <%= image_tag 'noimage.png' %>
+          <%= link_to image_tag('noimage.png'), game_path(game) %>
         <% end %>
       </span>
       <div class="content">
-        <%= link_to game.title, game_path(game), class: "header" %>
-        <span><%= "(#{game.platform.name})" if game.platform.present? %></span>
+        <%= link_to game_path(game) do %>
+          <div>
+            <span class="ui header">
+              <%= game.title %>
+              <small><%= "(#{game.platform.name})" if game.platform.present? %></small>
+            </span>
+          </div>
+        <% end %>
       </div>
     </div>
   <% end %>
