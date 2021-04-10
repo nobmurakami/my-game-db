@@ -32,10 +32,11 @@ services:
     # Dockerfileを使用してイメージをビルド
     build: .
     # コンテナ起動時のデフォルトコマンド
+    # 「server is already running.」でサーバーが起動しない問題を避けるため、まずserver.pidを削除してからサーバーを起動する
     # ポート番号：3000
     # バインドするIPアドレス：0.0.0.0
     # ポート3000が来たらrailsサーバーが応答
-    command: bundle exec rails s -p 3000 -b '0.0.0.0'
+    command: /bin/sh -c "rm -f /myproject/tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
     volumes:
       - .:/myproject    #ローカルのディレクトリをコンテナ上にマウント
       - bundle:/usr/local/bundle    #bundle installした後buildし直さなくてよくなる
@@ -46,7 +47,7 @@ services:
       - "3000:3000"
     links:
       - db
-    depends_on: 
+    depends_on:
       - chrome
 
   chrome:
