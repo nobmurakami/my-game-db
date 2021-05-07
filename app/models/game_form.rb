@@ -47,6 +47,8 @@ class GameForm
         @game.update!(steam: "")
       end
     end
+
+    return @game
   end
 
   validates :title, presence: true

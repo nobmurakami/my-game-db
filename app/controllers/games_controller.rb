@@ -24,8 +24,8 @@ class GamesController < ApplicationController
   def create
     @form = GameForm.new(game_params)
     if @form.valid?
-      @form.save
-      redirect_to root_path
+      @game = @form.save
+      redirect_to game_path(@game)
     else
       render :new
     end
