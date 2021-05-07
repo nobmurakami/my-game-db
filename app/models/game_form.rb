@@ -38,13 +38,11 @@ class GameForm
 
       if @game.steam.present? && steam_data
         @game.update!(steam_image: @steam_image)
-        # rubocopのMetrics/PerceivedComplexityに抵触するため、以下をコメントアウト
-        # @game.update!(metascore: @steam_metascore) if @game.metascore.blank?
-        # @game.update!(release_date: @steam_release_date) if @game.release_date.blank?
-        # @game.update!(genres: @steam_genres) if @game.genres.blank?
-        # 取得する情報を英語にしたため、発売日とジャンルの情報は自動保存しない
-        # @game.update!(developers: @steam_developers) if @game.developers.blank?
-        # @game.update!(publishers: @steam_publishers) if @game.publishers.blank?
+        @game.update!(metascore: @steam_metascore) if @game.metascore.blank?
+        @game.update!(release_date: @steam_release_date) if @game.release_date.blank?
+        @game.update!(genres: @steam_genres) if @game.genres.blank?
+        @game.update!(developers: @steam_developers) if @game.developers.blank?
+        @game.update!(publishers: @steam_publishers) if @game.publishers.blank?
       else
         @game.update!(steam: "")
       end
@@ -65,10 +63,14 @@ class GameForm
   end
 
   def steam_json
-    # url = "https://store.steampowered.com/api/appdetails?l=japanese&appids=#{steam_appids}"
-    # 「l=japanese」をつけるとエラーになる場合があるので一旦無しにする。
-    url = "https://store.steampowered.com/api/appdetails?appids=#{steam_appids}"
+    url = "https://store.steampowered.com/api/appdetails?l=japanese&appids=#{steam_appids}"
     response = OpenURI.open_uri(url)
+    # 日本語の情報が存在しなかったら英語の情報を見る
+    if response.read.empty?
+      url = "https://store.steampowered.com/api/appdetails?appids=#{steam_appids}"
+      response = OpenURI.open_uri(url)
+    end
+
     ActiveSupport::JSON.decode(response.read)
   end
 
@@ -77,12 +79,10 @@ class GameForm
 
     json = steam_json[steam_appids]["data"]
     @steam_image = json["header_image"]
-    # @steam_description = json.dig("short_description")
     @steam_metascore = json.dig("metacritic", "score")
 
+    # ゲームによって日付の書式が異なるので一旦コメントアウト
     # release_date = json.dig("release_date", "date")
-    # @steam_release_date = Date.strptime(release_date, '%d %b, %Y')
-    # 日本語でjsonを取得した場合は以下を使用
     # @steam_release_date = Date.strptime(release_date, '%Y年%m月%d日')
 
     @steam_genres = json["genres"].map { |genre| Genre.find_or_create_by!(name: genre["description"]) }
