@@ -64,14 +64,14 @@ class GameForm
 
   def steam_json
     url = "https://store.steampowered.com/api/appdetails?l=japanese&appids=#{steam_appids}"
-    response = OpenURI.open_uri(url)
+    response = OpenURI.open_uri(url).read
     # 日本語の情報が存在しなかったら英語の情報を見る
-    if response.read.empty?
+    if response.empty?
       url = "https://store.steampowered.com/api/appdetails?appids=#{steam_appids}"
-      response = OpenURI.open_uri(url)
+      response = OpenURI.open_uri(url).read
     end
 
-    ActiveSupport::JSON.decode(response.read)
+    ActiveSupport::JSON.decode(response)
   end
 
   def steam_data
