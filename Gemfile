@@ -4,7 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '2.6.5'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 6.0.0'
+gem 'rails', '~> 6.1.3.1'
 # Use mysql as the database for Active Record
 gem 'mysql2', '>= 0.4.4'
 # Use Puma as the app server
@@ -51,7 +51,7 @@ group :development do
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'rubocop', require: false
-  gem 'letter_opener_web'
+  gem 'letter_opener_web', '~> 1.0'
 end
 
 group :test do
@@ -77,7 +77,7 @@ gem 'pry-rails'
 gem 'kaminari'
 
 gem 'mini_magick'
-gem 'image_processing', '~> 1.2' 
+gem 'image_processing', '~> 1.2'
 
 gem 'ransack'
 
