@@ -2,6 +2,9 @@
 
 # イメージのベースラインにRuby2.6.5を指定
 FROM ruby:2.6.5
+
+ENV LANG C.UTF-8
+
 # Railsに必要なパッケージをインストール
 RUN apt-get update && \
     apt-get install -y mariadb-client nodejs vim --no-install-recommends && \
